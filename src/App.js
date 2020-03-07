@@ -5,7 +5,6 @@ import useClipboard from "react-use-clipboard";
 import "./App.css";
 
 const code = `
-div {
   display: block;
   font-size: 2em;
   margin-block-start: 0.67em;
@@ -13,11 +12,6 @@ div {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-weight: bold;
-
-  &:hover {
-    font-weight: bold;
-  }
-}
 `;
 
 const Areas = styled.section`
