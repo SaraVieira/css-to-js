@@ -49,7 +49,7 @@ function App() {
   return (
     <main className="App">
       <h1>CSS to JS Objects</h1>
-      <Small>Cause we css code in the browser</Small>
+      <Small>Cause we all do css in the browser</Small>
       <Areas>
         <textarea
           rows="5"
