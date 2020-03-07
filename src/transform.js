@@ -170,6 +170,8 @@ export default c => {
     if (both[1]) {
       if (both[1].includes("px")) {
         value = parseInt(both[1].split("px")[0]);
+      } else if (both[1].includes('"')) {
+        value = `"${both[1].split('"').join("'")}"`;
       } else {
         value = `"${both[1].trim()}"`;
       }
@@ -185,6 +187,8 @@ export default c => {
     }
   });
 
-  console.log(tokens);
-  return "{\n" + tokens.join("") + "}";
+  const final = tokens.join().endsWith("}") ? "" : "}";
+  const start = tokens.join().startsWith("}") ? "" : "{\n";
+
+  return start + tokens.join("") + final;
 };

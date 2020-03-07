@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import transform from "./transform";
 import styled from "styled-components";
 import useClipboard from "react-use-clipboard";
 import "./App.css";
 
-const code = `
-  display: block;
-  font-size: 2em;
-  margin-block-start: 0.67em;
-  margin-block-end: 0.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
+const code = `display: block;
+font-size: 2em;
+background: #1e2f5d;
+color: #a4cff4;
+font-family: 'Inter', sans-serif;
+font-weight: bold;
 `;
 
 const Areas = styled.section`
@@ -27,7 +25,8 @@ const Small = styled.small`
   margin-bottom: 2rem;
 `;
 
-const Toast = styled.div`
+const Toast = styled.button`
+  border: none;
   background: #5fbb9e;
   border-radius: 4px;
   color: white;
@@ -35,17 +34,28 @@ const Toast = styled.div`
   position: fixed;
   right: 50px;
   bottom: 30px;
+  cursor: pointer;
 `;
 
 function App() {
   const [value, setValue] = useState(code);
-  const [isCopied, setCopied] = useClipboard(transform(value), {
+  const textarea = useRef(null);
+  const transformed = transform(value);
+  const [isCopied, setCopied] = useClipboard(transformed, {
     successDuration: 1000
   });
-  //(`-webkit-appearance: none;
-  // margin-top: 20px;
-  // top: 10px;
-  // background: red;`);
+
+  const onKeyDown = e => {
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      const start = e.target.selectionStart;
+      const end = e.target.selectionEnd;
+      const newValue = value.substring(0, start) + "\t" + value.substring(end);
+      setValue(newValue);
+      textarea.current.selectionStart = textarea.current.selectionEnd =
+        start + 1;
+    }
+  };
   return (
     <main className="App">
       <h1>CSS to JS Objects</h1>
@@ -53,20 +63,23 @@ function App() {
       <Areas>
         <textarea
           rows="5"
+          value={value}
+          ref={textarea}
           onChange={e => setValue(e.target.value)}
-          defaultValue={value}
+          onKeyDown={onKeyDown}
         ></textarea>
 
-        <textarea
+        <textarea rows="5" value={transformed}></textarea>
+      </Areas>
+      {
+        <Toast
           onClick={e => {
             setCopied();
-            e.target.select();
           }}
-          rows="5"
-          value={transform(value)}
-        ></textarea>
-      </Areas>
-      {isCopied && <Toast>Copied to Clipboard</Toast>}
+        >
+          {isCopied ? "Copied" : "Copy"} to Clipboard
+        </Toast>
+      }
     </main>
   );
 }

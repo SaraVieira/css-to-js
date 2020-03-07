@@ -23,6 +23,7 @@ html, body, #root, main {
         border: 0;
         resize: none;
         color: #d0d3d6;
+        white-space: pre-wrap;
         padding: 20px;
 
         &:focus {
