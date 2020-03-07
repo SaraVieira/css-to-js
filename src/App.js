@@ -1,40 +1,15 @@
 import React, { useState, useRef } from "react";
 import transform from "./transform";
-import styled from "styled-components";
 import useClipboard from "react-use-clipboard";
-import "./App.css";
+import Code from "./code";
+import Logo from "./logo";
 
 const code = `display: block;
-font-size: 2em;
+font-size: 16px;
 background: #1e2f5d;
 color: #a4cff4;
-font-family: 'Inter', sans-serif;
+font-family: "Inter", sans-serif;
 font-weight: bold;
-`;
-
-const Areas = styled.section`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
-
-const Small = styled.small`
-  display: block;
-  font-style: italic;
-  margin-bottom: 2rem;
-`;
-
-const Toast = styled.button`
-  border: none;
-  background: #5fbb9e;
-  border-radius: 4px;
-  color: white;
-  padding: 10px;
-  position: fixed;
-  right: 50px;
-  bottom: 30px;
-  cursor: pointer;
 `;
 
 function App() {
@@ -58,27 +33,27 @@ function App() {
   };
   return (
     <main className="App">
-      <h1>CSS to JS Objects</h1>
-      <Small>Cause we all do css in the browser</Small>
-      <Areas>
+      <Logo style={{ margin: 30 }} />
+      <small>Because we all do css in the browser</small>
+      <section className="areas">
         <textarea
-          rows="5"
           value={value}
           ref={textarea}
           onChange={e => setValue(e.target.value)}
           onKeyDown={onKeyDown}
         ></textarea>
 
-        <textarea rows="5" value={transformed}></textarea>
-      </Areas>
+        <Code code={transformed} />
+      </section>
       {
-        <Toast
+        <button
+          className="toast"
           onClick={e => {
             setCopied();
           }}
         >
           {isCopied ? "Copied" : "Copy"} to Clipboard
-        </Toast>
+        </button>
       }
     </main>
   );

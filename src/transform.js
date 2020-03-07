@@ -162,6 +162,7 @@ export default c => {
   }
   const newCode = code ? code.trim().split(";") : [];
 
+  // eslint-disable-next-line array-callback-return
   const tokens = newCode.map(token => {
     const both = token.trim().split(":");
     let value = both[1];
