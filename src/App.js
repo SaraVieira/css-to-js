@@ -45,16 +45,15 @@ function App() {
 
         <Code code={transformed} />
       </section>
-      {
-        <button
-          className="toast"
-          onClick={e => {
-            setCopied();
-          }}
-        >
-          {isCopied ? "Copied" : "Copy"} to Clipboard
-        </button>
-      }
+
+      <button
+        className="toast"
+        onClick={e => {
+          setCopied();
+        }}
+      >
+        {isCopied ? "Copied" : "Copy"} to Clipboard
+      </button>
     </main>
   );
 }
