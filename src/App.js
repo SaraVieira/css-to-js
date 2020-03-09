@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import transform from "./transform";
+import { transform } from "./functions/transform";
 import useClipboard from "react-use-clipboard";
 import Code from "./code";
 import Logo from "./logo";

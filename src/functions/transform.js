@@ -146,10 +146,12 @@ function checker(value) {
   return false;
 }
 
-export default c => {
-  let code = c.trim();
+export const transform = c => {
+  let code = c.trim() || "";
 
-  if (checker(code)) {
+  console.log(code);
+
+  if (checker(code) && c.includes("{")) {
     code = c.split("{")[1];
   }
 
@@ -193,3 +195,11 @@ export default c => {
 
   return start + tokens.join("") + final;
 };
+if (typeof window === "undefined") {
+  exports.handler = function({ body }, context, callback) {
+    callback(null, {
+      statusCode: 200,
+      body: transform(body)
+    });
+  };
+}
