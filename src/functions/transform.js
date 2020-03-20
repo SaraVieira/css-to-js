@@ -164,37 +164,44 @@ export const transform = c => {
   }
   const newCode = code ? code.trim().split(";") : [];
 
-  // eslint-disable-next-line array-callback-return
-  const tokens = newCode.map(token => {
-    const both = token.trim().split(":");
-    let value = both[1];
+  const data = newCode.reduce((acc, curr) => {
+    const both = curr.trim().split(":");
     let prop = both[0];
+    let value = both[1];
 
-    if (both[1]) {
-      if (both[1].includes("px")) {
-        value = parseInt(both[1].split("px")[0]);
-      } else if (both[1].includes('"')) {
-        value = `"${both[1].split('"').join("'")}"`;
+    if (value) {
+      if (value.includes("px")) {
+        value = parseInt(value.split("px")[0]);
+      } else if (value.includes('"')) {
+        value = `${value.split('"').join("'")}`;
       } else {
-        value = `"${both[1].trim()}"`;
+        value = `${value.trim()}`;
       }
 
-      if (both[0].startsWith("-")) {
-        prop = `"${both[0]}"`;
-      }
-      if (!both[0].startsWith("-") && both[0].includes("-")) {
-        prop = both[0].replace(/-([a-z])/g, g => g[1].toUpperCase());
+      if (prop.startsWith("-")) {
+        prop = `${prop}`;
       }
 
-      return `  ${prop}: ${value},\n`;
+      if (!prop.startsWith("-") && prop.includes("-")) {
+        prop = prop.replace(/-([a-z])/g, g => g[1].toUpperCase());
+      }
     }
-  });
 
-  const final = tokens.join().endsWith("}") ? "" : "}";
-  const start = tokens.join().startsWith("}") ? "" : "{\n";
+    return {
+      ...acc,
+      ...(!!prop && {
+        [prop]: typeof value === "string" ? `"${value.trim()}"` : value
+      })
+    };
+  }, {});
 
-  return start + tokens.join("") + final;
+  return [
+    "{",
+    ...Object.keys(data).map(prop => `  ${prop}: ${data[prop]},`),
+    "}"
+  ].join("\n");
 };
+
 if (typeof window === "undefined") {
   exports.handler = function({ body }, context, callback) {
     callback(null, {
