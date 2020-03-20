@@ -174,11 +174,7 @@ export const transform = c => {
 
     // Convert prop from CSS to React prop
     if (prop) {
-      if (prop.startsWith("-")) {
-        prop = `"${prop}"`;
-      } else if (prop.includes("-")) {
-        prop = prop.replace(/-([a-z])/g, g => g[1].toUpperCase());
-      }
+      prop = prop.replace(/-([a-z])/g, g => g[1].toUpperCase());
     }
 
     // Convert value from CSS to JS
