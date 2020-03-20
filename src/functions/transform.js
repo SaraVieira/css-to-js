@@ -169,6 +169,16 @@ export const transform = c => {
     let prop = both[0];
     let value = both[1];
 
+    // Convert prop from CSS to JS
+    if (prop) {
+      if (prop.startsWith("-")) {
+        prop = `"${prop}"`;
+      } else if (prop.includes("-")) {
+        prop = prop.replace(/-([a-z])/g, g => g[1].toUpperCase());
+      }
+    }
+
+    // Convert value from CSS to JS
     if (value) {
       if (value.includes("px")) {
         value = parseInt(value.split("px")[0]);
@@ -176,14 +186,6 @@ export const transform = c => {
         value = `${value.split('"').join("'")}`;
       } else {
         value = `${value.trim()}`;
-      }
-
-      if (prop.startsWith("-")) {
-        prop = `${prop}`;
-      }
-
-      if (!prop.startsWith("-") && prop.includes("-")) {
-        prop = prop.replace(/-([a-z])/g, g => g[1].toUpperCase());
       }
     }
 
