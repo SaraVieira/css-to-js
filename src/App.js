@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { transform } from "./functions/transform";
+import { transform as transformToProps } from "./functions/transformToProps";
 import useClipboard from "react-use-clipboard";
 import Code from "./code";
 import Logo from "./logo";
@@ -15,7 +16,7 @@ font-weight: bold;
 function App() {
   const [value, setValue] = useState(code);
   const textarea = useRef(null);
-  const transformed = transform(value);
+  const transformed = transformToProps(value);
   const [isCopied, setCopied] = useClipboard(transformed, {
     successDuration: 1000
   });
