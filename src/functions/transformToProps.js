@@ -21,8 +21,22 @@ export const transform = code => {
   const propStrings = Object.keys(rules).map(key => {
     let value = rules[key];
 
-    // If the value is not a string, wrap it in curly braces
-    if (!value.startsWith(`"`)) {
+    if (value.startsWith(`"`) || value.startsWith(`'`)) {
+      // Replace outer single quotes with double quotes
+      value = value.replace(/(^')|('$)/g, `"`);
+
+      // Replace inner double quotes with single quotes
+      const newValue = []; // array of characters
+      for (let i = 0; i < value.length; i++) {
+        if (i > 0 && i < value.length - 1 && value[i] === `"`) {
+          newValue.push(`'`);
+        } else {
+          newValue.push(value[i]);
+        }
+      }
+      value = newValue.join("");
+    } else {
+      // If value is not a plain string, wrap it in curly braces
       value = `{${value}}`;
     }
 
