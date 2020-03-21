@@ -31,10 +31,13 @@ export const transform = code => {
   // Parse the code as a JS object
   let rules;
   try {
-    // Using the `Function` constructor, we directly evaluate the passed code
-    // It's basically a slightly less bad version of `eval()`
-    // Still, it SHOULD NEVER RUN ON YOUR SERVER since it allows running ARBITRARY CODE
-    // However, as long as it's running in the user's browser, it's not harmful
+    // Using the `Function` constructor, we directly evaluate the passed code.
+    // It's basically a slightly less bad version of `eval()`.
+    // Still, it SHOULD NEVER RUN ON YOUR SERVER since it allows running.
+    // ARBITRARY CODE.
+    // But as long as it's only running in the user's browser, it's harmless.
+    // Another drawback is that it can't deal with undefined variables, so only
+    // literal values can be used.
     // eslint-disable-next-line no-new-func
     rules = new Function(`return ${code}`)();
     if (typeof rules !== "object") {
