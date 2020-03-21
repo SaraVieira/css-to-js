@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { transform as transformCss2Obj } from "./functions/transformCss2Obj";
+import { transform as transformCss2Jsx } from "./functions/transformCss2Jsx";
 import { transform as transformObj2Jsx } from "./functions/transformObj2Jsx";
 import useClipboard from "react-use-clipboard";
 import Code from "./code";
@@ -17,6 +18,10 @@ const modes = {
   css2obj: {
     name: "CSS => JS object",
     transformer: transformCss2Obj
+  },
+  css2jsx: {
+    name: "CSS => React props",
+    transformer: transformCss2Jsx
   },
   obj2jsx: {
     name: "JS object => React props",
