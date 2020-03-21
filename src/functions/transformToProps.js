@@ -4,45 +4,23 @@
  * @returns {string} transformed code
  */
 export const transform = code => {
-  // Loosly parse the code as a JS object
-  const rules = {};
-  code.split("\n").forEach(line => {
-    line = line.replace(/,$/, ""); // remove trailing comma
-
-    // Split each line into a key and a value
-    const segments = line.split(":");
-    if (segments.length < 2) return;
-    const key = segments[0].trim();
-    const value = segments
-      .slice(1)
-      .join(":")
-      .trim();
-    rules[key] = value;
-  });
+  // Parse the code as a JS object
+  let rules;
+  try {
+    // eslint-disable-next-line no-new-func
+    rules = new Function(`return ${code}`)();
+  } catch (e) {
+    return "Could not parse input";
+  }
 
   // Convert JS object to array of strings
   const propStrings = Object.keys(rules).map(key => {
     let value = rules[key];
 
-    if (value.startsWith(`"`) || value.startsWith(`'`)) {
-      // Replace outer single quotes with double quotes
-      // and inner double quotes with single quotes
-      let first = value.charAt(0);
-      let middle = value.slice(1, -1); // all except first and last
-      let last = value.charAt(value.length - 1);
-
-      if (first === `'`) {
-        first = `"`;
-      }
-      middle = middle.replace(/"/g, `'`);
-      if (last === `'`) {
-        last = `"`;
-      }
-
-      value = `${first}${middle}${last}`;
+    if (typeof value === "string") {
+      return `${key}="${value}"`;
     } else {
-      // If value is not a plain string, wrap it in curly braces
-      value = `{${value}}`;
+      value = `{${JSON.stringify(value)}}`;
     }
 
     return `${key}=${value}`;
