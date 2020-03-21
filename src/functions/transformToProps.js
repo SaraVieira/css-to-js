@@ -10,10 +10,13 @@ export const transform = code => {
     line = line.replace(/,$/, ""); // remove trailing comma
 
     // Split each line into a key and a value
-    const both = line.split(":");
-    if (both.length < 2) return;
-    const key = both[0].trim();
-    const value = both[1].trim();
+    const segments = line.split(":");
+    if (segments.length < 2) return;
+    const key = segments[0].trim();
+    const value = segments
+      .slice(1)
+      .join(":")
+      .trim();
     rules[key] = value;
   });
 

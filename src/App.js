@@ -7,9 +7,9 @@ import Logo from "./logo";
 
 const code = `{
   display: "block",
-  fontSize: 16,
+  margin: { xs: 4, sm: 8 },
   background: "#1e2f5d",
-  color: "#a4cff4",
+  fontSize: 16,
   fontFamily: "'Inter', sans-serif",
   fontWeight: "bold",
 }
