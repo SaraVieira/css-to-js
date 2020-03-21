@@ -4,7 +4,7 @@ import prettierBabylon from "prettier/parser-babylon";
 /**
  * Takes some props written in JSX and formats them so they can easily be
  * applied to a React component.
- * @param {string} propString props written in JSX format
+ * @param {string} propString JSX props as a single string
  */
 function formatProps(propString) {
   // Write the props in a component so Prettier knows how to format it
