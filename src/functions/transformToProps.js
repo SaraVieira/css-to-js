@@ -37,6 +37,9 @@ export const transform = code => {
     // However, as long as it's running in the user's browser, its not harmful
     // eslint-disable-next-line no-new-func
     rules = new Function(`return ${code}`)();
+    if (typeof rules !== "object") {
+      throw new Error();
+    }
   } catch (e) {
     return "Could not parse input";
   }
@@ -54,7 +57,11 @@ export const transform = code => {
     return `${key}=${value}`;
   });
 
-  return formatProps(propStrings.join(" "));
+  try {
+    return formatProps(propStrings.join(" "));
+  } catch (e) {
+    return "Could not generate valid props";
+  }
 };
 
 if (typeof window === "undefined") {
