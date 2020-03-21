@@ -16,6 +16,11 @@ const modes = {
   css2obj: {
     name: "CSS => JS object",
     transformer: transformCss2Obj
+  },
+  // TODO: remove
+  test: {
+    name: "Test",
+    transformer: input => input.toUpperCase()
   }
 };
 
