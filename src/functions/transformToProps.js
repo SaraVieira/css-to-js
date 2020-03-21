@@ -4,21 +4,32 @@
  * @returns {string} transformed code
  */
 export const transform = code => {
-  // Parse the code as a JS object
-  let rules;
-  try {
-    rules = JSON.parse(code);
-  } catch (e) {
-    return "";
-  }
+  // Loosly parse the code as a JS object
+  const rules = {};
+  code.split("\n").forEach(line => {
+    line = line.replace(/,$/, ""); // remove trailing comma
 
-  // Convert JS object to array of strings
-  const ruleStrings = Object.keys(rules).map(property => {
-    let value = rules[property];
-    return `${property}="${value}"`;
+    // Split each line into a key and a value
+    const both = line.split(":");
+    if (both.length < 2) return;
+    const key = both[0].trim();
+    const value = both[1].trim();
+    rules[key] = value;
   });
 
-  return ruleStrings.join("\n");
+  // Convert JS object to array of strings
+  const propStrings = Object.keys(rules).map(key => {
+    let value = rules[key];
+
+    // If the value is not a string, wrap it in curly braces
+    if (!value.startsWith(`"`)) {
+      value = `{${value}}`;
+    }
+
+    return `${key}=${value}`;
+  });
+
+  return propStrings.join("\n");
 };
 
 if (typeof window === "undefined") {

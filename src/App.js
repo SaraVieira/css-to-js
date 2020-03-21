@@ -6,7 +6,12 @@ import Code from "./code";
 import Logo from "./logo";
 
 const code = `{
-  "display": "block"
+  display: "block",
+  fontSize: 16,
+  background: "#1e2f5d",
+  color: "#a4cff4",
+  fontFamily: "'Inter', sans-serif",
+  fontWeight: "bold",
 }
 `;
 
