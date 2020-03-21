@@ -55,21 +55,24 @@ export const transform = code => {
     let value = rules[key];
 
     if (value.startsWith(`"`) || value.startsWith(`'`)) {
-      // Replace outer single quotes with double quotes
-      // and inner double quotes with single quotes
       let first = value.charAt(0);
-      let middle = value.slice(1, -1); // all except first and last
+      let middle = value.slice(1, -1); // all except first and last char
       let last = value.charAt(value.length - 1);
 
-      if (first === `'`) {
-        first = `"`;
+      if (middle.includes(`"`)) {
+        // If the string value contains a double quote, we need to wrap it in
+        // curly brackets (escaping does not work in JSX prop values)
+        value = `{${value}}`;
+      } else {
+        // Replace wrapping single quotes with double quotes
+        if (first === `'`) {
+          first = `"`;
+        }
+        if (last === `'`) {
+          last = `"`;
+        }
+        value = `${first}${middle}${last}`;
       }
-      middle = middle.replace(/"/g, `'`);
-      if (last === `'`) {
-        last = `"`;
-      }
-
-      value = `${first}${middle}${last}`;
     } else {
       // If value is not a plain string, wrap it in curly braces
       value = `{${value}}`;
