@@ -13,7 +13,10 @@ font-weight: bold;
 `;
 
 const modes = {
-  css2obj: { transformer: transformCss2Obj }
+  css2obj: {
+    name: "CSS => JS object",
+    transformer: transformCss2Obj
+  }
 };
 
 function App() {
@@ -49,6 +52,11 @@ function App() {
     <main className="App">
       <Logo style={{ margin: 30 }} />
       <small>Because we all do css in the browser</small>
+      <select onChange={e => setMode(e.target.value)}>
+        {Object.keys(modes).map(modeKey => (
+          <option value={modeKey}>{modes[modeKey].name}</option>
+        ))}
+      </select>
       <section className="areas">
         <textarea
           value={input}
