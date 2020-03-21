@@ -32,7 +32,14 @@ function App() {
 
   useEffect(() => {
     if (mode in modes) {
-      setTransformed(modes[mode].transformer(input));
+      try {
+        const newTransformed = modes[mode].transformer(input);
+        setTransformed(newTransformed);
+      } catch (e) {
+        setTransformed(
+          `Something went wrong while transforming the code: ${e.message}`
+        );
+      }
     } else {
       setTransformed("Invalid transformation mode");
     }
