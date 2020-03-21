@@ -1,3 +1,27 @@
+import prettier from "prettier/standalone";
+import prettierBabylon from "prettier/parser-babylon";
+
+function formatProps(propString) {
+  // Write the props in a component so Prettier knows how to format it
+  let componentString = `<Temp ${propString} />`;
+
+  componentString = prettier.format(componentString, {
+    parser: "babel",
+    plugins: [prettierBabylon]
+  });
+
+  // Return the Prettier output but without the component tag
+  let groups = componentString.match(/<Temp(.*)\/>/s);
+  if (groups.length < 2) {
+    throw new Error("Something went wrong when parsing Prettier output");
+  }
+  return groups[1]
+    .trim()
+    .split("\n")
+    .map(line => line.trim())
+    .join("\n");
+}
+
 /**
  * Transforms a JS object to React props.
  * @param {string} code
@@ -18,7 +42,7 @@ export const transform = code => {
     let value = rules[key];
 
     if (typeof value === "string") {
-      return `${key}="${value}"`;
+      value = `"${value}"`;
     } else {
       value = `{${JSON.stringify(value)}}`;
     }
@@ -26,7 +50,7 @@ export const transform = code => {
     return `${key}=${value}`;
   });
 
-  return propStrings.join("\n");
+  return formatProps(propStrings.join(" "));
 };
 
 if (typeof window === "undefined") {
