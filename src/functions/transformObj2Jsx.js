@@ -28,7 +28,7 @@ function formatProps(propString) {
 }
 
 /**
- * Transforms a JS object to React props.
+ * Transforms a JS object to React props in JSX format.
  * @param {string} code
  * @returns {string} transformed code
  */

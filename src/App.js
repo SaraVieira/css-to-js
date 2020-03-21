@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { transform as transformCss2Obj } from "./functions/transform";
+import { transform as transformCss2Obj } from "./functions/transformCss2Obj";
+import { transform as transformObj2Jsx } from "./functions/transformObj2Jsx";
 import useClipboard from "react-use-clipboard";
 import Code from "./code";
 import Logo from "./logo";
@@ -17,10 +18,9 @@ const modes = {
     name: "CSS => JS object",
     transformer: transformCss2Obj
   },
-  // TODO: remove
-  test: {
-    name: "Test",
-    transformer: input => input.toUpperCase()
+  obj2jsx: {
+    name: "JS object => React props",
+    transformer: transformObj2Jsx
   }
 };
 
