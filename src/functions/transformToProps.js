@@ -1,6 +1,11 @@
 import prettier from "prettier/standalone";
 import prettierBabylon from "prettier/parser-babylon";
 
+/**
+ * Takes some props written in JSX and formats them so they can easily be
+ * applied to a React component.
+ * @param {string} propString props written in JSX format
+ */
 function formatProps(propString) {
   // Write the props in a component so Prettier knows how to format it
   let componentString = `<Temp ${propString} />`;
@@ -18,7 +23,7 @@ function formatProps(propString) {
   return groups[1]
     .trim()
     .split("\n")
-    .map(line => line.trim())
+    .map(line => line.trim()) // remove indentation on each line
     .join("\n");
 }
 
@@ -34,8 +39,9 @@ export const transform = code => {
     line = line.replace(/,$/, ""); // remove trailing comma
 
     // Split each line into a key and a value
+    // Everything before the first : is the key and the reset is the value
     const segments = line.split(":");
-    if (segments.length < 2) return;
+    if (segments.length < 2) return; // skip this line
     const key = segments[0].trim();
     const value = segments
       .slice(1)
