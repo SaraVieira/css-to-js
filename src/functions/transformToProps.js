@@ -23,18 +23,20 @@ export const transform = code => {
 
     if (value.startsWith(`"`) || value.startsWith(`'`)) {
       // Replace outer single quotes with double quotes
-      value = value.replace(/(^')|('$)/g, `"`);
+      // and inner double quotes with single quotes
+      let first = value.charAt(0);
+      let middle = value.slice(1, -1); // all except first and last
+      let last = value.charAt(value.length - 1);
 
-      // Replace inner double quotes with single quotes
-      const newValue = []; // array of characters
-      for (let i = 0; i < value.length; i++) {
-        if (i > 0 && i < value.length - 1 && value[i] === `"`) {
-          newValue.push(`'`);
-        } else {
-          newValue.push(value[i]);
-        }
+      if (first === `'`) {
+        first = `"`;
       }
-      value = newValue.join("");
+      middle = middle.replace(/"/g, `'`);
+      if (last === `'`) {
+        last = `"`;
+      }
+
+      value = `${first}${middle}${last}`;
     } else {
       // If value is not a plain string, wrap it in curly braces
       value = `{${value}}`;
