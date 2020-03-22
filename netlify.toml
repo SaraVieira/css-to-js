@@ -8,6 +8,6 @@
    
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
-  for = "/*"
+  for = "/api/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
