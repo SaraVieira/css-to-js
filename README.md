@@ -15,7 +15,7 @@ Currently, we can do this:
     =>    =>
 CSS    JS    JSX
     <=    <=
-    ✅    ✅
+    ❌    ✅
 ```
 
 
