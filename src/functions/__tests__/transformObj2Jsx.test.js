@@ -52,4 +52,14 @@ describe("transformObj2Jsx", () => {
     const input = `someProp: 'some"Value'`;
     expect(transform(input)).toBe(`someProp={'some"Value'}`);
   });
+
+  test("transforms a rule with an escaped char in its value", () => {
+    const input = `someProp: "some\\tValue"`;
+    expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
+  });
+
+  test("transforms an invalid string value to `{undefined}`", () => {
+    const input = `someProp: "imInvalid`;
+    expect(transform(input)).toBe(`someProp={undefined}`);
+  });
 });
