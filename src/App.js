@@ -66,7 +66,7 @@ function App() {
       <small>Because we all do css in the browser</small>
       <select onChange={e => setMode(e.target.value)}>
         {Object.keys(modes).map(modeKey => (
-          <option key={modeKey} value={modeKey}>
+          <option key={modeKey} value={modeKey} selected={mode === modeKey}>
             {modes[modeKey].name}
           </option>
         ))}
