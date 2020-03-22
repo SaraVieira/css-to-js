@@ -4,9 +4,19 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 
-Transform CSS to JS Objects and JS Objects to React Props
+Transform between CSS, JS Objects and React props.
 
 https://css2js.dotenv.dev/
+
+Currently, we can do this:
+
+```
+    ✅    ✅
+    =>    =>
+CSS    JS    JSX
+    <=    <=
+    ✅    ✅
+```
 
 
 
