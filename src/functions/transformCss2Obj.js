@@ -148,9 +148,6 @@ function checker(value) {
 
 export const transform = c => {
   let code = c.trim() || "";
-
-  console.log(code);
-
   if (checker(code) && c.includes("{")) {
     code = c.split("{")[1];
   }

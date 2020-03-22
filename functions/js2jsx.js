@@ -1,4 +1,4 @@
-const { transform } = require("../src/functions/transformCss2Obj");
+const { transform } = require("../src/functions/transformObj2Jsx.js");
 
 export async function handler({ body }) {
   return {
