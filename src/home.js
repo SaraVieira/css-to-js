@@ -1,50 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import useClipboard from "react-use-clipboard";
-import { transform as transformCss2Obj } from "./functions/transformCss2Obj";
-import { transform as transformCss2Jsx } from "./functions/transformCss2Jsx";
-import { transform as transformObj2Css } from "./functions/transformObj2Css";
-import { transform as transformObj2Jsx } from "./functions/transformObj2Jsx";
-import { transform as transformJsx2Obj } from "./functions/transformJsx2Obj";
-import Code from "./code";
-import Logo from "./logo";
+import { modes } from "./utils/modes";
+import Code from "./components/code";
+import Logo from "./components/logo";
 import Header from "./components/header";
+import { exampleCSS, exampleJS, exampleJSX } from "./utils/exampleCode";
 
-const example = `display: block;
-font-size: 16px;
-background: #1e2f5d;
-color: #a4cff4;
-font-family: "Inter", sans-serif;
-font-weight: bold;
-`;
-
-const modes = {
-  css2obj: {
-    name: "CSS => JS object",
-    transformer: transformCss2Obj
-  },
-  css2jsx: {
-    name: "CSS => React props",
-    transformer: transformCss2Jsx
-  },
-  obj2css: {
-    name: "JS object => CSS",
-    transformer: transformObj2Css
-  },
-  obj2jsx: {
-    name: "JS object => React props",
-    transformer: transformObj2Jsx
-  },
-  jsx2obj: {
-    name: "React props => JS object",
-    transformer: transformJsx2Obj
-  }
-};
-
-function App() {
-  const [input, setInput] = useState(example);
+function Home() {
+  const [input, setInput] = useState(exampleCSS);
   const [mode, setMode] = useState("css2obj");
   const [transformed, setTransformed] = useState("");
   const textarea = useRef(null);
+
+  useEffect(() => {
+    if (mode === "css2obj" || mode === "css2jsx") {
+      setInput(exampleCSS);
+    }
+    if (mode === "obj2css" || mode === "obj2jsx") {
+      setInput(exampleJS);
+    }
+    if (mode === "jsx2obj") {
+      setInput(exampleJSX);
+    }
+  }, [mode]);
 
   useEffect(() => {
     if (mode in modes) {
@@ -139,4 +117,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
