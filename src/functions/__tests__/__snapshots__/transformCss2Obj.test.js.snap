@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transformCss2Obj transforms a more complex rule 1`] = `
+"{
+  display: \\"block\\",
+  fontSize: 16,
+  background: \\"#1e2f5d\\",
+  color: \\"#a4cff4\\",
+  fontFamily: \\"'Inter', sans-serif\\",
+  fontWeight: \\"bold\\",
+}"
+`;
+
+exports[`transformCss2Obj transforms a simple rule 1`] = `
+"{
+  display: \\"block\\",
+  fontSize: 16,
+}"
+`;
