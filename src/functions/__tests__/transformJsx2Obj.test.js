@@ -37,11 +37,7 @@ describe("transformJsx2Obj", () => {
   });
 
   test("transforms props on a single line", () => {
-    expect(
-      transform(`
-        display="block" fontSize={16}
-      `)
-    ).toMatchSnapshot();
+    expect(transform(`display="block" fontSize={16}`)).toMatchSnapshot();
   });
 
   test("transforms props on multiple lines", () => {
