@@ -66,12 +66,3 @@ export const transform = code => {
     return "Could not generate valid props";
   }
 };
-
-if (typeof window === "undefined") {
-  exports.handler = function({ body }, context, callback) {
-    callback(null, {
-      statusCode: 200,
-      body: transform(body)
-    });
-  };
-}
