@@ -117,7 +117,7 @@ function App() {
           onKeyDown={onKeyDown}
         ></textarea>
 
-        <Code code={transformed} />
+        <Code code={transformed} language={mode === "obj2css" ? "css" : "js"} />
       </section>
 
       <button
