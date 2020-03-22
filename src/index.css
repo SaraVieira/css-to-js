@@ -69,3 +69,7 @@ small {
   font-style: italic;
   margin-bottom: 2rem;
 }
+
+select {
+  margin-bottom: 2rem;
+}
