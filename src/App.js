@@ -64,9 +64,9 @@ function App() {
     <main className="App">
       <Logo style={{ margin: 30 }} />
       <small>Because we all do css in the browser</small>
-      <select onChange={e => setMode(e.target.value)}>
+      <select value={mode} onChange={e => setMode(e.target.value)}>
         {Object.keys(modes).map(modeKey => (
-          <option key={modeKey} value={modeKey} selected={mode === modeKey}>
+          <option key={modeKey} value={modeKey}>
             {modes[modeKey].name}
           </option>
         ))}
