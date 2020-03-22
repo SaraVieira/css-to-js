@@ -1,3 +1,8 @@
+/**
+ * Transforms React props to a JS object.
+ * @param {string} jsx props in JSX format as a single string
+ * @returns {string} formatted JS object as a string
+ */
 export function transform(jsx) {
   // Parse JSX into a JS object
   const rules = {};
