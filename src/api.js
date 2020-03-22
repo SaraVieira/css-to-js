@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Logo from "./components/logo";
 import Header from "./components/header";
-import Code from "./code";
+import Code from "./components/code";
 
 const API = () => {
   const [value, setValue] = useState("");
