@@ -1,6 +1,6 @@
 import React from "react";
 import GHIcon from "./icons";
-import { Link } from "@reach/router";
+// import { Link } from "@reach/router";
 import "./header.css";
 
 export default () => (
