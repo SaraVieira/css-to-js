@@ -21,6 +21,11 @@ describe("transformObj2Jsx", () => {
     expect(transform(input)).toBe(`someProp={someExpression}`);
   });
 
+  test("transforms a rule with value `true` to a prop with no value", () => {
+    const input = `someProp: true`;
+    expect(transform(input)).toBe(`someProp`);
+  });
+
   test("transforms a simple object", () => {
     expect(
       transform(`{
@@ -46,5 +51,15 @@ describe("transformObj2Jsx", () => {
   test("transforms a rule with a double quote char in its value", () => {
     const input = `someProp: 'some"Value'`;
     expect(transform(input)).toBe(`someProp={'some"Value'}`);
+  });
+
+  test("transforms a rule with an escaped char in its value", () => {
+    const input = `someProp: "some\\tValue"`;
+    expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
+  });
+
+  test("transforms an invalid string value to `{undefined}`", () => {
+    const input = `someProp: "imInvalid`;
+    expect(transform(input)).toBe(`someProp={undefined}`);
   });
 });

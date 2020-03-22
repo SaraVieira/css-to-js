@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transformJsx2Obj transforms props on a single line 1`] = `
+"{
+  display: \\"block\\",
+  fontSize: 16,
+}"
+`;
+
+exports[`transformJsx2Obj transforms props on multiple lines 1`] = `
+"{
+  display: \\"block\\",
+  fontSize: 16,
+  margin: { xs: 4, sm: 8 },
+  padding: [2, 3],
+  background: \\"#1e2f5d\\",
+  color: \\"#a4cff4\\",
+  fontFamily: \\"'Inter', sans-serif\\",
+  fontWeight: \\"bold\\",
+}"
+`;
