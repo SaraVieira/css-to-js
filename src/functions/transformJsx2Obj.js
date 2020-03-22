@@ -1,13 +1,20 @@
 export function transform(jsx) {
   // Parse JSX into a JS object
   const rules = {};
-  const matchIterator = jsx.matchAll(/(\w+)=?(".*?"|{.*?}+)?/g);
+  const matchIterator = jsx.matchAll(/(\w+)=?(".*?"|{.*?}[\s}]*)?/g);
   for (const match of matchIterator) {
     let property = match[1];
     let value = match[2];
 
-    if (typeof property !== "string" || property === "") {
-      // Skip this one
+    if (property) {
+      property = property.trim();
+    }
+    if (value) {
+      value = value.trim();
+    }
+
+    if (property === "") {
+      // Skip this rule
       continue;
     }
 

@@ -16,6 +16,11 @@ describe("transformJsx2Obj", () => {
     expect(transform(input)).toContain(`someProp: { key: "value" }`);
   });
 
+  test("transforms a rule with a complex object value", () => {
+    const input = `someProp={{ x: { y: z } }}`;
+    expect(transform(input)).toContain(`someProp: { x: { y: z } }`);
+  });
+
   test("transforms a rule with an arbitrary expression value", () => {
     const input = `someProp={someExpression}`;
     expect(transform(input)).toContain(`someProp: someExpression`);
