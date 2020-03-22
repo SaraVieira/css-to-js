@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
+import useClipboard from "react-use-clipboard";
 import { transform as transformCss2Obj } from "./functions/transformCss2Obj";
 import { transform as transformCss2Jsx } from "./functions/transformCss2Jsx";
+import { transform as transformObj2Css } from "./functions/transformObj2Css";
 import { transform as transformObj2Jsx } from "./functions/transformObj2Jsx";
 import { transform as transformJsx2Obj } from "./functions/transformJsx2Obj";
-import useClipboard from "react-use-clipboard";
 import Code from "./code";
 import Logo from "./logo";
 import Header from "./components/header";
@@ -24,6 +25,10 @@ const modes = {
   css2jsx: {
     name: "CSS => React props",
     transformer: transformCss2Jsx
+  },
+  obj2css: {
+    name: "JS object => CSS",
+    transformer: transformObj2Css
   },
   obj2jsx: {
     name: "JS object => React props",
@@ -119,7 +124,7 @@ function App() {
           onKeyDown={onKeyDown}
         ></textarea>
 
-        <Code code={transformed} />
+        <Code code={transformed} language={mode === "obj2css" ? "css" : "js"} />
       </section>
 
       <button
