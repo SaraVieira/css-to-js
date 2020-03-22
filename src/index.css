@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  line-height: 1.5;
+  overflow: hidden;
 }
 
 code {
@@ -16,6 +18,7 @@ code {
 html,
 body,
 #root,
+#root > div,
 main {
   height: 100%;
 }
@@ -113,4 +116,16 @@ select:focus {
   z-index: 2;
   transform: translateY(-50%);
   color: inherit;
+}
+
+main.api {
+  text-align: left;
+  width: 1200px;
+  max-width: 80%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+p {
+  max-width: 600px;
 }
