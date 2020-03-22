@@ -6,6 +6,7 @@ import { transform as transformJsx2Obj } from "./functions/transformJsx2Obj";
 import useClipboard from "react-use-clipboard";
 import Code from "./code";
 import Logo from "./logo";
+import Header from "./components/header";
 
 const example = `display: block;
 font-size: 16px;
@@ -72,6 +73,7 @@ function App() {
   };
   return (
     <main className="App">
+      <Header />
       <Logo style={{ margin: 30 }} />
       <small>Because we all do css in the browser</small>
       <div
