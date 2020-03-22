@@ -26,6 +26,11 @@ describe("transformJsx2Obj", () => {
     expect(transform(input)).toContain(`someProp: undefined`);
   });
 
+  test("transforms a rule without a value to `true`", () => {
+    const input = `someProp`;
+    expect(transform(input)).toContain(`someProp: true`);
+  });
+
   test("transforms props on a single line", () => {
     expect(
       transform(`

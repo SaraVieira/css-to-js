@@ -54,6 +54,12 @@ export const transform = code => {
   const propStrings = Object.keys(rules).map(key => {
     let value = rules[key];
 
+    // The value `true` is special, because it can be transformed to a prop
+    // with no value in JSX
+    if (value === "true") {
+      return key;
+    }
+
     if (value.startsWith(`"`) || value.startsWith(`'`)) {
       let first = value.charAt(0);
       let middle = value.slice(1, -1); // all except first and last char

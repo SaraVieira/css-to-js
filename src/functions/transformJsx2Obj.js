@@ -1,15 +1,21 @@
 export function transform(jsx) {
   // Parse JSX into a JS object
   const rules = {};
-  const matchIterator = jsx.matchAll(/(\w+)=(".*?"|{.*?}+)/g);
+  const matchIterator = jsx.matchAll(/(\w+)=?(".*?"|{.*?}+)?/g);
   for (const match of matchIterator) {
-    if (match.length < 3) {
-      // Something has gone wrong, skip this one
+    let property = match[1];
+    let value = match[2];
+
+    if (typeof property !== "string" || property === "") {
+      // Skip this one
       continue;
     }
 
-    let property = match[1];
-    let value = match[2];
+    // A property without a value is interpreted as the boolean `true`
+    // (how it works in JSX)
+    if (value === undefined) {
+      value = "true";
+    }
 
     // If value is an expression, remove the curly braces
     if (value.startsWith("{")) {

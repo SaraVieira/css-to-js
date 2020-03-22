@@ -21,6 +21,11 @@ describe("transformObj2Jsx", () => {
     expect(transform(input)).toBe(`someProp={someExpression}`);
   });
 
+  test("transforms a rule with value `true` to a prop with no value", () => {
+    const input = `someProp: true`;
+    expect(transform(input)).toBe(`someProp`);
+  });
+
   test("transforms a simple object", () => {
     expect(
       transform(`{
