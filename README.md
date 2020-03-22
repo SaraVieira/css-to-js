@@ -6,6 +6,23 @@
 
 Transform CSS to JS Objects and JS Objects to React Props
 
+https://css2js.dotenv.dev/
+
+
+
+## Run locally
+
+Fork the repo then:
+
+```sh
+git clone git@github.com:<YOUR-USERNAME>/css-to-js.git
+cd css-to-js
+yarn
+yarn start
+```
+
+
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
