@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "netlify-lambda": "^1.6.3",
     "normalize.css": "^8.0.1",
     "prettier": "^1.19.1",
     "prism-react-renderer": "^1.0.2",
@@ -16,8 +17,10 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
+    "build:app": "react-scripts build",
+    "build:functions": "netlify-lambda build functions",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run build:app && npm run build:functions",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
