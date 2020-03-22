@@ -64,13 +64,41 @@ function App() {
     <main className="App">
       <Logo style={{ margin: 30 }} />
       <small>Because we all do css in the browser</small>
-      <select value={mode} onChange={e => setMode(e.target.value)}>
-        {Object.keys(modes).map(modeKey => (
-          <option key={modeKey} value={modeKey}>
-            {modes[modeKey].name}
-          </option>
-        ))}
-      </select>
+      <div
+        style={{
+          position: "relative",
+          display: "inline-block",
+          marginBottom: "2rem"
+        }}
+      >
+        <select
+          className="select"
+          value={mode}
+          onChange={e => setMode(e.target.value)}
+        >
+          {Object.keys(modes).map(modeKey => (
+            <option key={modeKey} value={modeKey}>
+              {modes[modeKey].name}
+            </option>
+          ))}
+        </select>
+        <div className="select-arrow">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            focusable="false"
+            role="presentation"
+            aria-hidden="true"
+            class="css-12c4avn"
+          >
+            <path
+              fill="currentColor"
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            ></path>
+          </svg>
+        </div>
+      </div>
       <section className="areas">
         <textarea
           value={input}

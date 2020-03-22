@@ -203,12 +203,3 @@ export const transform = c => {
     "}"
   ].join("\n");
 };
-
-if (typeof window === "undefined") {
-  exports.handler = function({ body }, context, callback) {
-    callback(null, {
-      statusCode: 200,
-      body: transform(body)
-    });
-  };
-}

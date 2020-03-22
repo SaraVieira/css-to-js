@@ -71,5 +71,46 @@ small {
 }
 
 select {
-  margin-bottom: 2rem;
+  position: relative;
+  transition: all 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 1rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid;
+  border-color: #1a4669;
+  color: rgb(214, 222, 235);
+  background-color: rgb(1, 22, 39);
+  padding-bottom: 1px;
+  line-height: normal;
+}
+
+select:hover {
+  border-color: #cbd5e0;
+}
+
+select:focus {
+  z-index: 1;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 1px #3182ce;
+}
+
+.select-arrow {
+  position: absolute;
+  display: inline-flex;
+  width: 1.5rem;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  right: 0.5rem;
+  top: 50%;
+  pointer-events: none;
+  z-index: 2;
+  transform: translateY(-50%);
+  color: inherit;
 }
