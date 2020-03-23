@@ -8,7 +8,7 @@ export const modes = {
   // TODO: rename mode keys
   // TODO: add transformers/index.js
   // TODO: add to/from props
-  css2obj: {
+  css2js: {
     name: "CSS => JS object",
     transformer: css2js
   },
@@ -16,15 +16,15 @@ export const modes = {
     name: "CSS => React props",
     transformer: css2jsx
   },
-  obj2css: {
+  js2css: {
     name: "JS object => CSS",
     transformer: js2css
   },
-  obj2jsx: {
+  js2jsx: {
     name: "JS object => React props",
     transformer: js2jsx
   },
-  jsx2obj: {
+  jsx2js: {
     name: "React props => JS object",
     transformer: jsx2js
   }

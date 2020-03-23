@@ -8,18 +8,18 @@ import { exampleCSS, exampleJS, exampleJSX } from "./utils/exampleCode";
 
 function Home() {
   const [input, setInput] = useState(exampleCSS);
-  const [mode, setMode] = useState("css2obj");
+  const [mode, setMode] = useState("css2js");
   const [transformed, setTransformed] = useState("");
   const textarea = useRef(null);
 
   useEffect(() => {
-    if (mode === "css2obj" || mode === "css2jsx") {
+    if (mode === "css2js" || mode === "css2jsx") {
       setInput(exampleCSS);
     }
-    if (mode === "obj2css" || mode === "obj2jsx") {
+    if (mode === "js2css" || mode === "js2jsx") {
       setInput(exampleJS);
     }
-    if (mode === "jsx2obj") {
+    if (mode === "jsx2js") {
       setInput(exampleJSX);
     }
   }, [mode]);
@@ -102,7 +102,7 @@ function Home() {
           onKeyDown={onKeyDown}
         ></textarea>
 
-        <Code code={transformed} language={mode === "obj2css" ? "css" : "js"} />
+        <Code code={transformed} language={mode === "js2css" ? "css" : "js"} />
       </section>
 
       <button
