@@ -83,7 +83,6 @@ function Home() {
             focusable="false"
             role="presentation"
             aria-hidden="true"
-            class="css-12c4avn"
           >
             <path
               fill="currentColor"
