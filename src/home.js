@@ -19,7 +19,7 @@ function Home() {
     if (mode === "obj2css" || mode === "obj2jsx") {
       setInput(exampleJS);
     }
-    if (mode === "jsx2obj") {
+    if (mode === "jsx2obj" || mode === "jsx2css") {
       setInput(exampleJSX);
     }
   }, [mode]);
@@ -102,7 +102,10 @@ function Home() {
           onKeyDown={onKeyDown}
         ></textarea>
 
-        <Code code={transformed} language={mode === "obj2css" ? "css" : "js"} />
+        <Code
+          code={transformed}
+          language={mode === "obj2css" || mode === "jsx2css" ? "css" : "js"}
+        />
       </section>
 
       <button
