@@ -7,22 +7,22 @@ import { transform as jsx2js } from "./jsx2js";
 export default {
   css2js: {
     name: "CSS => JS object",
-    transformer: css2js
+    transform: css2js
   },
   css2jsx: {
     name: "CSS => React props",
-    transformer: css2jsx
+    transform: css2jsx
   },
   js2css: {
     name: "JS object => CSS",
-    transformer: js2css
+    transform: js2css
   },
   js2jsx: {
     name: "JS object => React props",
-    transformer: js2jsx
+    transform: js2jsx
   },
   jsx2js: {
     name: "React props => JS object",
-    transformer: jsx2js
+    transform: jsx2js
   }
 };

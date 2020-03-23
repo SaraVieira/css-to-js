@@ -27,7 +27,7 @@ function Home() {
   useEffect(() => {
     if (mode in transformers) {
       try {
-        const newTransformed = transformers[mode].transformer(input);
+        const newTransformed = transformers[mode].transform(input);
         setTransformed(newTransformed);
       } catch (e) {
         setTransformed(
