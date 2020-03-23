@@ -29,13 +29,13 @@ function formatProps(propString) {
 
 /**
  * Transforms a JS object to React props in JSX format.
- * @param {string} code
+ * @param {string} objString JS object code
  * @returns {string} transformed code
  */
-export const transform = code => {
+export function transform(objString) {
   // Loosly parse the code as a JS object
   const rules = {};
-  code.split("\n").forEach(line => {
+  objString.split("\n").forEach(line => {
     line = line.replace(/,$/, ""); // remove trailing comma
 
     // Split each line into a key and a value
@@ -98,4 +98,4 @@ export const transform = code => {
   } catch (e) {
     return "Could not generate valid props";
   }
-};
+}
