@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import useClipboard from "react-use-clipboard";
-import transformers from "./transformers";
+import transformers, { findById as findTransformerById } from "./transformers";
 import Code from "./components/code";
 import Logo from "./components/logo";
 import Header from "./components/header";
@@ -8,26 +8,24 @@ import { exampleCSS, exampleJS, exampleJSX } from "./utils/exampleCode";
 
 function Home() {
   const [input, setInput] = useState(exampleCSS);
-  const [mode, setMode] = useState("css2js");
+  const [transformer, setTransformer] = useState(transformers.css2js);
   const [transformed, setTransformed] = useState("");
   const textarea = useRef(null);
 
   useEffect(() => {
-    if (mode === "css2js" || mode === "css2jsx") {
+    if (transformer.from === "css") {
       setInput(exampleCSS);
-    }
-    if (mode === "js2css" || mode === "js2jsx") {
+    } else if (transformer.from === "js") {
       setInput(exampleJS);
-    }
-    if (mode === "jsx2js") {
+    } else if (transformer.from === "jsx") {
       setInput(exampleJSX);
     }
-  }, [mode]);
+  }, [transformer]);
 
   useEffect(() => {
-    if (mode in transformers) {
+    if (transformer && typeof transformer.transform === "function") {
       try {
-        const newTransformed = transformers[mode].transform(input);
+        const newTransformed = transformer.transform(input);
         setTransformed(newTransformed);
       } catch (e) {
         setTransformed(
@@ -37,7 +35,7 @@ function Home() {
     } else {
       setTransformed("Invalid transformation mode");
     }
-  }, [input, mode]);
+  }, [input, transformer]);
 
   const [isCopied, setCopied] = useClipboard(transformed, {
     successDuration: 1000
@@ -68,12 +66,12 @@ function Home() {
       >
         <select
           className="select"
-          value={mode}
-          onChange={e => setMode(e.target.value)}
+          value={transformer.id}
+          onChange={e => setTransformer(findTransformerById(e.target.value))}
         >
-          {Object.keys(transformers).map(key => (
-            <option key={key} value={key}>
-              {transformers[key].name}
+          {Object.values(transformers).map(tf => (
+            <option key={tf.id} value={tf.id}>
+              {tf.name}
             </option>
           ))}
         </select>
@@ -102,7 +100,10 @@ function Home() {
           onKeyDown={onKeyDown}
         ></textarea>
 
-        <Code code={transformed} language={mode === "js2css" ? "css" : "js"} />
+        <Code
+          code={transformed}
+          language={transformer.to === "jsx" ? "js" : transformer.to}
+        />
       </section>
 
       <button
