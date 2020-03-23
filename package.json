@@ -1,5 +1,5 @@
 {
-  "name": "css-to-js",
+  "name": "@saravieira/css-to-js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
