@@ -2,6 +2,7 @@ import { transform as css2js } from "./css2js";
 import { transform as css2jsx } from "./css2jsx";
 import { transform as js2css } from "./js2css";
 import { transform as js2jsx } from "./js2jsx";
+import { transform as jsx2css } from "./jsx2css";
 import { transform as jsx2js } from "./jsx2js";
 
 const transformers = {
@@ -32,6 +33,13 @@ const transformers = {
     transform: js2jsx,
     from: "js",
     to: "jsx"
+  },
+  jsx2css: {
+    id: 4,
+    name: "React props => CSS",
+    transform: jsx2css,
+    from: "jsx",
+    to: "css"
   },
   jsx2js: {
     id: 5,
