@@ -52,6 +52,7 @@ const API = () => {
 
       <h2>Transform CSS to JS</h2>
       <Code
+        language="js"
         code={`
      const js = await fetch("https://css2js.dotenv.dev/api/css2js", {
         method: "POST",
@@ -64,7 +65,6 @@ const API = () => {
       console.log(js)
       `}
       ></Code>
-      <p>{value}</p>
     </main>
   );
 };

@@ -1,8 +1,10 @@
 const { transform } = require("../src/functions/transformCss2Jsx");
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type"
+};
+
 export async function handler({ body }) {
-  return {
-    statusCode: 200,
-    body: transform(body)
-  };
+  return { headers, statusCode: 200, body: transform(body) };
 }
