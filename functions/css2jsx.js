@@ -6,5 +6,5 @@ const headers = {
 };
 
 export async function handler({ body }) {
-  return { headers, statusCode: 200, body: transform(body) };
+  return { headers, statusCode: 200, body: JSON.stringify(transform(body)) };
 }

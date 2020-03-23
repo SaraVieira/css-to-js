@@ -9,6 +9,6 @@ export async function handler({ body }) {
   return {
     headers,
     statusCode: 200,
-    body: transform(body)
+    body: JSON.stringify(transform(body))
   };
 }
