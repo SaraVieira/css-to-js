@@ -5,6 +5,19 @@ import { transform as js2jsx } from "./js2jsx";
 import { transform as jsx2css } from "./jsx2css";
 import { transform as jsx2js } from "./jsx2js";
 
+/**
+ * @typedef Transformer
+ * @type {object}
+ * @property {number} id a unique identifier
+ * @property {string} name user-friendly name
+ * @property {function} transform transforms code
+ * @property {string} from format of the input it consumes
+ * @property {string} to format of the output it produces
+ */
+
+/**
+ * @type {Object<string, Transformer>}
+ */
 const transformers = {
   css2js: {
     id: 0,
@@ -52,7 +65,7 @@ const transformers = {
 
 /**
  * Finds a transformer with the specified ID.
- * @param {any} id
+ * @param {*} id
  */
 export function findById(id) {
   if (typeof id !== "number") {
