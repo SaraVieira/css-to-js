@@ -1,4 +1,4 @@
-const { transform } = require("../src/functions/css2jsx");
+const { transform } = require("../src/transformers/css2jsx");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
