@@ -4,18 +4,25 @@ import Header from "./components/header";
 import Code from "./components/code";
 
 const API = () => {
-  const [value, setValue] = useState("");
+  const [CSStoJSValue, setCSS2JSValue] = useState("");
+  const [JSToJSXValue, setJSToJSXValue] = useState("");
 
   useEffect(() => {
     fetch("https://css2js.dotenv.dev/api/css2js", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
       body: "display: block"
     })
       .then(rsp => rsp.json())
-      .then(setValue);
+      .then(setCSS2JSValue);
+  }, []);
+
+  useEffect(() => {
+    fetch("https://css2js.dotenv.dev/api/js2jsx", {
+      method: "POST",
+      body: "{display: 'block'}"
+    })
+      .then(rsp => rsp.json())
+      .then(JSToJSXValue);
   }, []);
   return (
     <main className="App api">
@@ -56,15 +63,26 @@ const API = () => {
         code={`
      const js = await fetch("https://css2js.dotenv.dev/api/css2js", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
         body: "display: block"
       }).then(rsp => rsp.json())
 
       console.log(js)
       `}
       ></Code>
+      <div>{JSON.stringify(CSStoJSValue, 2, null)}</div>
+      <h2>Transform CSS to JS</h2>
+      <Code
+        language="js"
+        code={`
+     const css = await fetch("https://css2js.dotenv.dev/api/js2jsx", {
+        method: "POST",
+        body: "{display: "block"}"
+      }).then(rsp => rsp.json())
+
+      console.log(css)
+      `}
+      ></Code>
+      <div>{JSON.stringify(JSToJSXValue, 2, null)}</div>
     </main>
   );
 };
