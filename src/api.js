@@ -5,7 +5,7 @@ import Code from "./components/code";
 
 const API = () => {
   const [CSStoJSValue, setCSS2JSValue] = useState("");
-  const [JSToJSXValue, setJSToJSXValue] = useState("");
+  const [JSToJSXValue] = useState("");
 
   useEffect(() => {
     fetch("https://css2js.dotenv.dev/api/css2js", {
@@ -23,7 +23,7 @@ const API = () => {
     })
       .then(rsp => rsp.json())
       .then(JSToJSXValue);
-  }, []);
+  }, [JSToJSXValue]);
   return (
     <main className="App api">
       <Header />
