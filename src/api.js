@@ -4,7 +4,7 @@ import Header from "./components/header";
 import Code from "./components/code";
 
 const API = () => {
-  const [value, setValue] = useState("");
+  const [, setValue] = useState("");
 
   useEffect(() => {
     fetch("https://css2js.dotenv.dev/api/css2js", {
