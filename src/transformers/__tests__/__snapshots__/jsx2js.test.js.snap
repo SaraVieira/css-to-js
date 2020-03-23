@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`transformJsx2Obj transforms props on a single line 1`] = `
+exports[`jsx2js transforms props on a single line 1`] = `
 "{
   display: \\"block\\",
   fontSize: 16,
 }"
 `;
 
-exports[`transformJsx2Obj transforms props on multiple lines 1`] = `
+exports[`jsx2js transforms props on multiple lines 1`] = `
 "{
   display: \\"block\\",
   fontSize: 16,

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`transformObj2Css transforms a more complex object 1`] = `
+exports[`js2css transforms a more complex object 1`] = `
 "display: block;
 margin: { sm: 4, md: 8 };
 padding: [2, 3];
@@ -9,7 +9,7 @@ font-size: 16;
 font-family: 'Inter', sans-serif;"
 `;
 
-exports[`transformObj2Css transforms a simple object 1`] = `
+exports[`js2css transforms a simple object 1`] = `
 "display: block;
 font-size: 16;"
 `;

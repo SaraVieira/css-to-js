@@ -1,6 +1,6 @@
-import { transform } from "../transformObj2Css";
+import { transform } from "../js2css";
 
-describe("transformObj2Css", () => {
+describe("js2css", () => {
   test("transforms a rule with a string value", () => {
     const input = `someProp: "someValue"`;
     expect(transform(input)).toBe(`some-prop: someValue;`);

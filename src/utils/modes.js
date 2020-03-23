@@ -1,28 +1,31 @@
-import { transform as transformCss2Obj } from "../functions/transformCss2Obj";
-import { transform as transformCss2Jsx } from "../functions/transformCss2Jsx";
-import { transform as transformObj2Css } from "../functions/transformObj2Css";
-import { transform as transformObj2Jsx } from "../functions/transformObj2Jsx";
-import { transform as transformJsx2Obj } from "../functions/transformJsx2Obj";
+import { transform as css2js } from "../transformers/css2js";
+import { transform as css2jsx } from "../transformers/css2jsx";
+import { transform as js2css } from "../transformers/js2css";
+import { transform as js2jsx } from "../transformers/js2jsx";
+import { transform as jsx2js } from "../transformers/jsx2js";
 
 export const modes = {
+  // TODO: rename mode keys
+  // TODO: add transformers/index.js
+  // TODO: add to/from props
   css2obj: {
     name: "CSS => JS object",
-    transformer: transformCss2Obj
+    transformer: css2js
   },
   css2jsx: {
     name: "CSS => React props",
-    transformer: transformCss2Jsx
+    transformer: css2jsx
   },
   obj2css: {
     name: "JS object => CSS",
-    transformer: transformObj2Css
+    transformer: js2css
   },
   obj2jsx: {
     name: "JS object => React props",
-    transformer: transformObj2Jsx
+    transformer: js2jsx
   },
   jsx2obj: {
     name: "React props => JS object",
-    transformer: transformJsx2Obj
+    transformer: jsx2js
   }
 };

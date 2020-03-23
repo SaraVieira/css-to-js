@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`transformObj2Jsx transforms a more complex object 1`] = `
+exports[`js2jsx transforms a more complex object 1`] = `
 "display=\\"block\\"
 margin={{ sm: 4, md: 8 }}
 padding={[2, 3]}
@@ -9,4 +9,4 @@ fontSize={16}
 fontFamily=\\"'Inter', sans-serif\\""
 `;
 
-exports[`transformObj2Jsx transforms a simple object 1`] = `"display=\\"block\\" fontSize={16}"`;
+exports[`js2jsx transforms a simple object 1`] = `"display=\\"block\\" fontSize={16}"`;

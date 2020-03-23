@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`transformCss2Obj transforms a more complex rule 1`] = `
+exports[`css2js transforms a more complex rule 1`] = `
 "{
   display: \\"block\\",
   fontSize: 16,
@@ -11,7 +11,7 @@ exports[`transformCss2Obj transforms a more complex rule 1`] = `
 }"
 `;
 
-exports[`transformCss2Obj transforms a simple rule 1`] = `
+exports[`css2js transforms a simple rule 1`] = `
 "{
   display: \\"block\\",
   fontSize: 16,
