@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import useClipboard from "react-use-clipboard";
-import { modes } from "./utils/modes";
+import transformers from "./transformers";
 import Code from "./components/code";
 import Logo from "./components/logo";
 import Header from "./components/header";
@@ -25,9 +25,9 @@ function Home() {
   }, [mode]);
 
   useEffect(() => {
-    if (mode in modes) {
+    if (mode in transformers) {
       try {
-        const newTransformed = modes[mode].transformer(input);
+        const newTransformed = transformers[mode].transformer(input);
         setTransformed(newTransformed);
       } catch (e) {
         setTransformed(
@@ -71,9 +71,9 @@ function Home() {
           value={mode}
           onChange={e => setMode(e.target.value)}
         >
-          {Object.keys(modes).map(modeKey => (
-            <option key={modeKey} value={modeKey}>
-              {modes[modeKey].name}
+          {Object.keys(transformers).map(key => (
+            <option key={key} value={key}>
+              {transformers[key].name}
             </option>
           ))}
         </select>
