@@ -69,7 +69,7 @@ const API = () => {
       console.log(js)
       `}
       ></Code>
-      <div>{JSON.stringify(CSStoJSValue, 2, null)}</div>
+      <div>{JSON.stringify(CSStoJSValue, null, 2)}</div>
       <h2>Transform CSS to JS</h2>
       <Code
         language="js"
@@ -82,7 +82,7 @@ const API = () => {
       console.log(css)
       `}
       ></Code>
-      <div>{JSON.stringify(JSToJSXValue, 2, null)}</div>
+      <div>{JSON.stringify(JSToJSXValue, null, 2)}</div>
     </main>
   );
 };
