@@ -1,4 +1,4 @@
-import { formatProps } from "../utils/format";
+import { formatProps } from "../utils/formatting";
 
 /**
  * Transforms a JS object to React props in JSX format.
