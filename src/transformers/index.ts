@@ -5,7 +5,15 @@ import { transform as js2jsx } from "./js2jsx";
 import { transform as jsx2css } from "./jsx2css";
 import { transform as jsx2js } from "./jsx2js";
 
-const transformers = {
+interface Transformer {
+  id: number;
+  name: string;
+  transform: (input: string) => string;
+  from: string;
+  to: string;
+}
+
+const transformers: Record<string, Transformer> = {
   css2js: {
     id: 0,
     name: "CSS => JS object",
