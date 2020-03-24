@@ -1,32 +1,24 @@
-import { transform } from "../transformCss2Obj";
+import { transform } from "../css2jsx";
 
-describe("transformCss2Obj", () => {
+describe("css2jsx", () => {
   test("transforms a rule with a string value", () => {
     const input = `color: red`;
-    expect(transform(input)).toBe(`{
-  color: "red",
-}`);
+    expect(transform(input)).toBe(`color="red"`);
   });
 
   test("transforms a rule with a string value with single quotes", () => {
     const input = `font-family: "Inter", sans-serif`;
-    expect(transform(input)).toBe(`{
-  fontFamily: "'Inter', sans-serif",
-}`);
+    expect(transform(input)).toBe(`fontFamily="'Inter', sans-serif"`);
   });
 
   test("transforms a rule with a number value", () => {
     const input = `width: 42px`;
-    expect(transform(input)).toBe(`{
-  width: 42,
-}`);
+    expect(transform(input)).toBe(`width={42}`);
   });
 
   test("transforms a rule with an arbitrary expression value", () => {
     const input = `someProp: someExpression`;
-    expect(transform(input)).toBe(`{
-  someProp: "someExpression",
-}`);
+    expect(transform(input)).toBe(`someProp="someExpression"`);
   });
 
   test("transforms a simple rule", () => {

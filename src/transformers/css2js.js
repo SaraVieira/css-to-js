@@ -146,18 +146,18 @@ function checker(value) {
   return false;
 }
 
-export const transform = c => {
-  let code = c.trim() || "";
-  if (checker(code) && c.includes("{")) {
-    code = c.split("{")[1];
+export function transform(css) {
+  let code = css.trim() || "";
+  if (checker(code) && css.includes("{")) {
+    code = css.split("{")[1];
   }
 
   if (code.startsWith("{")) {
-    code = c.substr(1);
+    code = css.substr(1);
   }
 
   if (code.startsWith(".") || code.startsWith("#")) {
-    code = c.split("{")[1];
+    code = css.split("{")[1];
   }
   const newCode = code ? code.trim().split(";") : [];
 
@@ -199,4 +199,4 @@ export const transform = c => {
     ...Object.keys(data).map(prop => `  ${prop}: ${data[prop]},`),
     "}"
   ].join("\n");
-};
+}

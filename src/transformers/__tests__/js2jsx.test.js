@@ -1,6 +1,6 @@
-import { transform } from "../transformObj2Jsx";
+import { transform } from "../js2jsx";
 
-describe("transformObj2Jsx", () => {
+describe("js2jsx", () => {
   test("transforms a rule with a string value", () => {
     const input = `someProp: "someValue"`;
     expect(transform(input)).toBe(`someProp="someValue"`);

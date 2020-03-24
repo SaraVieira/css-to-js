@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import useClipboard from "react-use-clipboard";
-import { modes } from "./utils/modes";
+import transformers, { findById as findTransformerById } from "./transformers";
 import Code from "./components/code";
 import Logo from "./components/logo";
 import Header from "./components/header";
@@ -8,26 +8,24 @@ import { exampleCSS, exampleJS, exampleJSX } from "./utils/exampleCode";
 
 function Home() {
   const [input, setInput] = useState(exampleCSS);
-  const [mode, setMode] = useState("css2obj");
+  const [transformer, setTransformer] = useState(transformers.css2js);
   const [transformed, setTransformed] = useState("");
   const textarea = useRef(null);
 
   useEffect(() => {
-    if (mode === "css2obj" || mode === "css2jsx") {
+    if (transformer.from === "css") {
       setInput(exampleCSS);
-    }
-    if (mode === "obj2css" || mode === "obj2jsx") {
+    } else if (transformer.from === "js") {
       setInput(exampleJS);
-    }
-    if (mode === "jsx2obj" || mode === "jsx2css") {
+    } else if (transformer.from === "jsx") {
       setInput(exampleJSX);
     }
-  }, [mode]);
+  }, [transformer]);
 
   useEffect(() => {
-    if (mode in modes) {
+    if (transformer && typeof transformer.transform === "function") {
       try {
-        const newTransformed = modes[mode].transformer(input);
+        const newTransformed = transformer.transform(input);
         setTransformed(newTransformed);
       } catch (e) {
         setTransformed(
@@ -37,7 +35,7 @@ function Home() {
     } else {
       setTransformed("Invalid transformation mode");
     }
-  }, [input, mode]);
+  }, [input, transformer]);
 
   const [isCopied, setCopied] = useClipboard(transformed, {
     successDuration: 1000
@@ -68,12 +66,12 @@ function Home() {
       >
         <select
           className="select"
-          value={mode}
-          onChange={e => setMode(e.target.value)}
+          value={transformer.id}
+          onChange={e => setTransformer(findTransformerById(e.target.value))}
         >
-          {Object.keys(modes).map(modeKey => (
-            <option key={modeKey} value={modeKey}>
-              {modes[modeKey].name}
+          {Object.values(transformers).map(tf => (
+            <option key={tf.id} value={tf.id}>
+              {tf.name}
             </option>
           ))}
         </select>
@@ -104,7 +102,7 @@ function Home() {
 
         <Code
           code={transformed}
-          language={mode === "obj2css" || mode === "jsx2css" ? "css" : "js"}
+          language={transformer.to === "jsx" ? "js" : transformer.to}
         />
       </section>
 
