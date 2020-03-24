@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import useClipboard from "react-use-clipboard";
-import transformers, { findById as findTransformerById } from "./transformers";
-import Code from "./components/code";
-import Logo from "./components/logo";
-import Header from "./components/header";
-import { exampleCSS, exampleJS, exampleJSX } from "./utils/exampleCode";
+import transformers, { findById as findTransformerById } from "../transformers";
+import Code from "../components/code";
+import Logo from "../components/logo";
+import Header from "../components/header";
+import { exampleCSS, exampleJS, exampleJSX } from "../utils/exampleCode";
+import { RouteComponentProps } from "@reach/router";
 
-function Home() {
+const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
   const [transformer, setTransformer] = useState(transformers.css2js);
   const [transformed, setTransformed] = useState("");
@@ -115,6 +116,6 @@ function Home() {
       </button>
     </main>
   );
-}
+};
 
 export default Home;
