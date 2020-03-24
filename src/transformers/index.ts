@@ -52,9 +52,8 @@ const transformers = {
 
 /**
  * Finds a transformer with the specified ID.
- * @param {any} id
  */
-export function findById(id) {
+export function findById(id: any) {
   if (typeof id !== "number") {
     id = parseInt(id, 10);
   }
@@ -68,7 +67,7 @@ export function findById(id) {
  * @param {string} from format
  * @param {string} to format
  */
-export function findByFromTo(from, to) {
+export function findByFromTo(from: string, to: string) {
   return Object.values(transformers).find(tf => {
     if (from !== undefined && to !== undefined) {
       return tf.from === from && tf.to === to;
