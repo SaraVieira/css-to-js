@@ -24,17 +24,13 @@ const Home: React.FC<RouteComponentProps> = () => {
   }, [transformer]);
 
   useEffect(() => {
-    if (transformer && typeof transformer.transform === "function") {
-      try {
-        const newTransformed = transformer.transform(input);
-        setTransformed(newTransformed);
-      } catch (e) {
-        setTransformed(
-          `Something went wrong while transforming the code: ${e.message}`
-        );
-      }
-    } else {
-      setTransformed("Invalid transformation mode");
+    try {
+      const newTransformed = transformer.transform(input);
+      setTransformed(newTransformed);
+    } catch (e) {
+      setTransformed(
+        `Something went wrong while transforming the code: ${e.message}`
+      );
     }
   }, [input, transformer]);
 
@@ -50,7 +46,7 @@ const Home: React.FC<RouteComponentProps> = () => {
       const newValue = input.substring(0, start) + "\t" + input.substring(end);
       setInput(newValue);
 
-      if (textareaRef && textareaRef.current) {
+      if (textareaRef.current) {
         textareaRef.current.selectionStart = textareaRef.current.selectionEnd =
           start + 1;
       }
