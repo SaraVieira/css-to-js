@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
+import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import transformers, { findById as findTransformerById } from "../transformers";
 import Code from "../components/code";
 import Logo from "../components/logo";
 import Header from "../components/header";
 import { exampleCSS, exampleJS, exampleJSX } from "../utils/exampleCode";
-import { RouteComponentProps } from "@reach/router";
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
   const [transformer, setTransformer] = useState(transformers.css2js);
   const [transformed, setTransformed] = useState("");
-  const textarea = useRef(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (transformer.from === "css") {
@@ -49,8 +49,11 @@ const Home: React.FC<RouteComponentProps> = () => {
       const end = e.target.selectionEnd;
       const newValue = input.substring(0, start) + "\t" + input.substring(end);
       setInput(newValue);
-      textarea.current.selectionStart = textarea.current.selectionEnd =
-        start + 1;
+
+      if (textareaRef && textareaRef.current) {
+        textareaRef.current.selectionStart = textareaRef.current.selectionEnd =
+          start + 1;
+      }
     }
   };
   return (
@@ -68,7 +71,10 @@ const Home: React.FC<RouteComponentProps> = () => {
         <select
           className="select"
           value={transformer.id}
-          onChange={e => setTransformer(findTransformerById(e.target.value))}
+          onChange={e => {
+            const newTransformer = findTransformerById(e.target.value);
+            if (newTransformer) setTransformer(newTransformer);
+          }}
         >
           {Object.values(transformers).map(tf => (
             <option key={tf.id} value={tf.id}>
@@ -95,7 +101,7 @@ const Home: React.FC<RouteComponentProps> = () => {
       <section className="areas">
         <textarea
           value={input}
-          ref={textarea}
+          ref={textareaRef}
           onChange={e => setInput(e.target.value)}
           onKeyDown={onKeyDown}
         ></textarea>
