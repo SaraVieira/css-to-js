@@ -38,11 +38,12 @@ const Home: React.FC<RouteComponentProps> = () => {
     successDuration: 1000
   });
 
-  const onKeyDown = e => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Tab key
     if (e.keyCode === 9) {
       e.preventDefault();
-      const start = e.target.selectionStart;
-      const end = e.target.selectionEnd;
+      const start = e.currentTarget.selectionStart;
+      const end = e.currentTarget.selectionEnd;
       const newValue = input.substring(0, start) + "\t" + input.substring(end);
       setInput(newValue);
 
@@ -52,6 +53,7 @@ const Home: React.FC<RouteComponentProps> = () => {
       }
     }
   };
+
   return (
     <main className="App">
       <Header />
@@ -105,8 +107,8 @@ const Home: React.FC<RouteComponentProps> = () => {
           value={input}
           ref={textareaRef}
           onChange={e => setInput(e.target.value)}
-          onKeyDown={onKeyDown}
-        ></textarea>
+          onKeyDown={handleKeyDown}
+        />
 
         <Code
           code={transformed}
