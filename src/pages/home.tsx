@@ -116,12 +116,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         />
       </section>
 
-      <button
-        className="toast"
-        onClick={e => {
-          setCopied();
-        }}
-      >
+      <button className="toast" onClick={setCopied}>
         {isCopied ? "Copied" : "Copy"} to Clipboard
       </button>
     </main>
