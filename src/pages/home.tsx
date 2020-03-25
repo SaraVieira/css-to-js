@@ -69,7 +69,13 @@ const Home: React.FC<RouteComponentProps> = () => {
           value={transformer.id}
           onChange={e => {
             const newTransformer = findTransformerById(e.target.value);
-            if (newTransformer) setTransformer(newTransformer);
+            if (newTransformer) {
+              setTransformer(newTransformer);
+            } else {
+              console.error(
+                `Could not set transformer with id: ${e.target.value}`
+              );
+            }
           }}
         >
           {Object.values(transformers).map(tf => (
