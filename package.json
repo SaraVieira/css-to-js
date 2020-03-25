@@ -27,8 +27,9 @@
   "scripts": {
     "build:app": "react-scripts build",
     "build:functions": "netlify-lambda build functions",
-    "start": "react-scripts start",
     "build": "npm run build:app && npm run build:functions",
+    "check-types": "tsc",
+    "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
