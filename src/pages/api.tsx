@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Logo from "./components/logo";
-import Header from "./components/header";
-import Code from "./components/code";
+import Logo from "../components/logo";
+import Header from "../components/header";
+import Code from "../components/code";
+import { RouteComponentProps } from "@reach/router";
 
-const API = () => {
+const API: React.FC<RouteComponentProps> = () => {
   const [CSStoJSValue, setCSS2JSValue] = useState("");
-  const [JSToJSXValue] = useState("");
+  const [JSToJSXValue, setJSToJSXValue] = useState("");
 
   useEffect(() => {
     fetch("https://css2js.dotenv.dev/api/css2js", {
@@ -22,7 +23,7 @@ const API = () => {
       body: "{display: 'block'}"
     })
       .then(rsp => rsp.json())
-      .then(JSToJSXValue);
+      .then(setJSToJSXValue);
   }, [JSToJSXValue]);
   return (
     <main className="App api">
@@ -69,7 +70,7 @@ const API = () => {
       console.log(js)
       `}
       ></Code>
-      <div>{JSON.stringify(CSStoJSValue, 2, null)}</div>
+      <div>{JSON.stringify(CSStoJSValue, null, 2)}</div>
       <h2>Transform CSS to JS</h2>
       <Code
         language="js"
@@ -82,7 +83,7 @@ const API = () => {
       console.log(css)
       `}
       ></Code>
-      <div>{JSON.stringify(JSToJSXValue, 2, null)}</div>
+      <div>{JSON.stringify(JSToJSXValue, null, 2)}</div>
     </main>
   );
 };
