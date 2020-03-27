@@ -1,12 +1,10 @@
 import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
-import mockedTransformers from "../transformers";
+import mockedTransformers from "../../transformers";
 import Home from "../home";
 
 // The transform functions are already unit tested, so replace them with stubs
-jest.mock("../transformers", () => {
-  // TODO: use Transformer type (or will Jest KNOWWW that it should be same TYPE??? :O)
-  // mabye `typeof realTransformers`??
+jest.mock("../../transformers", (): typeof mockedTransformers => {
   return {
     css2js: {
       id: 0,
