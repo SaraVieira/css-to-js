@@ -7,7 +7,7 @@ import Header from "./components/header";
 import { exampleCSS, exampleJS, exampleJSX } from "./utils/exampleCode";
 
 function Home() {
-  const [input, setInput] = useState(exampleCSS);
+  const [input, setInput] = useState("");
   const [transformer, setTransformer] = useState(transformers.css2js);
   const [transformed, setTransformed] = useState("");
   const textarea = useRef(null);

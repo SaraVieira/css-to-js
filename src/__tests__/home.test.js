@@ -26,6 +26,9 @@ jest.mock("../transformers", () => {
 });
 
 // This should be the same as the default transformer state in home.js
+// TODO: can we somehow abstract away from the "default transformer"?
+// Maybe just use the "first" transformer as default? Though that's less explicit
+// and makes it harder to understand how the default transformer is set.
 const defaultTransformer = mockedTransformers.css2js;
 
 describe("<Home />", () => {
@@ -38,11 +41,9 @@ describe("<Home />", () => {
     expect(getByRole("textbox")).toBeInTheDocument();
   });
 
-  test("displays some output on load", async () => {
-    const { getByTestId } = render(<Home />);
-    const outputBox = getByTestId("output");
-
-    await wait(() => expect(outputBox.textContent).not.toBe(""));
+  test("displays some example input on load", async () => {
+    const { getByRole } = render(<Home />);
+    expect(getByRole("textbox").textContent).not.toBe("");
   });
 
   test("transforms the input when it is changed", async () => {
@@ -57,8 +58,4 @@ describe("<Home />", () => {
     expect(await findByText(testInput)).toBeInTheDocument();
     await wait(() => expect(outputBox.textContent).toBe(expectedOutput));
   });
-
-  // TODO: can we somehow abstract away from the "default transformer"?
-  // Maybe just use the "first" transformer as default? Though that's less explicit
-  // and makes it harder to understand how the default transformer is set.
 });
