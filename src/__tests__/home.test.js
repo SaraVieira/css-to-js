@@ -39,16 +39,16 @@ describe("<Home />", () => {
   });
 
   test("displays some output on load", async () => {
-    const { getByTitle } = render(<Home />);
-    const outputBox = getByTitle("output");
+    const { getByTestId } = render(<Home />);
+    const outputBox = getByTestId("output");
 
     await wait(() => expect(outputBox.textContent).not.toBe(""));
   });
 
   test("transforms the input when it is changed", async () => {
-    const { getByRole, getByTitle, findByText } = render(<Home />);
+    const { getByRole, getByTestId, findByText } = render(<Home />);
     const inputBox = getByRole("textbox");
-    const outputBox = getByTitle("output");
+    const outputBox = getByTestId("output");
     const testInput = "my test input";
     const expectedOutput = defaultTransformer.transform(testInput);
 
