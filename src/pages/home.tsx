@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect, useReducer } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
-import transformers, {
+import { transformers, Transformer } from "../transformers";
+import {
   findById as findTransformerById,
-  findByFromTo as findTransformerByFromTo,
-  Transformer
-} from "../transformers";
+  findByFromTo as findTransformerByFromTo
+} from "../utils/transformers";
 import Code from "../components/code";
 import Logo from "../components/logo";
 import Header from "../components/header";

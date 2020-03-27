@@ -1,6 +1,6 @@
 import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
-import mockedTransformers from "../../transformers";
+import { transformers as mockedTransformers } from "../../transformers";
 import Home from "../home";
 
 // The transform functions are already unit tested, so replace them with stubs
