@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.3.3",
-    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/jest-dom": "^5.2.0",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^25.1.4",
@@ -13,6 +13,7 @@
     "@types/reach__router": "^1.3.1",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
+    "eslint-plugin-testing-library": "^2.2.3",
     "netlify-lambda": "^1.6.3",
     "normalize.css": "^8.0.1",
     "prettier": "^1.19.1",
@@ -34,7 +35,13 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:testing-library/react"
+    ],
+    "plugins": [
+      "testing-library"
+    ]
   },
   "browserslist": {
     "production": [
