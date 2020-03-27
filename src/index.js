@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "normalize.css";
-import Home from "./home";
-import API from "./api";
+import Home from "./pages/home";
+import API from "./pages/api";
 import "./index.css";
 import { Router } from "@reach/router";
 

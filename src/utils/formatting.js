@@ -17,7 +17,7 @@ export function formatProps(propString) {
 
   // Return the Prettier output but without the component tag
   let groups = componentString.match(/<Temp(.*)\/>/s);
-  if (groups.length < 2) {
+  if (!groups || groups.length < 2) {
     throw new Error("Something went wrong when parsing Prettier output");
   }
   return groups[1]

@@ -5,7 +5,15 @@ import { transform as js2jsx } from "./js2jsx";
 import { transform as jsx2css } from "./jsx2css";
 import { transform as jsx2js } from "./jsx2js";
 
-const transformers = {
+export interface Transformer {
+  id: number;
+  name: string;
+  transform: (input: string) => string;
+  from: string;
+  to: string;
+}
+
+const transformers: Record<string, Transformer> = {
   css2js: {
     id: 0,
     name: "CSS => JS object",
@@ -52,10 +60,9 @@ const transformers = {
 
 /**
  * Finds a transformer with the specified ID.
- * @param {any} id
  */
-export function findById(id) {
-  if (typeof id !== "number") {
+export function findById(id: number | string): Transformer | undefined {
+  if (typeof id === "string") {
     id = parseInt(id, 10);
   }
 
@@ -68,7 +75,10 @@ export function findById(id) {
  * @param {string} from format
  * @param {string} to format
  */
-export function findByFromTo(from, to) {
+export function findByFromTo(
+  from: string,
+  to: string
+): Transformer | undefined {
   return Object.values(transformers).find(tf => {
     if (from !== undefined && to !== undefined) {
       return tf.from === from && tf.to === to;

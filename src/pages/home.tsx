@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
+import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
-import transformers, { findById as findTransformerById } from "./transformers";
-import Code from "./components/code";
-import Logo from "./components/logo";
-import Header from "./components/header";
-import { exampleCSS, exampleJS, exampleJSX } from "./utils/exampleCode";
+import transformers, { findById as findTransformerById } from "../transformers";
+import Code from "../components/code";
+import Logo from "../components/logo";
+import Header from "../components/header";
+import { exampleCSS, exampleJS, exampleJSX } from "../utils/exampleCode";
 
-function Home() {
+const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
   const [transformer, setTransformer] = useState(transformers.css2js);
   const [transformed, setTransformed] = useState("");
-  const textarea = useRef(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (transformer.from === "css") {
@@ -23,17 +24,13 @@ function Home() {
   }, [transformer]);
 
   useEffect(() => {
-    if (transformer && typeof transformer.transform === "function") {
-      try {
-        const newTransformed = transformer.transform(input);
-        setTransformed(newTransformed);
-      } catch (e) {
-        setTransformed(
-          `Something went wrong while transforming the code: ${e.message}`
-        );
-      }
-    } else {
-      setTransformed("Invalid transformation mode");
+    try {
+      const newTransformed = transformer.transform(input);
+      setTransformed(newTransformed);
+    } catch (e) {
+      setTransformed(
+        `Something went wrong while transforming the code: ${e.message}`
+      );
     }
   }, [input, transformer]);
 
@@ -41,17 +38,22 @@ function Home() {
     successDuration: 1000
   });
 
-  const onKeyDown = e => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Tab key
     if (e.keyCode === 9) {
       e.preventDefault();
-      const start = e.target.selectionStart;
-      const end = e.target.selectionEnd;
+      const start = e.currentTarget.selectionStart;
+      const end = e.currentTarget.selectionEnd;
       const newValue = input.substring(0, start) + "\t" + input.substring(end);
       setInput(newValue);
-      textarea.current.selectionStart = textarea.current.selectionEnd =
-        start + 1;
+
+      if (textareaRef.current) {
+        textareaRef.current.selectionStart = textareaRef.current.selectionEnd =
+          start + 1;
+      }
     }
   };
+
   return (
     <main className="App">
       <Header />
@@ -67,7 +69,16 @@ function Home() {
         <select
           className="select"
           value={transformer.id}
-          onChange={e => setTransformer(findTransformerById(e.target.value))}
+          onChange={e => {
+            const newTransformer = findTransformerById(e.target.value);
+            if (newTransformer) {
+              setTransformer(newTransformer);
+            } else {
+              console.error(
+                `Could not set transformer with id: ${e.target.value}`
+              );
+            }
+          }}
         >
           {Object.values(transformers).map(tf => (
             <option key={tf.id} value={tf.id}>
@@ -83,7 +94,6 @@ function Home() {
             focusable="false"
             role="presentation"
             aria-hidden="true"
-            class="css-12c4avn"
           >
             <path
               fill="currentColor"
@@ -95,10 +105,10 @@ function Home() {
       <section className="areas">
         <textarea
           value={input}
-          ref={textarea}
+          ref={textareaRef}
           onChange={e => setInput(e.target.value)}
-          onKeyDown={onKeyDown}
-        ></textarea>
+          onKeyDown={handleKeyDown}
+        />
 
         <Code
           code={transformed}
@@ -106,16 +116,11 @@ function Home() {
         />
       </section>
 
-      <button
-        className="toast"
-        onClick={e => {
-          setCopied();
-        }}
-      >
+      <button className="toast" onClick={setCopied}>
         {isCopied ? "Copied" : "Copy"} to Clipboard
       </button>
     </main>
   );
-}
+};
 
 export default Home;
