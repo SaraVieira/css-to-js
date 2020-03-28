@@ -2,7 +2,6 @@ import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
 import { transformers as mockedTransformers } from "../../transformers";
 import Home from "../home";
-import { findById } from "../../utils/transformers";
 
 // The transform functions are already unit tested, so replace them with stubs
 jest.mock("../../transformers", (): {
@@ -66,21 +65,19 @@ describe("<Home />", () => {
     await wait(() => expect(outputBox.textContent).toBe(expectedOutput));
   });
 
-  test("allows changing the transformer to be used", async () => {
+  test("allows changing the transformer", async () => {
     const { getByRole, getByTestId } = render(<Home />);
     const inputBox = getByRole("textbox");
     const outputBox = getByTestId("output");
     const transformerSelect = getByRole("combobox");
 
-    const selectedTransformerId = 1;
+    const selectedTransformer = mockedTransformers.js2css;
     const testInput = "My test input";
-    const expectedOutput = findById(selectedTransformerId)?.transform(
-      testInput
-    );
+    const expectedOutput = selectedTransformer.transform(testInput);
 
     fireEvent.change(inputBox, { target: { value: testInput } });
     fireEvent.change(transformerSelect, {
-      target: { value: selectedTransformerId }
+      target: { value: selectedTransformer.id }
     });
 
     await wait(() => expect(outputBox.textContent).toBe(expectedOutput));
