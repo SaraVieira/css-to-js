@@ -36,7 +36,6 @@ const Home: React.FC<RouteComponentProps> = () => {
       const newInput = intermediateTransformer.transform(input);
       setInput(newInput);
     }
-    // TODO: what should happen when IM transformer is not found?
 
     return newTransformer;
   }
