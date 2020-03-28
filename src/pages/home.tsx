@@ -6,11 +6,10 @@ import {
   findTransformerById,
   findTransformerByFromTo
 } from "../utils/transformers";
+import { exampleCSS } from "../utils/exampleCode";
 import Code from "../components/code";
 import Logo from "../components/logo";
 import Header from "../components/header";
-// TODO: remove unused examples
-import { exampleCSS, exampleJS, exampleJSX } from "../utils/exampleCode";
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
