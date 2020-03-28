@@ -2,6 +2,7 @@ import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
 import { transformers as mockedTransformers } from "../../transformers";
 import Home from "../home";
+import { findByFromTo as findTransformerByFromTo } from "../../utils/transformers";
 
 // The transform functions are already unit tested, so replace them with stubs
 jest.mock("../../transformers", (): {
@@ -83,8 +84,33 @@ describe("<Home />", () => {
     await wait(() => expect(outputBox.textContent).toBe(expectedOutput));
   });
 
-  test.todo(
-    `transforms current input to new transformer input when selected 
-      transformer is changed`
-  );
+  test("transforms input to new input format when transformer is changed", async () => {
+    const { getByRole } = render(<Home />);
+    const inputBox = getByRole("textbox");
+    const transformerSelect = getByRole("combobox");
+
+    const testInput = "My test input";
+    const transformer1 = mockedTransformers.css2js;
+    const transformer2 = mockedTransformers.js2css;
+
+    // We're going to change from transformer1 to transformer2, so expect the
+    // input to be transformed to the format that is accepted by transformer2
+    const intermediateTransformer = findTransformerByFromTo(
+      transformer1.from,
+      transformer2.from
+    );
+    const expectedInput = intermediateTransformer?.transform(testInput);
+
+    fireEvent.change(transformerSelect, {
+      target: { value: transformer1.id }
+    });
+
+    fireEvent.change(inputBox, { target: { value: testInput } });
+
+    fireEvent.change(transformerSelect, {
+      target: { value: transformer2.id }
+    });
+
+    await wait(() => expect(inputBox.textContent).toBe(expectedInput));
+  });
 });
