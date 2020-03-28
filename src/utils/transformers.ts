@@ -3,7 +3,9 @@ import { transformers, Transformer } from "../transformers";
 /**
  * Finds a transformer with the specified ID.
  */
-export function findById(id: number | string): Transformer | undefined {
+export function findTransformerById(
+  id: number | string
+): Transformer | undefined {
   if (typeof id === "string") {
     id = parseInt(id, 10);
   }
@@ -15,7 +17,7 @@ export function findById(id: number | string): Transformer | undefined {
  * Finds a transformer with the specified `from` and `to` format.
  * Both arguments can be omitted to weaken the constraints.
  */
-export function findByFromTo(
+export function findTransformerByFromTo(
   from?: string,
   to?: string
 ): Transformer | undefined {

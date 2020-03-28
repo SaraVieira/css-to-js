@@ -3,8 +3,8 @@ import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import { transformers, Transformer } from "../transformers";
 import {
-  findById as findTransformerById,
-  findByFromTo as findTransformerByFromTo
+  findTransformerById,
+  findTransformerByFromTo
 } from "../utils/transformers";
 import Code from "../components/code";
 import Logo from "../components/logo";

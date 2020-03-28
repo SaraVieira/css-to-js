@@ -2,7 +2,7 @@ import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
 import { transformers as mockedTransformers } from "../../transformers";
 import Home from "../home";
-import { findByFromTo as findTransformerByFromTo } from "../../utils/transformers";
+import { findTransformerByFromTo } from "../../utils/transformers";
 
 // The transform functions are already unit tested, so replace them with stubs
 jest.mock("../../transformers", (): {
