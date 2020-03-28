@@ -13,7 +13,7 @@ export interface Transformer {
   to: string;
 }
 
-const transformers: Record<string, Transformer> = {
+export const transformers: Record<string, Transformer> = {
   css2js: {
     id: 0,
     name: "CSS => JS object",
@@ -57,38 +57,3 @@ const transformers: Record<string, Transformer> = {
     to: "js"
   }
 };
-
-/**
- * Finds a transformer with the specified ID.
- */
-export function findById(id: number | string): Transformer | undefined {
-  if (typeof id === "string") {
-    id = parseInt(id, 10);
-  }
-
-  return Object.values(transformers).find(tf => tf.id === id);
-}
-
-/**
- * Finds a transformer with the specified `from` and `to` format.
- * Both arguments can be omitted to weaken the constraints.
- * @param {string} from format
- * @param {string} to format
- */
-export function findByFromTo(
-  from: string,
-  to: string
-): Transformer | undefined {
-  return Object.values(transformers).find(tf => {
-    if (from !== undefined && to !== undefined) {
-      return tf.from === from && tf.to === to;
-    } else if (from !== undefined) {
-      return tf.from === from;
-    } else if (to !== undefined) {
-      return tf.to === to;
-    }
-    return true;
-  });
-}
-
-export default transformers;

@@ -1,28 +1,46 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useReducer } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
-import transformers, { findById as findTransformerById } from "../transformers";
+import { transformers, Transformer } from "../transformers";
+import {
+  findTransformerById,
+  findTransformerByFromTo
+} from "../utils/transformers";
+import { exampleCSS } from "../utils/exampleCode";
 import Code from "../components/code";
 import Logo from "../components/logo";
 import Header from "../components/header";
-import { exampleCSS, exampleJS, exampleJSX } from "../utils/exampleCode";
 
 const Home: React.FC<RouteComponentProps> = () => {
-  const [input, setInput] = useState("");
-  const [transformer, setTransformer] = useState(transformers.css2js);
+  const [input, setInput] = useState(exampleCSS);
   const [transformed, setTransformed] = useState("");
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    if (transformer.from === "css") {
-      setInput(exampleCSS);
-    } else if (transformer.from === "js") {
-      setInput(exampleJS);
-    } else if (transformer.from === "jsx") {
-      setInput(exampleJSX);
+  // Use a reducer because it can be used to produce a side effect every time
+  // state is set
+  const [transformer, setTransformer] = useReducer(
+    transformerReducer,
+    transformers.css2js // initial value
+  );
+  function transformerReducer(
+    currentTransformer: Transformer,
+    newTransformer: Transformer
+  ) {
+    // Transform input to new format if possible
+    const intermediateTransformer = findTransformerByFromTo(
+      currentTransformer.from,
+      newTransformer.from
+    );
+    if (intermediateTransformer) {
+      const newInput = intermediateTransformer.transform(input);
+      setInput(newInput);
     }
-  }, [transformer]);
 
+    return newTransformer;
+  }
+
+  // Synchronize input and transformed ouput
   useEffect(() => {
     try {
       const newTransformed = transformer.transform(input);
