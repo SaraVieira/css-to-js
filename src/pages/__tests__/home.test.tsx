@@ -28,12 +28,6 @@ jest.mock("../../transformers", (): {
   };
 });
 
-// This should be the same as the default transformer state in home.js
-// TODO: can we somehow abstract away from the "default transformer"?
-// Maybe just use the "first" transformer as default? Though that's less explicit
-// and makes it harder to understand how the default transformer is set.
-const defaultTransformer = mockedTransformers.css2js;
-
 describe("<Home />", () => {
   test("renders without exploding", () => {
     render(<Home />);
@@ -58,8 +52,16 @@ describe("<Home />", () => {
     const { getByRole, getByTestId } = render(<Home />);
     const inputBox = getByRole("textbox");
     const outputBox = getByTestId("output");
+    const transformerSelect = getByRole("combobox");
+
     const testInput = "My test input";
-    const expectedOutput = defaultTransformer.transform(testInput);
+    const transformerToUse = mockedTransformers.css2js;
+    const expectedOutput = transformerToUse.transform(testInput);
+
+    // Ensure we know which transformer is selected
+    fireEvent.change(transformerSelect, {
+      target: { value: transformerToUse.id }
+    });
 
     fireEvent.change(inputBox, { target: { value: testInput } });
 
@@ -72,13 +74,13 @@ describe("<Home />", () => {
     const outputBox = getByTestId("output");
     const transformerSelect = getByRole("combobox");
 
-    const selectedTransformer = mockedTransformers.js2css;
     const testInput = "My test input";
-    const expectedOutput = selectedTransformer.transform(testInput);
+    const transformerToUse = mockedTransformers.js2css;
+    const expectedOutput = transformerToUse.transform(testInput);
 
     fireEvent.change(inputBox, { target: { value: testInput } });
     fireEvent.change(transformerSelect, {
-      target: { value: selectedTransformer.id }
+      target: { value: transformerToUse.id }
     });
 
     await wait(() => expect(outputBox.textContent).toBe(expectedOutput));
