@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect, useReducer } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
-import { transformers, Transformer } from "../transformers";
+import { transformers } from "../transformers";
 import {
   findTransformerById,
   findTransformerByFromTo
 } from "../utils/transformers";
+import { usePrevious } from "../utils/usePrevious";
 import { exampleCSS } from "../utils/exampleCode";
 import Code from "../components/code";
 import Logo from "../components/logo";
@@ -13,46 +14,39 @@ import Header from "../components/header";
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
-  const [transformed, setTransformed] = useState("");
+  const [output, setOutput] = useState("");
+  const [transformer, setTransformer] = useState(transformers.css2js);
+  const prevTransformer = usePrevious(transformer);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Use a reducer because it can be used to produce a side effect every time
-  // state is set
-  const [transformer, setTransformer] = useReducer(
-    transformerReducer,
-    transformers.css2js // initial value
-  );
-  function transformerReducer(
-    currentTransformer: Transformer,
-    newTransformer: Transformer
-  ) {
-    // Transform input to new format if possible
-    const intermediateTransformer = findTransformerByFromTo(
-      currentTransformer.from,
-      newTransformer.from
-    );
-    if (intermediateTransformer) {
-      const newInput = intermediateTransformer.transform(input);
-      setInput(newInput);
+  // Update input when transformer is changed
+  useEffect(() => {
+    if (prevTransformer && transformer !== prevTransformer) {
+      const intermediateTransformer = findTransformerByFromTo(
+        prevTransformer.from,
+        transformer.from
+      );
+      if (intermediateTransformer) {
+        const newInput = intermediateTransformer.transform(input);
+        setInput(newInput);
+      }
     }
+  }, [input, transformer, prevTransformer]);
 
-    return newTransformer;
-  }
-
-  // Synchronize input and transformed ouput
+  // Update output when input or transformer is changed
   useEffect(() => {
     try {
-      const newTransformed = transformer.transform(input);
-      setTransformed(newTransformed);
+      const newOutput = transformer.transform(input);
+      setOutput(newOutput);
     } catch (e) {
-      setTransformed(
+      setOutput(
         `Something went wrong while transforming the code: ${e.message}`
       );
     }
   }, [input, transformer]);
 
-  const [isCopied, setCopied] = useClipboard(transformed, {
+  const [isCopied, setCopied] = useClipboard(output, {
     successDuration: 1000
   });
 
@@ -129,7 +123,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         />
 
         <Code
-          code={transformed}
+          code={output}
           language={transformer.to === "jsx" ? "js" : transformer.to}
         />
       </section>
