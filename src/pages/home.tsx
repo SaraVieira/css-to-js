@@ -21,8 +21,6 @@ const Home: React.FC<RouteComponentProps> = () => {
   const [transformer, setTransformer] = useState(transformers.css2js);
   const prevTransformer = usePrevious(transformer);
 
-  // TODO: do we need useLayoutEffect? need to make sure input is transformed
-  // before re-render
   useEffect(() => {
     if (prevTransformer && transformer !== prevTransformer) {
       const intermediateTransformer = findTransformerByFromTo(
