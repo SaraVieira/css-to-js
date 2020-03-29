@@ -24,8 +24,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   // TODO: do we need useLayoutEffect? need to make sure input is transformed
   // before re-render
   useEffect(() => {
-    // TODO: can we compare transformer directly?
-    if (prevTransformer && transformer.id !== prevTransformer.id) {
+    if (prevTransformer && transformer !== prevTransformer) {
       const intermediateTransformer = findTransformerByFromTo(
         prevTransformer.from,
         transformer.from
