@@ -14,12 +14,11 @@ import Header from "../components/header";
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
-  const [transformed, setTransformed] = useState("");
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
+  const [output, setOutput] = useState("");
   const [transformer, setTransformer] = useState(transformers.css2js);
   const prevTransformer = usePrevious(transformer);
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Update input when transformer is changed
   useEffect(() => {
@@ -38,16 +37,16 @@ const Home: React.FC<RouteComponentProps> = () => {
   // Update output when input or transformer is changed
   useEffect(() => {
     try {
-      const newTransformed = transformer.transform(input);
-      setTransformed(newTransformed);
+      const newOutput = transformer.transform(input);
+      setOutput(newOutput);
     } catch (e) {
-      setTransformed(
+      setOutput(
         `Something went wrong while transforming the code: ${e.message}`
       );
     }
   }, [input, transformer]);
 
-  const [isCopied, setCopied] = useClipboard(transformed, {
+  const [isCopied, setCopied] = useClipboard(output, {
     successDuration: 1000
   });
 
@@ -124,7 +123,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         />
 
         <Code
-          code={transformed}
+          code={output}
           language={transformer.to === "jsx" ? "js" : transformer.to}
         />
       </section>
