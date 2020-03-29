@@ -21,6 +21,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   const [transformer, setTransformer] = useState(transformers.css2js);
   const prevTransformer = usePrevious(transformer);
 
+  // Update input when transformer is changed
   useEffect(() => {
     if (prevTransformer && transformer !== prevTransformer) {
       const intermediateTransformer = findTransformerByFromTo(
@@ -34,7 +35,7 @@ const Home: React.FC<RouteComponentProps> = () => {
     }
   }, [input, transformer, prevTransformer]);
 
-  // Synchronize input and transformed ouput
+  // Update output when input or transformer is changed
   useEffect(() => {
     try {
       const newTransformed = transformer.transform(input);
