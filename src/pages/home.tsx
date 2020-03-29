@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect, useReducer } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
-import { transformers, Transformer } from "../transformers";
+import { transformers } from "../transformers";
 import {
   findTransformerById,
   findTransformerByFromTo
 } from "../utils/transformers";
+import { usePrevious } from "../utils/usePrevious";
 import { exampleCSS } from "../utils/exampleCode";
 import Code from "../components/code";
 import Logo from "../components/logo";
@@ -17,28 +18,24 @@ const Home: React.FC<RouteComponentProps> = () => {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Use a reducer because it can be used to produce a side effect every time
-  // state is set
-  const [transformer, setTransformer] = useReducer(
-    transformerReducer,
-    transformers.css2js // initial value
-  );
-  function transformerReducer(
-    currentTransformer: Transformer,
-    newTransformer: Transformer
-  ) {
-    // Transform input to new format if possible
-    const intermediateTransformer = findTransformerByFromTo(
-      currentTransformer.from,
-      newTransformer.from
-    );
-    if (intermediateTransformer) {
-      const newInput = intermediateTransformer.transform(input);
-      setInput(newInput);
-    }
+  const [transformer, setTransformer] = useState(transformers.css2js);
+  const prevTransformer = usePrevious(transformer);
 
-    return newTransformer;
-  }
+  // TODO: do we need useLayoutEffect? need to make sure input is transformed
+  // before re-render
+  useEffect(() => {
+    // TODO: can we compare transformer directly?
+    if (prevTransformer && transformer.id !== prevTransformer.id) {
+      const intermediateTransformer = findTransformerByFromTo(
+        prevTransformer.from,
+        transformer.from
+      );
+      if (intermediateTransformer) {
+        const newInput = intermediateTransformer.transform(input);
+        setInput(newInput);
+      }
+    }
+  }, [input, transformer, prevTransformer]);
 
   // Synchronize input and transformed ouput
   useEffect(() => {
