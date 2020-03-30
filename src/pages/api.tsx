@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../components/logo";
-import Header from "../components/header";
-import Code from "../components/code";
 import { RouteComponentProps } from "@reach/router";
+import { Logo, Header, Code } from "../components";
 
 const API: React.FC<RouteComponentProps> = () => {
   const [CSStoJSValue, setCSS2JSValue] = useState("");

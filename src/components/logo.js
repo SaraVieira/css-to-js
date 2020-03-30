@@ -1,6 +1,6 @@
 import React from "react";
 
-const Icon = props => (
+export const Logo = props => (
   <svg width={88} height={88} fill="none" viewBox="0 0 88 88" {...props}>
     <path
       fill="#fff"
@@ -12,5 +12,3 @@ const Icon = props => (
     />
   </svg>
 );
-
-export default Icon;

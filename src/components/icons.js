@@ -1,5 +1,6 @@
 import React from "react";
-const GHIcon = props => (
+
+export const GHIcon = props => (
   <svg viewBox="0 0 24 24" {...props}>
     <path
       fill="#fff"
@@ -7,4 +8,3 @@ const GHIcon = props => (
     />
   </svg>
 );
-export default GHIcon;
