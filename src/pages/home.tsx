@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import { transformers } from "../transformers";
@@ -8,6 +8,7 @@ import {
 } from "../utils/transformers";
 import { usePrevious } from "../utils/usePrevious";
 import { exampleCSS } from "../utils/exampleCode";
+import { CodeInput } from "../components/code-input";
 import Code from "../components/code";
 import Logo from "../components/logo";
 import Header from "../components/header";
@@ -17,8 +18,6 @@ const Home: React.FC<RouteComponentProps> = () => {
   const [output, setOutput] = useState("");
   const [transformer, setTransformer] = useState(transformers.css2js);
   const prevTransformer = usePrevious(transformer);
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Update input when transformer is changed
   useEffect(() => {
@@ -49,22 +48,6 @@ const Home: React.FC<RouteComponentProps> = () => {
   const [isCopied, setCopied] = useClipboard(output, {
     successDuration: 1000
   });
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // Tab key
-    if (e.keyCode === 9) {
-      e.preventDefault();
-      const start = e.currentTarget.selectionStart;
-      const end = e.currentTarget.selectionEnd;
-      const newValue = input.substring(0, start) + "\t" + input.substring(end);
-      setInput(newValue);
-
-      if (textareaRef.current) {
-        textareaRef.current.selectionStart = textareaRef.current.selectionEnd =
-          start + 1;
-      }
-    }
-  };
 
   return (
     <main className="App">
@@ -115,12 +98,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         </div>
       </div>
       <section className="areas">
-        <textarea
-          value={input}
-          ref={textareaRef}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+        <CodeInput value={input} onChange={newValue => setInput(newValue)} />
 
         <Code
           code={output}
