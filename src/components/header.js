@@ -7,7 +7,7 @@ export const Header = () => (
   <nav>
     {/* <Link to="/api">API</Link> */}
     <a href="https://github.com/SaraVieira/css-to-js/">
-      <GitHubIcon style={{ fontSize: 26 }} />
+      <GitHubIcon titleAccess="Our GitHub repo" style={{ fontSize: 26 }} />
     </a>
   </nav>
 );
