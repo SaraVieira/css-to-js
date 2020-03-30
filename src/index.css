@@ -118,6 +118,18 @@ select:focus {
   color: inherit;
 }
 
+.swap {
+  padding: 0.5rem;
+  background: none;
+  color: #a4cff4;
+  border: none;
+  transition: all 0.2s;
+}
+
+.swap:hover {
+  color: #cbd5e0;
+}
+
 main.api {
   text-align: left;
   width: 1200px;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import SwapIcon from "@material-ui/icons/SwapHoriz";
 import { Code, CodeInput, Logo, Header } from "../components";
 import { transformers } from "../transformers";
 import {
@@ -54,34 +55,57 @@ const Home: React.FC<RouteComponentProps> = () => {
       <small>Because we all do css in the browser</small>
       <div
         style={{
-          position: "relative",
-          display: "inline-block",
+          display: "inline-flex",
+          flexFlow: "row nowrap",
+          alignItems: "center",
           marginBottom: "2rem"
         }}
       >
-        <select
-          className="select"
-          value={transformer.id}
-          onChange={e => {
-            const newTransformer = findTransformerById(e.target.value);
-            if (newTransformer) {
-              setTransformer(newTransformer);
-            } else {
-              console.error(
-                `Could not set transformer with id: ${e.target.value}`
-              );
+        <div
+          style={{
+            position: "relative",
+            display: "inline-block"
+          }}
+        >
+          <select
+            className="select"
+            value={transformer.id}
+            onChange={e => {
+              const newTransformer = findTransformerById(e.target.value);
+              if (newTransformer) {
+                setTransformer(newTransformer);
+              } else {
+                console.error(
+                  `Could not set transformer with id: ${e.target.value}`
+                );
+              }
+            }}
+          >
+            {Object.values(transformers).map(tf => (
+              <option key={tf.id} value={tf.id}>
+                {tf.name}
+              </option>
+            ))}
+          </select>
+          <div className="select-arrow">
+            <KeyboardArrowDownIcon />
+          </div>
+        </div>
+        <button
+          className="swap"
+          disabled={!findTransformerByFromTo(transformer.to, transformer.from)}
+          onClick={() => {
+            const swappedTransformer = findTransformerByFromTo(
+              transformer.to,
+              transformer.from
+            );
+            if (swappedTransformer) {
+              setTransformer(swappedTransformer);
             }
           }}
         >
-          {Object.values(transformers).map(tf => (
-            <option key={tf.id} value={tf.id}>
-              {tf.name}
-            </option>
-          ))}
-        </select>
-        <div className="select-arrow">
-          <KeyboardArrowDownIcon />
-        </div>
+          <SwapIcon />
+        </button>
       </div>
       <section className="areas">
         <CodeInput value={input} onChange={newValue => setInput(newValue)} />
