@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { Code, CodeInput, Logo, Header } from "../components";
 import { transformers } from "../transformers";
 import {
@@ -79,19 +80,7 @@ const Home: React.FC<RouteComponentProps> = () => {
           ))}
         </select>
         <div className="select-arrow">
-          <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            focusable="false"
-            role="presentation"
-            aria-hidden="true"
-          >
-            <path
-              fill="currentColor"
-              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-            ></path>
-          </svg>
+          <KeyboardArrowDownIcon />
         </div>
       </div>
       <section className="areas">
