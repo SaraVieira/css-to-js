@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
+import { Code, CodeInput, Logo, Header } from "../components";
 import { transformers } from "../transformers";
 import {
+  exampleCSS,
+  usePrevious,
   findTransformerById,
   findTransformerByFromTo
-} from "../utils/transformers";
-import { usePrevious } from "../utils/usePrevious";
-import { exampleCSS } from "../utils/exampleCode";
-import { CodeInput } from "../components/code-input";
-import Code from "../components/code";
-import Logo from "../components/logo";
-import Header from "../components/header";
+} from "../utils";
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
