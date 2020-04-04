@@ -45,6 +45,7 @@
       "testing-library"
     ]
   },
+  "prettier": {},
   "browserslist": {
     "production": [
       ">0.2%",
