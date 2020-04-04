@@ -1,5 +1,5 @@
 import React from "react";
-import { render, wait, fireEvent } from "@testing-library/react";
+import { render, wait, fireEvent, getByText } from "@testing-library/react";
 import { transformers as mockedTransformers } from "../../transformers";
 import Home from "../home";
 import { findTransformerByFromTo } from "../../utils/transformers";
@@ -114,5 +114,29 @@ describe("<Home />", () => {
     });
 
     await wait(() => expect(inputBox.textContent).toBe(expectedInput));
+  });
+
+  test("clicking the swap buton swaps the input and output formats", async () => {
+    const {
+      getByRole,
+      getByLabelText,
+      getByDisplayValue,
+      queryByDisplayValue
+    } = render(<Home />);
+    const transformerSelect = getByRole("combobox");
+    const swapButton = getByLabelText(/swap/i);
+
+    // Make sure we know what transformer is initially selected
+    fireEvent.change(transformerSelect, {
+      target: { value: mockedTransformers.css2js.id }
+    });
+
+    expect(getByDisplayValue(/CSS => JS object/i)).toBeInTheDocument();
+    expect(queryByDisplayValue(/JS object => CSS/i)).not.toBeInTheDocument();
+
+    fireEvent.click(swapButton);
+
+    expect(getByDisplayValue(/JS object => CSS/i)).toBeInTheDocument();
+    expect(queryByDisplayValue(/CSS => JS object/i)).not.toBeInTheDocument();
   });
 });
