@@ -1,8 +1,33 @@
-import { formatProps } from "../formatting";
+import { formatCss, formatProps } from "../formatting";
 
 describe("formatting", () => {
+  describe("formatCss()", () => {
+    test("formats a single rule", () => {
+      let expected = "some-property: value;";
+      expect(formatCss("some-property: value;")).toBe(expected);
+      expect(formatCss("\t  some-property : \t value ")).toBe(expected);
+    });
+
+    test("formats more complex CSS", () => {
+      expect(
+        formatCss(
+          `div{
+            some-prop :   value;
+            whatever: 42px;
+          }
+          
+
+          .class{}; #id { prop:\tval}
+
+          ;;
+          `
+        )
+      ).toMatchSnapshot();
+    });
+  });
+
   describe("formatProps()", () => {
-    test("formats a single prop with string", () => {
+    test("formats a single prop with string value", () => {
       let expected = `someProp="some string"`;
       expect(formatProps(`someProp="some string"`)).toBe(expected);
       expect(formatProps(`\t  someProp= "some string" `)).toBe(expected);

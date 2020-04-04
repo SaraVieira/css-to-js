@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`formatting formatCss() formats more complex CSS 1`] = `
+"div {
+  some-prop: value;
+  whatever: 42px;
+}
+
+.class {
+}
+#id {
+  prop: val;
+}"
+`;
+
 exports[`formatting formatProps() formats multiple props 1`] = `
 "someProp={someExpr}
 sneaky=\\"beaky\\"

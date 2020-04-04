@@ -1,5 +1,15 @@
 import prettier from "prettier/standalone";
-import prettierBabylon from "prettier/parser-babylon";
+import prettierBabel from "prettier/parser-babylon";
+import prettierCss from "prettier/parser-postcss";
+
+export function formatCss(cssString) {
+  const prettierOutput = prettier.format(cssString, {
+    parser: "css",
+    plugins: [prettierCss]
+  });
+
+  return prettierOutput.trim();
+}
 
 /**
  * Takes some props written in JSX and formats them so they can easily be
@@ -12,7 +22,7 @@ export function formatProps(propString) {
 
   componentString = prettier.format(componentString, {
     parser: "babel",
-    plugins: [prettierBabylon]
+    plugins: [prettierBabel]
   });
 
   // Return the Prettier output but without the component tag
@@ -20,6 +30,7 @@ export function formatProps(propString) {
   if (!groups || groups.length < 2) {
     throw new Error("Something went wrong when parsing Prettier output");
   }
+
   return groups[1]
     .trim()
     .split("\n")
