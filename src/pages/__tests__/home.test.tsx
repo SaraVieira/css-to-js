@@ -23,6 +23,13 @@ jest.mock("../../transformers", (): {
         transform: jest.fn(x => x.toLowerCase()),
         from: "js",
         to: "css"
+      },
+      x2y: {
+        id: 2,
+        name: "X => Y",
+        transform: jest.fn(x => x),
+        from: "x",
+        to: "y"
       }
     }
   };
@@ -116,7 +123,7 @@ describe("<Home />", () => {
     await wait(() => expect(inputBox.textContent).toBe(expectedInput));
   });
 
-  test("clicking the swap buton swaps the input and output formats", async () => {
+  test("clicking the swap button swaps the input and output formats", async () => {
     const {
       getByRole,
       getByLabelText,
@@ -138,5 +145,23 @@ describe("<Home />", () => {
 
     expect(getByDisplayValue(/JS object => CSS/i)).toBeInTheDocument();
     expect(queryByDisplayValue(/CSS => JS object/i)).not.toBeInTheDocument();
+  });
+
+  test("the swap button does nothing when no inverse transformer exists", async () => {
+    const { getByRole, getByLabelText, getByDisplayValue } = render(<Home />);
+    const transformerSelect = getByRole("combobox");
+    const swapButton = getByLabelText(/swap/i);
+
+    // Make sure we know what transformer is initially selected
+    fireEvent.change(transformerSelect, {
+      target: { value: mockedTransformers.x2y.id }
+    });
+
+    expect(getByDisplayValue(/X => Y/i)).toBeInTheDocument();
+
+    fireEvent.click(swapButton);
+
+    // Expect transformer not to have changed since it doesn't have an inverse
+    expect(getByDisplayValue(/X => Y/i)).toBeInTheDocument();
   });
 });
