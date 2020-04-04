@@ -1,7 +1,11 @@
 import prettier from "prettier/standalone";
-import prettierBabel from "prettier/parser-babylon";
 import prettierCss from "prettier/parser-postcss";
+import prettierBabel from "prettier/parser-babylon";
 
+/**
+ * Takes some CSS code and formats it.
+ * @param {string} cssString string of CSS code
+ */
 export function formatCss(cssString) {
   const prettierOutput = prettier.format(cssString, {
     parser: "css",
@@ -9,6 +13,27 @@ export function formatCss(cssString) {
   });
 
   return prettierOutput.trim();
+}
+
+/**
+ * Takes a JS object written as a string and formats it.
+ * @param {string} objString string that defines a JS object
+ */
+export function formatObject(objString) {
+  // Write object in a piece of JS code so Prettier knows how to format it
+  let codeString = `let temp = ${objString};`;
+
+  codeString = prettier.format(codeString, {
+    parser: "babel",
+    plugins: [prettierBabel]
+  });
+
+  let groups = codeString.match(/let temp = (\{.*\});/s);
+  if (!groups || groups.length < 2) {
+    throw new Error("Something went wrong when parsing Prettier output");
+  }
+
+  return groups[1].trim();
 }
 
 /**
