@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
@@ -19,7 +19,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   const prevTransformer = usePrevious(transformer);
 
   // Update input when transformer is changed
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (prevTransformer && transformer !== prevTransformer) {
       const intermediateTransformer = findTransformerByFromTo(
         prevTransformer.from,
@@ -33,7 +33,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   }, [input, transformer, prevTransformer]);
 
   // Update output when input or transformer is changed
-  useEffect(() => {
+  useLayoutEffect(() => {
     try {
       const newOutput = transformer.transform(input);
       setOutput(newOutput);
