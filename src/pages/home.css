@@ -133,16 +133,19 @@ select:focus {
   display: block;
 }
 
-.swap:hover {
+.swap:hover:not(:disabled) {
   border-color: #cbd5e0;
   color: #cbd5e0;
 }
 
-/* TODO: focus state */
 .swap:focus {
   outline: none;
   border-color: #3182ce;
   box-shadow: 0 0 0 1px #3182ce;
+}
+
+.swap:disabled {
+  opacity: 0.3;
 }
 
 main.api {
