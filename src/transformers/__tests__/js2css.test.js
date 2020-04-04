@@ -11,9 +11,11 @@ describe("js2css", () => {
     expect(transform(input)).toBe(`some-prop: someValue;`);
   });
 
-  test("transforms a rule with a number value", () => {
-    const input = `someProp: 42`;
-    expect(transform(input)).toBe(`some-prop: 42;`);
+  test("transforms a rule with a number value to pixels", () => {
+    let input = `someProp: 42`;
+    expect(transform(input)).toBe(`some-prop: 42px;`);
+    input = `someProp: 13.37`;
+    expect(transform(input)).toBe(`some-prop: 13.37px;`);
   });
 
   test("transforms a rule with an arbitrary expression value", () => {
