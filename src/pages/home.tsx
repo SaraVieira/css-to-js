@@ -104,7 +104,7 @@ const Home: React.FC<RouteComponentProps> = () => {
             }
           }}
         >
-          <SwapIcon />
+          <SwapIcon aria-label="Swap transformer" />
         </button>
       </div>
       <section className="areas">
