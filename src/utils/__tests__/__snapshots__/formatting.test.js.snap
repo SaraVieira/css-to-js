@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formatting formatProps() formats multiple props 1`] = `
+"someProp={someExpr}
+sneaky=\\"beaky\\"
+anotherProp=\\"whatever dude\\"
+anotherOne={{ x: 2 }}"
+`;
