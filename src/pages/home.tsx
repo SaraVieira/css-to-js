@@ -11,6 +11,7 @@ import {
   findTransformerById,
   findTransformerByFromTo
 } from "../utils";
+import './home.css';
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
