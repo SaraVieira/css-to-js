@@ -6,7 +6,7 @@
 export function transform(objString) {
   // Loosly parse the code as a JS object
   const rules = {};
-  objString.split("\n").forEach(line => {
+  objString.split("\n").forEach((line) => {
     line = line.replace(/,$/, ""); // remove trailing comma
 
     // Split each line into a key and a value
@@ -21,11 +21,11 @@ export function transform(objString) {
     rules[key] = value;
   });
 
-  const cssStrings = Object.keys(rules).map(property => {
+  const cssStrings = Object.keys(rules).map((property) => {
     let value = rules[property];
 
     // Convert property from camelCase to kebab-case
-    property = property.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`);
+    property = property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
 
     let first = value.charAt(0);
     let middle = value.slice(1, -1);
@@ -34,6 +34,11 @@ export function transform(objString) {
     // If value is wrapped in quotes, leave them out
     if ((first === `"` || first === `'`) && first === last) {
       value = middle;
+    }
+
+    // If value is a (decimal) number, interpret it as pixels
+    if (value.match(/^\d+\.?\d*$/)) {
+      value = `${value}px`;
     }
 
     return `${property}: ${value};`;
