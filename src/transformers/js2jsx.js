@@ -1,4 +1,4 @@
-import { formatProps } from "../utils/formatting";
+import { formatProps } from "../utils";
 
 /**
  * Transforms a JS object to React props in JSX format.
@@ -6,7 +6,7 @@ import { formatProps } from "../utils/formatting";
  * @returns {string} transformed code
  */
 export function transform(objString) {
-  // Loosly parse the code as a JS object
+  // Loosely parse the code as a JS object
   const rules = {};
   objString.split("\n").forEach(line => {
     line = line.replace(/,$/, ""); // remove trailing comma
