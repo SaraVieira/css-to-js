@@ -66,9 +66,10 @@ export function transform(objString) {
     return `${key}=${value}`;
   });
 
+  const props = propStrings.join(" ");
   try {
-    return formatProps(propStrings.join(" "));
+    return formatProps(props);
   } catch (e) {
-    return "Could not generate valid props";
+    return props;
   }
 }

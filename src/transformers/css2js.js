@@ -204,5 +204,9 @@ export function transform(css) {
     .join("\n")}
   }`;
 
-  return formatObject(objString);
+  try {
+    return formatObject(objString);
+  } catch (e) {
+    return objString;
+  }
 }

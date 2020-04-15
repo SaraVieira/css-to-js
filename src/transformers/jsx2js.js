@@ -50,5 +50,9 @@ export function transform(jsx) {
       .join("\n")}
   }`;
 
-  return formatObject(objString);
+  try {
+    return formatObject(objString);
+  } catch (e) {
+    return objString;
+  }
 }
