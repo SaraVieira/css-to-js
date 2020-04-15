@@ -139,8 +139,6 @@ const htmlTags = [
   "xmp"
 ];
 
-// FIXME: produces invalid JS when removing a ;
-
 function checker(value) {
   for (let i = 0; i < htmlTags.length; i++) {
     if (value.startsWith(htmlTags[i])) {

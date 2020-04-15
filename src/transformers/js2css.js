@@ -1,4 +1,4 @@
-import { formatCss } from "../utils";
+import { formatCss, parseObj } from "../utils";
 
 // FIXME: produces invalid CSS when first property is on same line as opening {
 
@@ -8,22 +8,7 @@ import { formatCss } from "../utils";
  * @returns {string} CSS code
  */
 export function transform(objString) {
-  // Loosely parse the code as a JS object
-  const rules = {};
-  objString.split("\n").forEach(line => {
-    line = line.replace(/,$/, ""); // remove trailing comma
-
-    // Split each line into a key and a value
-    // Everything before the first : is the key and the reset is the value
-    const segments = line.split(":");
-    if (segments.length < 2) return; // skip this line
-    const key = segments[0].trim();
-    const value = segments
-      .slice(1)
-      .join(":")
-      .trim();
-    rules[key] = value;
-  });
+  const rules = parseObj(objString);
 
   const cssStrings = Object.keys(rules).map(property => {
     let value = rules[property];
