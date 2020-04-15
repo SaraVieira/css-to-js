@@ -7,13 +7,13 @@ exports[`css2js transforms a more complex rule 1`] = `
   background: \\"#1e2f5d\\",
   color: \\"#a4cff4\\",
   fontFamily: \\"'Inter', sans-serif\\",
-  fontWeight: \\"bold\\",
+  fontWeight: \\"bold\\"
 }"
 `;
 
 exports[`css2js transforms a simple rule 1`] = `
 "{
   display: \\"block\\",
-  fontSize: 16,
+  fontSize: 16
 }"
 `;
