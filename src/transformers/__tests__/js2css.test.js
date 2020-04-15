@@ -35,13 +35,13 @@ describe("js2css", () => {
   test("transforms a more complex object", () => {
     expect(
       transform(`{
-      display: "block",
-      margin: { sm: 4, md: 8 },
-      padding: [2, 3],
-      background: "#1e2f5d",
-      fontSize: 16,
-      fontFamily: "'Inter', sans-serif",
-    }`)
+        display: "block",
+        margin: { sm: 4, md: 8 },
+        padding: [2, 3],
+        background: "#1e2f5d",
+        fontSize: 16,
+        fontFamily: "'Inter', sans-serif",
+      }`)
     ).toMatchSnapshot();
   });
 

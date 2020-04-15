@@ -1,12 +1,16 @@
+import { formatCss } from "../utils";
+
+// FIXME: produces invalid CSS when first property is on same line as opening {
+
 /**
  * Transforms a JS object containing CSS rules to CSS.
  * @param {string} objString JS object code
  * @returns {string} CSS code
  */
 export function transform(objString) {
-  // Loosly parse the code as a JS object
+  // Loosely parse the code as a JS object
   const rules = {};
-  objString.split("\n").forEach((line) => {
+  objString.split("\n").forEach(line => {
     line = line.replace(/,$/, ""); // remove trailing comma
 
     // Split each line into a key and a value
@@ -21,11 +25,11 @@ export function transform(objString) {
     rules[key] = value;
   });
 
-  const cssStrings = Object.keys(rules).map((property) => {
+  const cssStrings = Object.keys(rules).map(property => {
     let value = rules[property];
 
     // Convert property from camelCase to kebab-case
-    property = property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+    property = property.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`);
 
     let first = value.charAt(0);
     let middle = value.slice(1, -1);
@@ -44,5 +48,10 @@ export function transform(objString) {
     return `${property}: ${value};`;
   });
 
-  return cssStrings.join("\n");
+  const css = cssStrings.join("\n");
+  try {
+    return formatCss(css);
+  } catch (e) {
+    return css;
+  }
 }
