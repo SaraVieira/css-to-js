@@ -4,8 +4,11 @@
 export function parseObj(objString) {
   const rules = {};
 
-  objString.split("\n").forEach(line => {
-    line = line.replace(/,$/, ""); // remove trailing comma
+  // Remove outer curly braces
+  objString = objString.replace(/^\s*\{([\s\S]*)\}\s*$/, "$1");
+
+  objString.split("\n").forEach((line: string) => {
+    line = line.replace(/,\s*$/, ""); // remove trailing comma
 
     // Split each line into a key and a value
     // Everything before the first : is the key and the reset is the value
