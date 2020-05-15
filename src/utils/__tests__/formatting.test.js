@@ -22,7 +22,18 @@ describe("formatting", () => {
           ;;
           `
         )
-      ).toMatchSnapshot();
+      ).toMatchInlineSnapshot(`
+        "div {
+          some-prop: value;
+          whatever: 42px;
+        }
+
+        .class {
+        }
+        #id {
+          prop: val;
+        }"
+      `);
     });
   });
 
@@ -49,7 +60,17 @@ describe("formatting", () => {
             ...{ spreadProp:  anyExpr ? what.ever:1337}
           }`
         )
-      ).toMatchSnapshot();
+      ).toMatchInlineSnapshot(`
+        "{
+          someProp: someValue,
+          couldBe: {
+            nested: true,
+            messedUp: true
+          },
+          anotherProp: \\"string\\" || \\"string\\",
+          ...{ spreadProp: anyExpr ? what.ever : 1337 }
+        }"
+      `);
     });
   });
 
@@ -73,7 +94,12 @@ describe("formatting", () => {
           anotherProp\t\t=  "whatever dude" 
           anotherOne= {{x: 2}}  `
         )
-      ).toMatchSnapshot();
+      ).toMatchInlineSnapshot(`
+        "someProp={someExpr}
+        sneaky=\\"beaky\\"
+        anotherProp=\\"whatever dude\\"
+        anotherOne={{ x: 2 }}"
+      `);
     });
   });
 });

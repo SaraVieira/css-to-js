@@ -32,7 +32,7 @@ describe("js2jsx", () => {
         display: "block",
         fontSize: 16
       }`)
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`"display=\\"block\\" fontSize={16}"`);
   });
 
   test("transforms a more complex object", () => {
@@ -45,7 +45,14 @@ describe("js2jsx", () => {
         fontSize: 16,
         fontFamily: "'Inter', sans-serif",
       }`)
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`
+      "display=\\"block\\"
+      margin={{ sm: 4, md: 8 }}
+      padding={[2, 3]}
+      background=\\"#1e2f5d\\"
+      fontSize={16}
+      fontFamily=\\"'Inter', sans-serif\\""
+    `);
   });
 
   test("transforms a more complex object without wrapping curly braces", () => {
