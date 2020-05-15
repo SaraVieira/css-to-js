@@ -1,6 +1,6 @@
 import prettier from "prettier/standalone";
 import prettierCss from "prettier/parser-postcss";
-import prettierBabel from "prettier/parser-babylon";
+import prettierBabel from "prettier/parser-babel";
 
 /**
  * Takes some CSS code and formats it.
@@ -9,7 +9,7 @@ import prettierBabel from "prettier/parser-babylon";
 export function formatCss(cssString) {
   const prettierOutput = prettier.format(cssString, {
     parser: "css",
-    plugins: [prettierCss]
+    plugins: [prettierCss],
   });
 
   return prettierOutput.trim();
@@ -25,7 +25,7 @@ export function formatObject(objString) {
 
   codeString = prettier.format(codeString, {
     parser: "babel",
-    plugins: [prettierBabel]
+    plugins: [prettierBabel],
   });
 
   let groups = codeString.match(/let temp = (\{.*\});/s);
@@ -47,7 +47,7 @@ export function formatProps(propString) {
 
   componentString = prettier.format(componentString, {
     parser: "babel",
-    plugins: [prettierBabel]
+    plugins: [prettierBabel],
   });
 
   // Return the Prettier output but without the component tag
@@ -59,6 +59,6 @@ export function formatProps(propString) {
   return groups[1]
     .trim()
     .split("\n")
-    .map(line => line.trim()) // remove indentation on each line
+    .map((line) => line.trim()) // remove indentation on each line
     .join("\n");
 }

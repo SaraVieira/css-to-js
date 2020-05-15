@@ -40,7 +40,7 @@ describe("jsx2js", () => {
     expect(transform(`display="block" fontSize={16}`)).toMatchInlineSnapshot(`
       "{
         display: \\"block\\",
-        fontSize: 16
+        fontSize: 16,
       }"
     `);
   });
@@ -65,7 +65,7 @@ describe("jsx2js", () => {
         background: \\"#1e2f5d\\",
         color: \\"#a4cff4\\",
         fontFamily: \\"'Inter', sans-serif\\",
-        fontWeight: \\"bold\\"
+        fontWeight: \\"bold\\",
       }"
     `);
   });

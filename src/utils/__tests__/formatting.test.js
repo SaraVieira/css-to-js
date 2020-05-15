@@ -65,10 +65,10 @@ describe("formatting", () => {
           someProp: someValue,
           couldBe: {
             nested: true,
-            messedUp: true
+            messedUp: true,
           },
           anotherProp: \\"string\\" || \\"string\\",
-          ...{ spreadProp: anyExpr ? what.ever : 1337 }
+          ...{ spreadProp: anyExpr ? what.ever : 1337 },
         }"
       `);
     });

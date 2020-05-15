@@ -38,7 +38,7 @@ describe("css2js", () => {
     ).toMatchInlineSnapshot(`
       "{
         display: \\"block\\",
-        fontSize: 16
+        fontSize: 16,
       }"
     `);
   });
@@ -60,7 +60,7 @@ describe("css2js", () => {
         background: \\"#1e2f5d\\",
         color: \\"#a4cff4\\",
         fontFamily: \\"'Inter', sans-serif\\",
-        fontWeight: \\"bold\\"
+        fontWeight: \\"bold\\",
       }"
     `);
   });
