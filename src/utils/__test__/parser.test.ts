@@ -1,11 +1,22 @@
 import { parseJsObject } from "../parser";
 
 describe("parser", () => {
-  test("parses an object with a literal value", () => {
+  test("parses an object expression", () => {
     const result = parseJsObject(`{ myKey: "myValue" }`);
+    expect(result.type).toBe("ObjectExpression");
+  });
 
-    expect(result.properties[0].type).toBe("ObjectProperty");
-    expect(result.properties[0]).toHaveProperty("key.name", "myKey");
-    expect(result.properties[0]).toHaveProperty("value.value", "myValue");
+  test("throws when passed an expression that's not an object", () => {
+    const callWithBadParam = () => {
+      parseJsObject("[notAnObject]");
+    };
+    expect(callWithBadParam).toThrow();
+  });
+
+  test("throws when passed something that's not an expression", () => {
+    const callWithBadParam = () => {
+      parseJsObject("let x = 1");
+    };
+    expect(callWithBadParam).toThrow();
   });
 });
