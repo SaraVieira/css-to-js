@@ -38,7 +38,7 @@ describe("js2jsx", () => {
 
   test("transforms a spread element property", () => {
     const input = `...someObject`;
-    expect(transform(input)).toMatchInlineSnapshot(`"{...someObject}"`);
+    expect(transform(input)).toBe(`{...someObject}`);
   });
 
   test("transforms an object method property", () => {
@@ -63,7 +63,7 @@ describe("js2jsx", () => {
         display: "block",
         fontSize: 16
       }`)
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`"display=\\"block\\" fontSize={16}"`);
   });
 
   test("transforms a more complex object", () => {
