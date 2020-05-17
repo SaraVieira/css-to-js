@@ -40,7 +40,7 @@ export function transform(objString: string) {
     }
 
     // Copy the value directly from the input code
-    let valueString = objString.slice(start - 1, end);
+    let valueString = objString.slice(start - 1, end).trim();
 
     // Wrap the value in curly braces if it's not a string,
     // or if the string contains escaped characters (needed for JSX)
