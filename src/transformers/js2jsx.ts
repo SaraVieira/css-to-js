@@ -1,20 +1,11 @@
-import { ObjectExpression } from "@babel/types";
-import { parseJsObject, formatProps, nodeToString } from "../utils";
+import { parseJsObject, nodeToString, formatProps } from "../utils";
 
 /**
  * Transforms a JS object to React props in JSX format.
  * @param input JS object code
  */
 export function transform(input: string) {
-  let objectExpression: ObjectExpression;
-  let realInput: string;
-  try {
-    const parseResult = parseJsObject(input);
-    objectExpression = parseResult[0];
-    realInput = parseResult[1];
-  } catch (e) {
-    return e.message; // TODO: throw or return?
-  }
+  const [objectExpression, realInput] = parseJsObject(input);
 
   const propStrings = objectExpression.properties.map(property => {
     if (property.type === "SpreadElement") {
@@ -31,14 +22,18 @@ export function transform(input: string) {
       return `${keyString}={(${paramsString}) => ${bodyString}}`;
     }
 
-    if (property.type !== "ObjectProperty") {
-      throw new Error("Unknown property type");
+    if (property.computed) {
+      const keyString = nodeToString(property.key, realInput);
+      const valueString = nodeToString(property.value, realInput);
+
+      // Add the property to an object and spread it
+      // This is needed because JSX doesn't allow props with computed names
+      return `{...{ [${keyString}]: ${valueString} }}`;
     }
 
-    // TODO: this will break if key is not an identifier! e.g. computed property name `[myKey]`
     const keyString = property.key.name;
 
-    // If the property value is `true`, return a prop with no value
+    // If the property value is `true`, return a shorthand prop with no value
     if (
       property.value.type === "BooleanLiteral" &&
       property.value.value === true
@@ -46,14 +41,7 @@ export function transform(input: string) {
       return keyString;
     }
 
-    let valueString: string;
-    try {
-      valueString = nodeToString(property.value, realInput);
-    } catch {
-      throw new Error(
-        `Can't parse property value: ${JSON.stringify(property.value)}`
-      );
-    }
+    let valueString = nodeToString(property.value, realInput);
 
     // Wrap the value in curly braces if it's not a string,
     // or if the string contains escaped characters (needed for JSX)

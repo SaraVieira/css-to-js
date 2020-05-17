@@ -36,18 +36,25 @@ describe("js2jsx", () => {
     expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
   });
 
-  test("transforms a spread element", () => {
+  test("transforms a spread element property", () => {
     const input = `...someObject`;
     expect(transform(input)).toMatchInlineSnapshot(`"{...someObject}"`);
   });
 
-  test("transforms an object method", () => {
+  test("transforms an object method property", () => {
     const input = `{func(arg1, arg2) { return arg1 + arg2; }}`;
     expect(transform(input)).toMatchInlineSnapshot(`
       "func={(arg1, arg2) => {
         return arg1 + arg2;
       }}"
     `);
+  });
+
+  test("transforms a computed property", () => {
+    const input = `[someComputedKey]: "someValue"`;
+    expect(transform(input)).toMatchInlineSnapshot(
+      `"{...{ [someComputedKey]: \\"someValue\\" }}"`
+    );
   });
 
   test("transforms a simple object", () => {
