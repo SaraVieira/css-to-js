@@ -75,6 +75,7 @@ describe("js2jsx", () => {
       background: "#1e2f5d",
       ...someObject,
       fontSize: 16,
+      [computed]: "cool",
       fontFamily: "'Inter', sans-serif",
     }`)
     ).toMatchInlineSnapshot(`
@@ -84,6 +85,7 @@ describe("js2jsx", () => {
       background=\\"#1e2f5d\\"
       {...someObject}
       fontSize={16}
+      {...{ [computed]: \\"cool\\" }}
       fontFamily=\\"'Inter', sans-serif\\""
     `);
   });
