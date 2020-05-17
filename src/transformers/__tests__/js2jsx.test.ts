@@ -21,7 +21,7 @@ describe("js2jsx", () => {
     expect(transform(input)).toBe(`someProp={someExpression}`);
   });
 
-  test.skip("transforms a rule with value `true` to a prop with no value", () => {
+  test("transforms a rule with value `true` to a prop with no value", () => {
     const input = `someProp: true`;
     expect(transform(input)).toBe(`someProp`);
   });

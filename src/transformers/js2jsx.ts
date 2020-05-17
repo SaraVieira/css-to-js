@@ -21,6 +21,14 @@ export function transform(objString: string) {
     // TODO: this will break if key is not an identifier! e.g. computed property name `[myKey]`
     const keyString = property.key.name;
 
+    // If the property value is `true`, return a prop with no value
+    if (
+      property.value.type === "BooleanLiteral" &&
+      property.value.value === true
+    ) {
+      return keyString;
+    }
+
     // Get the code location of the value
     const { start, end } = property.value; // 1-indexed, inclusive range
     if (start === null || end === null) {
