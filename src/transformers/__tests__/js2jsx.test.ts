@@ -57,9 +57,4 @@ describe("js2jsx", () => {
     const input = `someProp: "some\\tValue"`;
     expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
   });
-
-  test.skip("transforms an invalid string value to `{undefined}`", () => {
-    const input = `someProp: "imInvalid`;
-    expect(transform(input)).toBe(`someProp={undefined}`);
-  });
 });
