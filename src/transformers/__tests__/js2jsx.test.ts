@@ -26,6 +26,21 @@ describe("js2jsx", () => {
     expect(transform(input)).toBe(`someProp`);
   });
 
+  test("transforms a rule with a double quote char in its value", () => {
+    const input = `someProp: 'some"Value'`;
+    expect(transform(input)).toBe(`someProp='some"Value'`);
+  });
+
+  test("transforms a rule with an escaped char in its value", () => {
+    const input = `someProp: "some\\tValue"`;
+    expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
+  });
+
+  test("transforms a spread element", () => {
+    const input = `...someObject`;
+    expect(transform(input)).toMatchInlineSnapshot(`"{...someObject}"`);
+  });
+
   test("transforms a simple object", () => {
     expect(
       transform(`{
@@ -42,19 +57,18 @@ describe("js2jsx", () => {
       margin: { sm: 4, md: 8 },
       padding: [2, 3],
       background: "#1e2f5d",
+      ...someObject,
       fontSize: 16,
       fontFamily: "'Inter', sans-serif",
     }`)
-    ).toMatchSnapshot();
-  });
-
-  test("transforms a rule with a double quote char in its value", () => {
-    const input = `someProp: 'some"Value'`;
-    expect(transform(input)).toBe(`someProp='some"Value'`);
-  });
-
-  test("transforms a rule with an escaped char in its value", () => {
-    const input = `someProp: "some\\tValue"`;
-    expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
+    ).toMatchInlineSnapshot(`
+      "display=\\"block\\"
+      margin={{ sm: 4, md: 8 }}
+      padding={[2, 3]}
+      background=\\"#1e2f5d\\"
+      {...someObject}
+      fontSize={16}
+      fontFamily=\\"'Inter', sans-serif\\""
+    `);
   });
 });

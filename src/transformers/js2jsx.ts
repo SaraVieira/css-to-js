@@ -1,4 +1,4 @@
-import { ObjectExpression } from "@babel/types";
+import { ObjectExpression, SpreadElement } from "@babel/types";
 import { parseJsObject, formatProps } from "../utils";
 
 /**
@@ -14,6 +14,19 @@ export function transform(objString: string) {
   }
 
   const propStrings = objectExpression.properties.map(property => {
+    if (property.type === "SpreadElement") {
+      const { start, end } = property; // 1-indexed, inclusive range
+      if (start === null || end === null) {
+        // I'm not sure when this would happen, but it probably means
+        // we can't parse this value
+        throw new Error(
+          `Can't parse spread element: ${JSON.stringify(property)}`
+        );
+      }
+      const spreadString = objString.slice(start - 1, end).trim();
+      return `{${spreadString}}`;
+    }
+
     if (property.type !== "ObjectProperty") {
       throw new Error("Unimplemented property type");
     }
