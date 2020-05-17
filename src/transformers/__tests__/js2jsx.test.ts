@@ -41,6 +41,15 @@ describe("js2jsx", () => {
     expect(transform(input)).toMatchInlineSnapshot(`"{...someObject}"`);
   });
 
+  test("transforms an object method", () => {
+    const input = `{func(arg1, arg2) { return arg1 + arg2; }}`;
+    expect(transform(input)).toMatchInlineSnapshot(`
+      "func={(arg1, arg2) => {
+        return arg1 + arg2;
+      }}"
+    `);
+  });
+
   test("transforms a simple object", () => {
     expect(
       transform(`{

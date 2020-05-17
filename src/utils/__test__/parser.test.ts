@@ -1,9 +1,14 @@
 import { parseJsObject } from "../parser";
 
-describe("parser", () => {
+describe("parseJsObject()", () => {
   test("parses an object expression", () => {
-    const result = parseJsObject(`{ myKey: "myValue" }`);
+    const [result] = parseJsObject(`{ myKey: "myValue" }`);
     expect(result.type).toBe("ObjectExpression");
+  });
+
+  test("wraps input in braces if needed", () => {
+    const [, realInput] = parseJsObject(`someKey: "someValue"`);
+    expect(realInput).toBe(`{someKey: "someValue"}`);
   });
 
   test("throws when passed an expression that's not an object", () => {
