@@ -32,20 +32,42 @@ describe("js2jsx", () => {
         display: "block",
         fontSize: 16
       }`)
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`"display=\\"block\\" fontSize={16}"`);
   });
 
   test("transforms a more complex object", () => {
     expect(
       transform(`{
+        display: "block",
+        margin: { sm: 4, md: 8 },
+        padding: [2, 3],
+        background: "#1e2f5d",
+        fontSize: 16,
+        fontFamily: "'Inter', sans-serif",
+      }`)
+    ).toMatchInlineSnapshot(`
+      "display=\\"block\\"
+      margin={{ sm: 4, md: 8 }}
+      padding={[2, 3]}
+      background=\\"#1e2f5d\\"
+      fontSize={16}
+      fontFamily=\\"'Inter', sans-serif\\""
+    `);
+  });
+
+  test("transforms a more complex object without wrapping curly braces", () => {
+    const withoutBraces = `
       display: "block",
       margin: { sm: 4, md: 8 },
       padding: [2, 3],
       background: "#1e2f5d",
       fontSize: 16,
       fontFamily: "'Inter', sans-serif",
-    }`)
-    ).toMatchSnapshot();
+    `;
+
+    const withBraces = `{${withoutBraces}}`;
+
+    expect(transform(withoutBraces)).toBe(transform(withBraces));
   });
 
   test("transforms a rule with a double quote char in its value", () => {

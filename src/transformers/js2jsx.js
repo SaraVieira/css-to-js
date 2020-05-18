@@ -1,4 +1,4 @@
-import { formatProps } from "../utils/formatting";
+import { formatProps, parseObj } from "../utils";
 
 /**
  * Transforms a JS object to React props in JSX format.
@@ -6,22 +6,7 @@ import { formatProps } from "../utils/formatting";
  * @returns {string} transformed code
  */
 export function transform(objString) {
-  // Loosly parse the code as a JS object
-  const rules = {};
-  objString.split("\n").forEach(line => {
-    line = line.replace(/,$/, ""); // remove trailing comma
-
-    // Split each line into a key and a value
-    // Everything before the first : is the key and the reset is the value
-    const segments = line.split(":");
-    if (segments.length < 2) return; // skip this line
-    const key = segments[0].trim();
-    const value = segments
-      .slice(1)
-      .join(":")
-      .trim();
-    rules[key] = value;
-  });
+  const rules = parseObj(objString);
 
   // Convert JS object to array of strings
   const propStrings = Object.keys(rules).map(key => {
@@ -66,9 +51,10 @@ export function transform(objString) {
     return `${key}=${value}`;
   });
 
+  const props = propStrings.join(" ");
   try {
-    return formatProps(propStrings.join(" "));
+    return formatProps(props);
   } catch (e) {
-    return "Could not generate valid props";
+    return props;
   }
 }

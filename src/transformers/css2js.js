@@ -1,3 +1,5 @@
+import { formatObject } from "../utils";
+
 const htmlTags = [
   "a",
   "abbr",
@@ -138,7 +140,7 @@ const htmlTags = [
 ];
 
 function checker(value) {
-  for (var i = 0; i < htmlTags.length; i++) {
+  for (let i = 0; i < htmlTags.length; i++) {
     if (value.startsWith(htmlTags[i])) {
       return true;
     }
@@ -161,7 +163,7 @@ export function transform(css) {
   }
   const newCode = code ? code.trim().split(";") : [];
 
-  const data = newCode.reduce((acc, curr) => {
+  const rules = newCode.reduce((acc, curr) => {
     const both = curr.trim().split(":");
     let prop = both[0];
     let value = both[1];
@@ -194,9 +196,15 @@ export function transform(css) {
     };
   }, {});
 
-  return [
-    "{",
-    ...Object.keys(data).map(prop => `  ${prop}: ${data[prop]},`),
-    "}"
-  ].join("\n");
+  const objString = `{
+    ${Object.keys(rules)
+    .map(property => `${property}: ${rules[property]},`)
+    .join("\n")}
+  }`;
+
+  try {
+    return formatObject(objString);
+  } catch (e) {
+    return objString;
+  }
 }
