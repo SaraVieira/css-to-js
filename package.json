@@ -15,6 +15,8 @@
     "@types/reach__router": "^1.3.1",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
+    "babel-preset-react-app": "^9.1.2",
+    "cross-env": "^7.0.2",
     "eslint-plugin-testing-library": "^2.2.3",
     "netlify-lambda": "^1.6.3",
     "normalize.css": "^8.0.1",
@@ -29,7 +31,7 @@
   },
   "scripts": {
     "build:app": "react-scripts build",
-    "build:functions": "netlify-lambda build functions",
+    "build:functions": "cross-env NODE_ENV=production netlify-lambda build functions",
     "build": "npm run build:app && npm run build:functions",
     "check-types": "tsc",
     "start": "react-scripts start",
