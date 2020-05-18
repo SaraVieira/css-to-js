@@ -3,30 +3,38 @@ import { transform } from "../css2js";
 describe("css2js", () => {
   test("transforms a rule with a string value", () => {
     const input = `color: red`;
-    expect(transform(input)).toBe(`{
-  color: "red"
-}`);
+    expect(transform(input)).toMatchInlineSnapshot(`
+      "{
+        color: \\"red\\",
+      }"
+    `);
   });
 
   test("transforms a rule with a string value with single quotes", () => {
     const input = `font-family: "Inter", sans-serif`;
-    expect(transform(input)).toBe(`{
-  fontFamily: "'Inter', sans-serif"
-}`);
+    expect(transform(input)).toMatchInlineSnapshot(`
+      "{
+        fontFamily: \\"'Inter', sans-serif\\",
+      }"
+    `);
   });
 
   test("transforms a rule with a number value", () => {
     const input = `width: 42px`;
-    expect(transform(input)).toBe(`{
-  width: 42
-}`);
+    expect(transform(input)).toMatchInlineSnapshot(`
+      "{
+        width: 42,
+      }"
+    `);
   });
 
   test("transforms a rule with an arbitrary expression value", () => {
     const input = `someProp: someExpression`;
-    expect(transform(input)).toBe(`{
-  someProp: "someExpression"
-}`);
+    expect(transform(input)).toMatchInlineSnapshot(`
+      "{
+        someProp: \\"someExpression\\",
+      }"
+    `);
   });
 
   test("transforms a simple rule", () => {
