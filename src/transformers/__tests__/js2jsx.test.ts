@@ -69,15 +69,15 @@ describe("js2jsx", () => {
   test("transforms a more complex object", () => {
     expect(
       transform(`{
-      display: "block",
-      margin: { sm: 4, md: 8 },
-      padding: [2, 3],
-      background: "#1e2f5d",
-      ...someObject,
-      fontSize: 16,
-      [computed]: "cool",
-      fontFamily: "'Inter', sans-serif",
-    }`)
+        display: "block",
+        margin: { sm: 4, md: 8 },
+        padding: [2, 3],
+        background: "#1e2f5d",
+        ...someObject,
+        fontSize: 16,
+        [computed]: "cool",
+        fontFamily: "'Inter', sans-serif",
+      }`)
     ).toMatchInlineSnapshot(`
       "display=\\"block\\"
       margin={{ sm: 4, md: 8 }}
@@ -88,5 +88,22 @@ describe("js2jsx", () => {
       {...{ [computed]: \\"cool\\" }}
       fontFamily=\\"'Inter', sans-serif\\""
     `);
+  });
+
+  test("transforms a more complex object without wrapping curly braces", () => {
+    const withoutBraces = `
+      display: "block",
+      margin: { sm: 4, md: 8 },
+      padding: [2, 3],
+      background: "#1e2f5d",
+      ...someObject,
+      fontSize: 16,
+      [computed]: "cool",
+      fontFamily: "'Inter', sans-serif",
+    `;
+
+    const withBraces = `{${withoutBraces}}`;
+
+    expect(transform(withoutBraces)).toBe(transform(withBraces));
   });
 });

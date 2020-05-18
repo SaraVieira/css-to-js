@@ -37,7 +37,12 @@ describe("jsx2js", () => {
   });
 
   test("transforms props on a single line", () => {
-    expect(transform(`display="block" fontSize={16}`)).toMatchSnapshot();
+    expect(transform(`display="block" fontSize={16}`)).toMatchInlineSnapshot(`
+      "{
+        display: \\"block\\",
+        fontSize: 16,
+      }"
+    `);
   });
 
   test("transforms props on multiple lines", () => {
@@ -51,6 +56,17 @@ describe("jsx2js", () => {
         color="#a4cff4"
         fontFamily="'Inter', sans-serif" fontWeight="bold"`
       )
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`
+      "{
+        display: \\"block\\",
+        fontSize: 16,
+        margin: { xs: 4, sm: 8 },
+        padding: [2, 3],
+        background: \\"#1e2f5d\\",
+        color: \\"#a4cff4\\",
+        fontFamily: \\"'Inter', sans-serif\\",
+        fontWeight: \\"bold\\",
+      }"
+    `);
   });
 });

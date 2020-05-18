@@ -27,7 +27,7 @@ describe("css2jsx", () => {
         display: block;
         font-size: 16px;
       `)
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`"display=\\"block\\" fontSize={16}"`);
   });
 
   test("transforms a more complex rule", () => {
@@ -40,6 +40,13 @@ describe("css2jsx", () => {
         font-family: "Inter", sans-serif;
         font-weight: bold; 
     `)
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`
+      "display=\\"block\\"
+      fontSize={16}
+      background=\\"#1e2f5d\\"
+      color=\\"#a4cff4\\"
+      fontFamily=\\"'Inter', sans-serif\\"
+      fontWeight=\\"bold\\""
+    `);
   });
 });

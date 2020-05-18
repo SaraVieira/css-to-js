@@ -1,3 +1,5 @@
+import { formatObject } from "../utils";
+
 /**
  * Transforms React props to a JS object.
  * @param {string} jsx props in JSX format as a single string
@@ -42,10 +44,15 @@ export function transform(jsx) {
     rules[property] = value;
   }
 
-  // Format JS object
-  return [
-    "{",
-    ...Object.keys(rules).map(property => `  ${property}: ${rules[property]},`),
-    "}"
-  ].join("\n");
+  const objString = `{
+    ${Object.keys(rules)
+      .map(property => `${property}: ${rules[property]},`)
+      .join("\n")}
+  }`;
+
+  try {
+    return formatObject(objString);
+  } catch (e) {
+    return objString;
+  }
 }
