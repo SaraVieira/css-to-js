@@ -3,7 +3,7 @@
  * Loosely parses the specified string as a JS object.
  */
 export function parseObj(objString: string) {
-  const rules = {};
+  const rules: Record<string, string> = {};
 
   // Remove outer curly braces
   objString = objString.replace(/^\s*\{([\s\S]*)\}\s*$/, "$1");
