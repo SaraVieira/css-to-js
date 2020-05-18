@@ -3,22 +3,22 @@ import { Expression, Node, ObjectExpression } from "@babel/types";
 
 export function parseJsObject(input: string): [ObjectExpression, string] {
   let expression: Expression;
-  let realInput: string;
+  let rawLines: string;
   try {
-    realInput = input;
+    rawLines = input;
     expression = babelParser.parseExpression(input);
   } catch {
     // Try parsing again, but wrap the input in curly braces
     // This is to support passing input without curly braces
-    realInput = `{${input}}`;
-    expression = babelParser.parseExpression(realInput);
+    rawLines = `{${input}}`;
+    expression = babelParser.parseExpression(rawLines);
   }
 
   if (expression.type !== "ObjectExpression") {
     throw new Error("Expression is not an object expression");
   }
 
-  return [expression, realInput];
+  return [expression, rawLines];
 }
 
 /**

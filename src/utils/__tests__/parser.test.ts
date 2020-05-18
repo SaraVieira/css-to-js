@@ -8,8 +8,8 @@ describe("parser", () => {
     });
 
     test("wraps input in braces if needed", () => {
-      const [, realInput] = parseJsObject(`someKey: "someValue"`);
-      expect(realInput).toBe(`{someKey: "someValue"}`);
+      const [, rawLines] = parseJsObject(`someKey: "someValue"`);
+      expect(rawLines).toBe(`{someKey: "someValue"}`);
     });
 
     test("throws when passed an expression that's not an object", () => {
