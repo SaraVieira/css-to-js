@@ -1,7 +1,8 @@
 /**
+ * @deprecated use parseJsObject from ./parser.ts instead
  * Loosely parses the specified string as a JS object.
  */
-export function parseObj(objString) {
+export function parseObj(objString: string) {
   const rules = {};
 
   // Remove outer curly braces
@@ -15,10 +16,7 @@ export function parseObj(objString) {
     const segments = line.split(":");
     if (segments.length < 2) return; // skip this line
     const key = segments[0].trim();
-    const value = segments
-      .slice(1)
-      .join(":")
-      .trim();
+    const value = segments.slice(1).join(":").trim();
     rules[key] = value;
   });
 
