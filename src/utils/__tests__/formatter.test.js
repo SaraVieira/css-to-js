@@ -1,6 +1,6 @@
-import { formatCss, formatObject, formatProps } from "../formatting";
+import { formatCss, formatObject, formatProps } from "../formatter";
 
-describe("formatting", () => {
+describe("formatter", () => {
   describe("formatCss()", () => {
     test("formats a single rule", () => {
       let expected = "some-property: value;";
