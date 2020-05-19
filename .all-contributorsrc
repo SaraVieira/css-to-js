@@ -24,6 +24,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "SaraVieira",
+      "name": "Sara Vieira",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1051509?v=4",
+      "profile": "http://iamsaravieira.com",
+      "contributions": [
+        "ideas",
+        "code",
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
