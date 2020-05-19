@@ -26,6 +26,37 @@ describe("js2jsx", () => {
     expect(transform(input)).toBe(`someProp`);
   });
 
+  test("transforms a rule with a double quote char in its value", () => {
+    const input = `someProp: 'some"Value'`;
+    expect(transform(input)).toBe(`someProp='some"Value'`);
+  });
+
+  test("transforms a rule with an escaped char in its value", () => {
+    const input = `someProp: "some\\tValue"`;
+    expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
+  });
+
+  test("transforms a spread element property", () => {
+    const input = `...someObject`;
+    expect(transform(input)).toBe(`{...someObject}`);
+  });
+
+  test("transforms an object method property", () => {
+    const input = `{func(arg1, arg2) { return arg1 + arg2; }}`;
+    expect(transform(input)).toMatchInlineSnapshot(`
+      "func={(arg1, arg2) => {
+        return arg1 + arg2;
+      }}"
+    `);
+  });
+
+  test("transforms a computed property", () => {
+    const input = `[someComputedKey]: "someValue"`;
+    expect(transform(input)).toMatchInlineSnapshot(
+      `"{...{ [someComputedKey]: \\"someValue\\" }}"`
+    );
+  });
+
   test("transforms a simple object", () => {
     expect(
       transform(`{
@@ -42,7 +73,9 @@ describe("js2jsx", () => {
         margin: { sm: 4, md: 8 },
         padding: [2, 3],
         background: "#1e2f5d",
+        ...someObject,
         fontSize: 16,
+        [computed]: "cool",
         fontFamily: "'Inter', sans-serif",
       }`)
     ).toMatchInlineSnapshot(`
@@ -50,7 +83,9 @@ describe("js2jsx", () => {
       margin={{ sm: 4, md: 8 }}
       padding={[2, 3]}
       background=\\"#1e2f5d\\"
+      {...someObject}
       fontSize={16}
+      {...{ [computed]: \\"cool\\" }}
       fontFamily=\\"'Inter', sans-serif\\""
     `);
   });
@@ -61,27 +96,14 @@ describe("js2jsx", () => {
       margin: { sm: 4, md: 8 },
       padding: [2, 3],
       background: "#1e2f5d",
+      ...someObject,
       fontSize: 16,
+      [computed]: "cool",
       fontFamily: "'Inter', sans-serif",
     `;
 
     const withBraces = `{${withoutBraces}}`;
 
     expect(transform(withoutBraces)).toBe(transform(withBraces));
-  });
-
-  test("transforms a rule with a double quote char in its value", () => {
-    const input = `someProp: 'some"Value'`;
-    expect(transform(input)).toBe(`someProp={'some"Value'}`);
-  });
-
-  test("transforms a rule with an escaped char in its value", () => {
-    const input = `someProp: "some\\tValue"`;
-    expect(transform(input)).toBe(`someProp={"some\\tValue"}`);
-  });
-
-  test("transforms an invalid string value to `{undefined}`", () => {
-    const input = `someProp: "imInvalid`;
-    expect(transform(input)).toBe(`someProp={undefined}`);
   });
 });

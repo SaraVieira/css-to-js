@@ -59,6 +59,6 @@ export function formatProps(propString) {
   return groups[1]
     .trim()
     .split("\n")
-    .map((line) => line.trim()) // remove indentation on each line
+    .map((line) => line.replace(/^ {2}/, "")) // unindent each line once
     .join("\n");
 }
