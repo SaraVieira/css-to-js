@@ -24,26 +24,19 @@ main {
 
 code,
 pre,
-textarea {
+.editor {
   font-family: "Roboto Mono", monospace;
-}
-
-textarea,
-pre {
-  background: #18264a;
+  background: #011627;
   border: 0;
   resize: none;
   color: #d0d3d6;
   white-space: pre-wrap;
   padding: 20px;
   margin: 0;
-  text-align: left;
 }
 
-textarea:focus {
-  outline: 2px solid #0e1833;
-}
-textarea {
+.editor {
+  background: #18264a;
   border-right: 1px solid #1e2f5d;
 }
 
@@ -148,7 +141,6 @@ select:focus {
 }
 
 main.api {
-  text-align: left;
   width: 1200px;
   max-width: 80%;
   margin: auto;

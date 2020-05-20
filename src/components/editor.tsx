@@ -1,10 +1,7 @@
 import React from "react";
+import Highlight, { defaultProps, Language } from "prism-react-renderer";
 import SimpleEditor from "react-simple-code-editor";
-import { Code } from "./code";
-import { Language } from "prism-react-renderer";
-
-// TODO: change appearance to distinguish from output
-// TODO: cursor not visible
+import nightOwl from "prism-react-renderer/themes/nightOwl";
 
 export interface EditorProps {
   value: string;
@@ -15,15 +12,36 @@ export interface EditorProps {
 
 export const Editor: React.FC<EditorProps> = (props) => {
   const { value, language, label, onChange } = props;
-  const highlight = (code) => <Code code={code} language={language} />;
+  const highlight = (code) => (
+    <Highlight
+      {...defaultProps}
+      theme={nightOwl}
+      code={code}
+      language={language}
+    >
+      {({ tokens, getLineProps, getTokenProps }) => (
+        <>
+          {tokens.map((line, i) => (
+            <div {...getLineProps({ line, key: i })}>
+              {line.map((token, key) => (
+                <span {...getTokenProps({ token, key })} />
+              ))}
+            </div>
+          ))}
+        </>
+      )}
+    </Highlight>
+  );
 
   return (
     <SimpleEditor
+      className="editor"
       value={value}
       highlight={highlight}
       onValueChange={onChange}
       title={label}
       aria-label={label}
+      padding={20}
     />
   );
 };

@@ -16,13 +16,8 @@ export const Code: React.FC<CodeProps> = ({ code, language, label }) => {
       code={code}
       language={language}
     >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre
-          className={className}
-          style={style}
-          title={label}
-          aria-label={label}
-        >
+      {({ tokens, getLineProps, getTokenProps }) => (
+        <pre title={label} aria-label={label}>
           {tokens.map((line, i) => (
             <div {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (
