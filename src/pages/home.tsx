@@ -1,17 +1,16 @@
 import React, { useState, useLayoutEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import SwapIcon from "@material-ui/icons/SwapHoriz";
-import { Code, CodeInput, Logo, Header } from "../components";
+import { Code, Editor, Logo, Nav, Select } from "../components";
 import { transformers } from "../transformers";
 import {
   exampleCSS,
   usePrevious,
   findTransformerById,
-  findTransformerByFromTo
+  findTransformerByFromTo,
 } from "../utils";
-import './home.css';
+import "./home.css";
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
@@ -46,32 +45,32 @@ const Home: React.FC<RouteComponentProps> = () => {
   }, [input, transformer]);
 
   const [isCopied, setCopied] = useClipboard(output, {
-    successDuration: 1000
+    successDuration: 1000,
   });
 
   return (
     <main className="App">
-      <Header />
-      <Logo style={{ margin: 30 }} />
-      <small>Because we all do css in the browser</small>
+      <Nav />
       <div
         style={{
-          display: "inline-flex",
-          flexFlow: "row nowrap",
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          marginBottom: "2rem"
         }}
       >
+        <Logo style={{ margin: 30 }} />
+        <small>Because we all do CSS in our own ways</small>
         <div
           style={{
-            position: "relative",
-            display: "inline-block"
+            display: "inline-flex",
+            flexFlow: "row nowrap",
+            alignItems: "center",
+            marginBottom: "2rem",
           }}
         >
-          <select
-            className="select"
+          <Select
             value={transformer.id}
-            onChange={e => {
+            onChange={(e) => {
               const newTransformer = findTransformerById(e.target.value);
               if (newTransformer) {
                 setTransformer(newTransformer);
@@ -82,39 +81,40 @@ const Home: React.FC<RouteComponentProps> = () => {
               }
             }}
           >
-            {Object.values(transformers).map(tf => (
+            {Object.values(transformers).map((tf) => (
               <option key={tf.id} value={tf.id}>
                 {tf.name}
               </option>
             ))}
-          </select>
-          <div className="select-arrow">
-            <KeyboardArrowDownIcon />
-          </div>
-        </div>
-        <button
-          className="swap"
-          disabled={!findTransformerByFromTo(transformer.to, transformer.from)}
-          onClick={() => {
-            const swappedTransformer = findTransformerByFromTo(
-              transformer.to,
-              transformer.from
-            );
-            if (swappedTransformer) {
-              setTransformer(swappedTransformer);
+          </Select>
+          <button
+            className="swap"
+            disabled={
+              !findTransformerByFromTo(transformer.to, transformer.from)
             }
-          }}
-        >
-          <SwapIcon aria-label="Swap transformer" />
-        </button>
+            onClick={() => {
+              const swappedTransformer = findTransformerByFromTo(
+                transformer.to,
+                transformer.from
+              );
+              if (swappedTransformer) {
+                setTransformer(swappedTransformer);
+              }
+            }}
+          >
+            <SwapIcon aria-label="Swap transformer" />
+          </button>
+        </div>
       </div>
-      <section className="areas">
-        <CodeInput value={input} onChange={newValue => setInput(newValue)} />
-
-        <Code
-          code={output}
-          language={transformer.to === "jsx" ? "js" : transformer.to}
+      <section className="code-area">
+        <Editor
+          value={input}
+          language={transformer.from}
+          label="input"
+          onChange={(newValue) => setInput(newValue)}
         />
+
+        <Code code={output} language={transformer.to} label="output" />
       </section>
 
       <button className="toast" onClick={setCopied}>

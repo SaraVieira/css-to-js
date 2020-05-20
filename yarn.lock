@@ -9646,6 +9646,11 @@ react-scripts@3.4.0:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-simple-code-editor@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.11.0.tgz#bb57c7c29b570f2ab229872599eac184f5bc673c"
+  integrity sha512-xGfX7wAzspl113ocfKQAR8lWPhavGWHL3xSzNLeseDRHysT+jzRBi/ExdUqevSMos+7ZtdfeuBOXtgk9HTwsrw==
+
 react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
@@ -9656,7 +9661,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-use-clipboard@1.0.0:
+react-use-clipboard@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-use-clipboard/-/react-use-clipboard-1.0.0.tgz#dee4447ffbf98516caf0b2a3e95508baeec097b8"
   integrity sha512-yWZMJW2uhi4zUrSNIjSJn5cytEXO1kuSSvC2sYKiQdPWoBWpee4JckZzcNWoyN2g2+mCWkxrbeVFuYH0bYK+7Q==

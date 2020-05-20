@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { Logo, Header, Code } from "../components";
+import { Logo, Nav, Code } from "../components";
 
 const API: React.FC<RouteComponentProps> = () => {
   const [CSStoJSValue, setCSS2JSValue] = useState("");
@@ -9,23 +9,23 @@ const API: React.FC<RouteComponentProps> = () => {
   useEffect(() => {
     fetch("https://css2js.dotenv.dev/api/css2js", {
       method: "POST",
-      body: "display: block"
+      body: "display: block",
     })
-      .then(rsp => rsp.json())
+      .then((rsp) => rsp.json())
       .then(setCSS2JSValue);
   }, []);
 
   useEffect(() => {
     fetch("https://css2js.dotenv.dev/api/js2jsx", {
       method: "POST",
-      body: "{display: 'block'}"
+      body: "{display: 'block'}",
     })
-      .then(rsp => rsp.json())
+      .then((rsp) => rsp.json())
       .then(setJSToJSXValue);
   }, [JSToJSXValue]);
   return (
     <main className="App api">
-      <Header />
+      <Nav />
       <div style={{ textAlign: "center" }}>
         <Logo />
       </div>
@@ -58,7 +58,7 @@ const API: React.FC<RouteComponentProps> = () => {
 
       <h2>Transform CSS to JS</h2>
       <Code
-        language="js"
+        language="javascript"
         code={`
      const js = await fetch("https://css2js.dotenv.dev/api/css2js", {
         method: "POST",
@@ -71,7 +71,7 @@ const API: React.FC<RouteComponentProps> = () => {
       <div>{JSON.stringify(CSStoJSValue, null, 2)}</div>
       <h2>Transform CSS to JS</h2>
       <Code
-        language="js"
+        language="javascript"
         code={`
      const css = await fetch("https://css2js.dotenv.dev/api/js2jsx", {
         method: "POST",
