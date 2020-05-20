@@ -1,7 +1,7 @@
 import React from "react";
-import Highlight, { defaultProps, Language } from "prism-react-renderer";
+import Highlight, { Language } from "prism-react-renderer";
 import SimpleEditor from "react-simple-code-editor";
-import nightOwl from "prism-react-renderer/themes/nightOwl";
+import { defaultHighlightProps } from "../utils/defaultHightlightProps";
 
 export interface EditorProps {
   value: string;
@@ -13,12 +13,7 @@ export interface EditorProps {
 export const Editor: React.FC<EditorProps> = (props) => {
   const { value, language, label, onChange } = props;
   const highlight = (code) => (
-    <Highlight
-      {...defaultProps}
-      theme={nightOwl}
-      code={code}
-      language={language}
-    >
+    <Highlight {...defaultHighlightProps} code={code} language={language}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <>
           {tokens.map((line, i) => (

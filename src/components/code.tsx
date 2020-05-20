@@ -1,6 +1,6 @@
 import React from "react";
-import Highlight, { defaultProps, Language } from "prism-react-renderer";
-import nightOwl from "prism-react-renderer/themes/nightOwl";
+import Highlight, { Language } from "prism-react-renderer";
+import { defaultHighlightProps } from "../utils/defaultHightlightProps";
 
 export type CodeProps = {
   code: string;
@@ -10,12 +10,7 @@ export type CodeProps = {
 
 export const Code: React.FC<CodeProps> = ({ code, language, label }) => {
   return (
-    <Highlight
-      {...defaultProps}
-      theme={nightOwl}
-      code={code}
-      language={language}
-    >
+    <Highlight {...defaultHighlightProps} code={code} language={language}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre title={label} aria-label={label}>
           {tokens.map((line, i) => (
