@@ -27,6 +27,6 @@ export function parseCss(css: string): Declaration[] {
     const root: Root = parse(css);
     return getCssProps(root);
   } catch (e) {
-    throw new Error(e.message);
+    throw new Error("Could not parse CSS");
   }
 }
