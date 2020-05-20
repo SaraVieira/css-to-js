@@ -1,6 +1,6 @@
 import React from "react";
 import Highlight, { Language } from "prism-react-renderer";
-import { defaultHighlightProps } from "../utils/defaultHightlightProps";
+import { defaultHighlightProps } from "../utils";
 
 export type CodeProps = {
   code: string;

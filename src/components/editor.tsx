@@ -1,7 +1,7 @@
 import React from "react";
 import Highlight, { Language } from "prism-react-renderer";
 import SimpleEditor from "react-simple-code-editor";
-import { defaultHighlightProps } from "../utils/defaultHightlightProps";
+import { defaultHighlightProps } from "../utils";
 
 export interface EditorProps {
   value: string;

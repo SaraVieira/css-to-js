@@ -1,3 +1,4 @@
+export * from "./defaultHightlightProps";
 export * from "./exampleCode";
 export * from "./formatter";
 export * from "./parser";
