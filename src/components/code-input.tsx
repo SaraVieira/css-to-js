@@ -1,39 +1,25 @@
-import React, { useRef } from "react";
+import React from "react";
+import Editor from "react-simple-code-editor";
+import { Code } from "./code";
+import { Language } from "prism-react-renderer";
+
+// TODO: change appearance to distinguish from output
+// TODO: cursor not visible
 
 interface InputProps {
   value: string;
-  onChange?: (newValue: string) => void;
+  language: Language;
+  onChange: (newValue: string) => void;
 }
-export const CodeInput: React.FC<InputProps> = ({ value, onChange }) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // Tab key
-    if (e.keyCode === 9) {
-      e.preventDefault();
-      const start = e.currentTarget.selectionStart;
-      const end = e.currentTarget.selectionEnd;
-      const newValue = value.substring(0, start) + "\t" + value.substring(end);
-      if (onChange) onChange(newValue);
-
-      if (textareaRef.current) {
-        textareaRef.current.selectionStart = textareaRef.current.selectionEnd =
-          start + 1;
-      }
-    }
-  };
+export const CodeInput: React.FC<InputProps> = (props) => {
+  const { value, language, onChange } = props;
+  const highlight = (code) => <Code code={code} language={language} />;
 
   return (
-    <textarea
-      value={value}
-      ref={textareaRef}
-      onChange={e => {
-        if (onChange) onChange(e.target.value);
-      }}
-      onKeyDown={handleKeyDown}
-    />
+    <Editor value={value} onValueChange={onChange} highlight={highlight} />
   );
 };
 CodeInput.defaultProps = {
-  value: ""
+  value: "",
+  onChange: () => undefined,
 };

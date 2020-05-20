@@ -4,13 +4,14 @@ import { transform as js2css } from "./js2css";
 import { transform as js2jsx } from "./js2jsx";
 import { transform as jsx2css } from "./jsx2css";
 import { transform as jsx2js } from "./jsx2js";
+import { Language } from "prism-react-renderer";
 
 export interface Transformer {
   id: number;
   name: string;
   transform: (input: string) => string;
-  from: string;
-  to: string;
+  from: Language;
+  to: Language;
 }
 
 export const transformers: Record<string, Transformer> = {
@@ -19,41 +20,41 @@ export const transformers: Record<string, Transformer> = {
     name: "CSS => JS object",
     transform: css2js,
     from: "css",
-    to: "js"
+    to: "javascript",
   },
   css2jsx: {
     id: 1,
     name: "CSS => React props",
     transform: css2jsx,
     from: "css",
-    to: "jsx"
+    to: "jsx",
   },
   js2css: {
     id: 2,
     name: "JS object => CSS",
     transform: js2css,
-    from: "js",
-    to: "css"
+    from: "javascript",
+    to: "css",
   },
   js2jsx: {
     id: 3,
     name: "JS object => React props",
     transform: js2jsx,
-    from: "js",
-    to: "jsx"
+    from: "javascript",
+    to: "jsx",
   },
   jsx2css: {
     id: 4,
     name: "React props => CSS",
     transform: jsx2css,
     from: "jsx",
-    to: "css"
+    to: "css",
   },
   jsx2js: {
     id: 5,
     name: "React props => JS object",
     transform: jsx2js,
     from: "jsx",
-    to: "js"
-  }
+    to: "javascript",
+  },
 };

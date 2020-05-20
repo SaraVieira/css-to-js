@@ -9,9 +9,9 @@ import {
   exampleCSS,
   usePrevious,
   findTransformerById,
-  findTransformerByFromTo
+  findTransformerByFromTo,
 } from "../utils";
-import './home.css';
+import "./home.css";
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
@@ -46,7 +46,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   }, [input, transformer]);
 
   const [isCopied, setCopied] = useClipboard(output, {
-    successDuration: 1000
+    successDuration: 1000,
   });
 
   return (
@@ -59,19 +59,19 @@ const Home: React.FC<RouteComponentProps> = () => {
           display: "inline-flex",
           flexFlow: "row nowrap",
           alignItems: "center",
-          marginBottom: "2rem"
+          marginBottom: "2rem",
         }}
       >
         <div
           style={{
             position: "relative",
-            display: "inline-block"
+            display: "inline-block",
           }}
         >
           <select
             className="select"
             value={transformer.id}
-            onChange={e => {
+            onChange={(e) => {
               const newTransformer = findTransformerById(e.target.value);
               if (newTransformer) {
                 setTransformer(newTransformer);
@@ -82,7 +82,7 @@ const Home: React.FC<RouteComponentProps> = () => {
               }
             }}
           >
-            {Object.values(transformers).map(tf => (
+            {Object.values(transformers).map((tf) => (
               <option key={tf.id} value={tf.id}>
                 {tf.name}
               </option>
@@ -109,12 +109,13 @@ const Home: React.FC<RouteComponentProps> = () => {
         </button>
       </div>
       <section className="areas">
-        <CodeInput value={input} onChange={newValue => setInput(newValue)} />
-
-        <Code
-          code={output}
-          language={transformer.to === "jsx" ? "js" : transformer.to}
+        <CodeInput
+          value={input}
+          language={transformer.from}
+          onChange={(newValue) => setInput(newValue)}
         />
+
+        <Code code={output} language={transformer.to} />
       </section>
 
       <button className="toast" onClick={setCopied}>

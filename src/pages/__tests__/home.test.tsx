@@ -1,5 +1,6 @@
 import React from "react";
-import { render, wait, fireEvent, getByText } from "@testing-library/react";
+import { render, wait, fireEvent } from "@testing-library/react";
+import { Language } from "prism-react-renderer";
 import { transformers as mockedTransformers } from "../../transformers";
 import Home from "../home";
 import { findTransformerByFromTo } from "../../utils/transformers";
@@ -13,25 +14,25 @@ jest.mock("../../transformers", (): {
       css2js: {
         id: 0,
         name: "CSS => JS object",
-        transform: jest.fn(x => x.toUpperCase()),
+        transform: jest.fn((x) => x.toUpperCase()),
         from: "css",
-        to: "js"
+        to: "javascript",
       },
       js2css: {
         id: 1,
         name: "JS object => CSS",
-        transform: jest.fn(x => x.toLowerCase()),
-        from: "js",
-        to: "css"
+        transform: jest.fn((x) => x.toLowerCase()),
+        from: "javascript",
+        to: "css",
       },
       x2y: {
         id: 2,
         name: "X => Y",
-        transform: jest.fn(x => x),
-        from: "x",
-        to: "y"
-      }
-    }
+        transform: jest.fn((x) => x),
+        from: "x" as Language,
+        to: "y" as Language,
+      },
+    },
   };
 });
 
@@ -67,7 +68,7 @@ describe("<Home />", () => {
 
     // Ensure we know which transformer is selected
     fireEvent.change(transformerSelect, {
-      target: { value: transformerToUse.id }
+      target: { value: transformerToUse.id },
     });
 
     fireEvent.change(inputBox, { target: { value: testInput } });
@@ -87,7 +88,7 @@ describe("<Home />", () => {
 
     fireEvent.change(inputBox, { target: { value: testInput } });
     fireEvent.change(transformerSelect, {
-      target: { value: transformerToUse.id }
+      target: { value: transformerToUse.id },
     });
 
     await wait(() => expect(outputBox.textContent).toBe(expectedOutput));
@@ -111,13 +112,13 @@ describe("<Home />", () => {
     const expectedInput = intermediateTransformer?.transform(testInput);
 
     fireEvent.change(transformerSelect, {
-      target: { value: transformer1.id }
+      target: { value: transformer1.id },
     });
 
     fireEvent.change(inputBox, { target: { value: testInput } });
 
     fireEvent.change(transformerSelect, {
-      target: { value: transformer2.id }
+      target: { value: transformer2.id },
     });
 
     await wait(() => expect(inputBox.textContent).toBe(expectedInput));
@@ -128,14 +129,14 @@ describe("<Home />", () => {
       getByRole,
       getByLabelText,
       getByDisplayValue,
-      queryByDisplayValue
+      queryByDisplayValue,
     } = render(<Home />);
     const transformerSelect = getByRole("combobox");
     const swapButton = getByLabelText(/swap/i);
 
     // Make sure we know what transformer is initially selected
     fireEvent.change(transformerSelect, {
-      target: { value: mockedTransformers.css2js.id }
+      target: { value: mockedTransformers.css2js.id },
     });
 
     expect(getByDisplayValue(/CSS => JS object/i)).toBeInTheDocument();
@@ -154,7 +155,7 @@ describe("<Home />", () => {
 
     // Make sure we know what transformer is initially selected
     fireEvent.change(transformerSelect, {
-      target: { value: mockedTransformers.x2y.id }
+      target: { value: mockedTransformers.x2y.id },
     });
 
     expect(getByDisplayValue(/X => Y/i)).toBeInTheDocument();
