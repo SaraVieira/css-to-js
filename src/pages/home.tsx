@@ -59,7 +59,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         }}
       >
         <Logo style={{ margin: 30 }} />
-        <small>Because we all do css in the browser</small>
+        <small>Because we all do CSS in our own ways</small>
         <div
           style={{
             display: "inline-flex",
