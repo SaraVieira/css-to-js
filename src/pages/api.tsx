@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
-import { Logo, Header, Code } from "../components";
+import { Logo, Nav, Code } from "../components";
 
 const API: React.FC<RouteComponentProps> = () => {
   const [CSStoJSValue, setCSS2JSValue] = useState("");
@@ -25,7 +25,7 @@ const API: React.FC<RouteComponentProps> = () => {
   }, [JSToJSXValue]);
   return (
     <main className="App api">
-      <Header />
+      <Nav />
       <div style={{ textAlign: "center" }}>
         <Logo />
       </div>

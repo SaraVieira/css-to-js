@@ -1,5 +1,5 @@
 import React from "react";
-import { render, wait, fireEvent } from "@testing-library/react";
+import { render, screen, wait, fireEvent } from "@testing-library/react";
 import { Language } from "prism-react-renderer";
 import { transformers as mockedTransformers } from "../../transformers";
 import Home from "../home";
@@ -42,25 +42,24 @@ describe("<Home />", () => {
   });
 
   test("has an element that lets the user enter text", async () => {
-    const { getByRole, findByText } = render(<Home />);
-    const inputBox = getByRole("textbox");
-    const testInput = "My test input";
+    render(<Home />);
+    const inputBox = screen.getByRole("textbox");
 
-    fireEvent.change(inputBox, { target: { value: testInput } });
+    fireEvent.change(inputBox, { target: { value: "My test input" } });
 
-    expect(await findByText(testInput)).toBeInTheDocument();
+    expect(await screen.findAllByText("My test input")).toBeTruthy();
   });
 
   test("displays some example input on load", async () => {
-    const { getByRole } = render(<Home />);
-    expect(getByRole("textbox").textContent).not.toBe("");
+    render(<Home />);
+    expect(screen.getByRole("textbox").textContent).not.toBe("");
   });
 
   test("transforms the input when it is changed", async () => {
-    const { getByRole, getByTestId } = render(<Home />);
-    const inputBox = getByRole("textbox");
-    const outputBox = getByTestId("output");
-    const transformerSelect = getByRole("combobox");
+    render(<Home />);
+    const inputBox = screen.getByRole("textbox");
+    const outputBox = screen.getByTitle("output");
+    const transformerSelect = screen.getByRole("combobox");
 
     const testInput = "My test input";
     const transformerToUse = mockedTransformers.css2js;
@@ -77,10 +76,10 @@ describe("<Home />", () => {
   });
 
   test("allows changing the transformer", async () => {
-    const { getByRole, getByTestId } = render(<Home />);
-    const inputBox = getByRole("textbox");
-    const outputBox = getByTestId("output");
-    const transformerSelect = getByRole("combobox");
+    render(<Home />);
+    const inputBox = screen.getByRole("textbox");
+    const outputBox = screen.getByTitle("output");
+    const transformerSelect = screen.getByRole("combobox");
 
     const testInput = "My test input";
     const transformerToUse = mockedTransformers.js2css;
@@ -95,9 +94,9 @@ describe("<Home />", () => {
   });
 
   test("transforms input to new input format when transformer is changed", async () => {
-    const { getByRole } = render(<Home />);
-    const inputBox = getByRole("textbox");
-    const transformerSelect = getByRole("combobox");
+    render(<Home />);
+    const inputBox = screen.getByRole("textbox");
+    const transformerSelect = screen.getByRole("combobox");
 
     const testInput = "My test input";
     const transformer1 = mockedTransformers.css2js;
@@ -125,44 +124,43 @@ describe("<Home />", () => {
   });
 
   test("clicking the swap button swaps the input and output formats", async () => {
-    const {
-      getByRole,
-      getByLabelText,
-      getByDisplayValue,
-      queryByDisplayValue,
-    } = render(<Home />);
-    const transformerSelect = getByRole("combobox");
-    const swapButton = getByLabelText(/swap/i);
+    render(<Home />);
+    const transformerSelect = screen.getByRole("combobox");
+    const swapButton = screen.getByLabelText(/swap/i);
 
     // Make sure we know what transformer is initially selected
     fireEvent.change(transformerSelect, {
       target: { value: mockedTransformers.css2js.id },
     });
 
-    expect(getByDisplayValue(/CSS => JS object/i)).toBeInTheDocument();
-    expect(queryByDisplayValue(/JS object => CSS/i)).not.toBeInTheDocument();
+    expect(screen.getByDisplayValue(/CSS => JS object/i)).toBeInTheDocument();
+    expect(
+      screen.queryByDisplayValue(/JS object => CSS/i)
+    ).not.toBeInTheDocument();
 
     fireEvent.click(swapButton);
 
-    expect(getByDisplayValue(/JS object => CSS/i)).toBeInTheDocument();
-    expect(queryByDisplayValue(/CSS => JS object/i)).not.toBeInTheDocument();
+    expect(screen.getByDisplayValue(/JS object => CSS/i)).toBeInTheDocument();
+    expect(
+      screen.queryByDisplayValue(/CSS => JS object/i)
+    ).not.toBeInTheDocument();
   });
 
   test("the swap button does nothing when no inverse transformer exists", async () => {
-    const { getByRole, getByLabelText, getByDisplayValue } = render(<Home />);
-    const transformerSelect = getByRole("combobox");
-    const swapButton = getByLabelText(/swap/i);
+    render(<Home />);
+    const transformerSelect = screen.getByRole("combobox");
+    const swapButton = screen.getByLabelText(/swap/i);
 
     // Make sure we know what transformer is initially selected
     fireEvent.change(transformerSelect, {
       target: { value: mockedTransformers.x2y.id },
     });
 
-    expect(getByDisplayValue(/X => Y/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/X => Y/i)).toBeInTheDocument();
 
     fireEvent.click(swapButton);
 
     // Expect transformer not to have changed since it doesn't have an inverse
-    expect(getByDisplayValue(/X => Y/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/X => Y/i)).toBeInTheDocument();
   });
 });
