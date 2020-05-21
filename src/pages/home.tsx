@@ -26,8 +26,12 @@ const Home: React.FC<RouteComponentProps> = () => {
         transformer.from
       );
       if (intermediateTransformer) {
-        const newInput = intermediateTransformer.transform(input);
-        setInput(newInput);
+        try {
+          const newInput = intermediateTransformer.transform(input);
+          setInput(newInput);
+        } catch {
+          // don't change the input
+        }
       }
     }
   }, [input, transformer, prevTransformer]);
