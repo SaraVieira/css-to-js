@@ -136,7 +136,7 @@ const htmlTags = [
   "var",
   "video",
   "wbr",
-  "xmp"
+  "xmp",
 ];
 
 function checker(value) {
@@ -173,7 +173,7 @@ export function transform(css) {
       if (prop.startsWith("-")) {
         prop = `"${prop}"`;
       } else if (prop.includes("-")) {
-        prop = prop.replace(/-([a-z])/g, g => g[1].toUpperCase());
+        prop = prop.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
       }
     }
 
@@ -191,15 +191,15 @@ export function transform(css) {
     return {
       ...acc,
       ...(!!prop && {
-        [prop]: typeof value === "string" ? `"${value.trim()}"` : value
-      })
+        [prop]: typeof value === "string" ? `"${value.trim()}"` : value,
+      }),
     };
   }, {});
 
   const objString = `{
     ${Object.keys(rules)
-    .map(property => `${property}: ${rules[property]},`)
-    .join("\n")}
+      .map((property) => `${property}: ${rules[property]},`)
+      .join("\n")}
   }`;
 
   try {
