@@ -17,9 +17,12 @@ export function parseJsObject(input: string): [ObjectExpression, string] {
   try {
     expression = babelParser.parseExpression(rawLines);
   } catch (e) {
-    const location = getErrorLocation(e);
-    const codeFrame = codeFrameColumns(rawLines, { start: location });
-    throw new SyntaxError(`${e.message}\n\n${codeFrame}`);
+    if (e instanceof SyntaxError) {
+      const location = getErrorLocation(e);
+      const codeFrame = codeFrameColumns(rawLines, { start: location });
+      throw new SyntaxError(`${e.message}\n\n${codeFrame}`);
+    }
+    throw e;
   }
 
   if (expression.type !== "ObjectExpression") {
