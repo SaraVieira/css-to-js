@@ -6,6 +6,17 @@
   "commit": false,
   "contributors": [
     {
+      "login": "SaraVieira",
+      "name": "Sara Vieira",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1051509?v=4",
+      "profile": "http://iamsaravieira.com",
+      "contributions": [
+        "ideas",
+        "code",
+        "design"
+      ]
+    },
+    {
       "login": "nimobeeren",
       "name": "Nimo Beeren",
       "avatar_url": "https://avatars0.githubusercontent.com/u/12124298?v=4",
@@ -26,14 +37,12 @@
       ]
     },
     {
-      "login": "SaraVieira",
-      "name": "Sara Vieira",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/1051509?v=4",
-      "profile": "http://iamsaravieira.com",
+      "login": "impulsivetomato",
+      "name": "Nathan Thorpe",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/15922558?v=4",
+      "profile": "https://github.com/impulsivetomato",
       "contributions": [
-        "ideas",
-        "code",
-        "design"
+        "code"
       ]
     }
   ],

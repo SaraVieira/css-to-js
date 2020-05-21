@@ -10,11 +10,11 @@ import { formatCss, parseObj } from "../utils";
 export function transform(objString) {
   const rules = parseObj(objString);
 
-  const cssStrings = Object.keys(rules).map(property => {
+  const cssStrings = Object.keys(rules).map((property) => {
     let value = rules[property];
 
     // Convert property from camelCase to kebab-case
-    property = property.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`);
+    property = property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
 
     let first = value.charAt(0);
     let middle = value.slice(1, -1);
