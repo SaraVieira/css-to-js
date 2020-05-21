@@ -1,17 +1,25 @@
 import * as babelParser from "@babel/parser";
+import { codeFrameColumns } from "@babel/code-frame";
 import { Expression, Node, ObjectExpression } from "@babel/types";
+import { getErrorLocation } from "./getErrorLocation";
 
 export function parseJsObject(input: string): [ObjectExpression, string] {
-  let expression: Expression;
   let rawLines: string;
   if (input.trim().match(/^\{.*\}$/s)) {
     rawLines = input;
-    expression = babelParser.parseExpression(input);
   } else {
     // Wrap the input in curly braces before parsing
     // This is to support input without curly braces
     rawLines = `{${input}}`;
+  }
+
+  let expression: Expression;
+  try {
     expression = babelParser.parseExpression(rawLines);
+  } catch (e) {
+    const location = getErrorLocation(e);
+    const codeFrame = codeFrameColumns(rawLines, { start: location });
+    throw new SyntaxError(`${e.message}\n\n${codeFrame}`);
   }
 
   if (expression.type !== "ObjectExpression") {
@@ -26,7 +34,7 @@ export function parseJsObject(input: string): [ObjectExpression, string] {
  * @param node AST node
  * @param code input code that AST was generated from
  */
-export function nodeToString(node: Node, code: string) {
+export function nodeToString(node: Node, code: string): string {
   const { start, end } = node;
   if (start === null || end === null) {
     // I'm not sure when this would happen, but it probably means

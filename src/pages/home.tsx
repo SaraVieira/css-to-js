@@ -43,7 +43,7 @@ const Home: React.FC<RouteComponentProps> = () => {
       setOutput(newOutput);
     } catch (e) {
       setOutput(
-        `Something went wrong while transforming the code: ${e.message}`
+        `Something went wrong while transforming the code:\n${e.message}`
       );
     }
   }, [input, transformer]);
