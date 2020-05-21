@@ -2,7 +2,7 @@ const { transform } = require("../src/transformers/css2jsx");
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "Content-Type"
+  "Access-Control-Allow-Headers": "Content-Type",
 };
 
 export async function handler({ body }) {

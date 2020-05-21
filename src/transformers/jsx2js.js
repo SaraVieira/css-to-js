@@ -46,7 +46,7 @@ export function transform(jsx) {
 
   const objString = `{
     ${Object.keys(rules)
-      .map(property => `${property}: ${rules[property]},`)
+      .map((property) => `${property}: ${rules[property]},`)
       .join("\n")}
   }`;
 

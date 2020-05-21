@@ -10,7 +10,7 @@ export function findTransformerById(
     id = parseInt(id, 10);
   }
 
-  return Object.values(transformers).find(tf => tf.id === id);
+  return Object.values(transformers).find((tf) => tf.id === id);
 }
 
 /**
@@ -21,7 +21,7 @@ export function findTransformerByFromTo(
   from?: string,
   to?: string
 ): Transformer | undefined {
-  return Object.values(transformers).find(tf => {
+  return Object.values(transformers).find((tf) => {
     if (from !== undefined && to !== undefined) {
       return tf.from === from && tf.to === to;
     } else if (from !== undefined) {
