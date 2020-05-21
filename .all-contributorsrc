@@ -6,6 +6,17 @@
   "commit": false,
   "contributors": [
     {
+      "login": "SaraVieira",
+      "name": "Sara Vieira",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1051509?v=4",
+      "profile": "http://iamsaravieira.com",
+      "contributions": [
+        "ideas",
+        "code",
+        "design"
+      ]
+    },
+    {
       "login": "nimobeeren",
       "name": "Nimo Beeren",
       "avatar_url": "https://avatars0.githubusercontent.com/u/12124298?v=4",
@@ -23,17 +34,6 @@
       "profile": "http://firminoalves.com",
       "contributions": [
         "code"
-      ]
-    },
-    {
-      "login": "SaraVieira",
-      "name": "Sara Vieira",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/1051509?v=4",
-      "profile": "http://iamsaravieira.com",
-      "contributions": [
-        "ideas",
-        "code",
-        "design"
       ]
     },
     {
