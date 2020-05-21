@@ -26,8 +26,12 @@ const Home: React.FC<RouteComponentProps> = () => {
         transformer.from
       );
       if (intermediateTransformer) {
-        const newInput = intermediateTransformer.transform(input);
-        setInput(newInput);
+        try {
+          const newInput = intermediateTransformer.transform(input);
+          setInput(newInput);
+        } catch {
+          // don't change the input
+        }
       }
     }
   }, [input, transformer, prevTransformer]);
@@ -39,7 +43,7 @@ const Home: React.FC<RouteComponentProps> = () => {
       setOutput(newOutput);
     } catch (e) {
       setOutput(
-        `Something went wrong while transforming the code: ${e.message}`
+        `Something went wrong while transforming the code:\n${e.message}`
       );
     }
   }, [input, transformer]);
