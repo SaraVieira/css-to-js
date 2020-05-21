@@ -1,5 +1,5 @@
 import * as CSS from "csstype";
-import { parseCss } from "../utils/parseCss";
+import { parseCss } from "../utils/parser";
 import { formatObject } from "../utils/formatter";
 
 export function transform(css: string): string {
