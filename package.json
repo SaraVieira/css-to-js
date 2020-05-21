@@ -2,6 +2,9 @@
   "name": "@saravieira/css-to-js",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=12"
+  },
   "dependencies": {
     "@babel/code-frame": "^7.8.3",
     "@babel/parser": "^7.9.6",
