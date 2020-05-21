@@ -4,12 +4,12 @@ import { Expression, Node, ObjectExpression } from "@babel/types";
 export function parseJsObject(input: string): [ObjectExpression, string] {
   let expression: Expression;
   let rawLines: string;
-  try {
+  if (input.trim().match(/^\{.*\}$/s)) {
     rawLines = input;
     expression = babelParser.parseExpression(input);
-  } catch {
-    // Try parsing again, but wrap the input in curly braces
-    // This is to support passing input without curly braces
+  } else {
+    // Wrap the input in curly braces before parsing
+    // This is to support input without curly braces
     rawLines = `{${input}}`;
     expression = babelParser.parseExpression(rawLines);
   }
