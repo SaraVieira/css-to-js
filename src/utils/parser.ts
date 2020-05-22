@@ -63,22 +63,22 @@ function getCssProps(root: Root): Declaration[] {
     return [];
   }
 
-  function iterate(nodes: ChildNode[], declarations: Declaration[] = []) {
+  function recurse(nodes: ChildNode[], declarations: Declaration[] = []) {
     nodes.forEach((item) => {
       if (item.type === "decl") {
         declarations.push(item);
       } else if (item.type === "rule" && item?.nodes) {
-        iterate(item.nodes, declarations);
+        recurse(item.nodes, declarations);
       }
     });
 
     return declarations;
   }
 
-  return iterate(nodes);
+  return recurse(nodes);
 }
 /**
- * Parses css into PostCss AST and returns array of declarations
+ * Parses css into PostCss AST
  * @param css css string
  */
 export function parseCss(css: string): Declaration[] {
