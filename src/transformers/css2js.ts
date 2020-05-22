@@ -37,5 +37,9 @@ export function transform(css: string): string {
       .join("\n")}
   }`;
 
-  return formatObject(objString);
+  try {
+    return formatObject(objString);
+  } catch (e) {
+    return objString;
+  }
 }
