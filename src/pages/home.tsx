@@ -10,7 +10,7 @@ import {
   findTransformerById,
   findTransformerByLanguage,
 } from "../transformers/utils";
-import { formatCss, formatObject, formatProps } from "../formatters";
+import { findFormatterByLanguage } from "../formatters/utils";
 import { exampleCSS, usePrevious } from "../utils";
 import "./home.css";
 
@@ -55,18 +55,13 @@ const Home: React.FC<RouteComponentProps> = () => {
   });
 
   const formatInput = () => {
-    let formatter;
-    if (transformer.from === "css") {
-      formatter = formatCss;
-    } else if (transformer.from === "javascript") {
-      formatter = formatObject;
-    } else if (transformer.from === "jsx") {
-      formatter = formatProps;
-    }
-    try {
-      setInput(formatter(input));
-    } catch {
-      // do nothing
+    const formatter = findFormatterByLanguage(transformer.from);
+    if (formatter) {
+      try {
+        setInput(formatter.format(input));
+      } catch (e) {
+        console.warn(`Could not format input: ${e.message}`);
+      }
     }
   };
 

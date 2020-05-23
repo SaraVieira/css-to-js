@@ -5,24 +5,24 @@ import { formatProps } from "./jsx";
 
 export interface Formatter {
   id: number;
-  transform: (input: string) => string;
+  format: (input: string) => string;
   language: Language;
 }
 
 export const formatters: Record<string, Formatter> = {
   css: {
     id: 0,
-    transform: formatCss,
+    format: formatCss,
     language: "css",
   },
   js: {
     id: 1,
-    transform: formatObject,
+    format: formatObject,
     language: "javascript",
   },
   jsx: {
     id: 2,
-    transform: formatProps,
+    format: formatProps,
     language: "jsx",
   },
 };
