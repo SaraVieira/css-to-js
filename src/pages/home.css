@@ -6,7 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-  /* overflow: hidden; */
 }
 
 code {
@@ -27,7 +26,6 @@ pre,
 .editor {
   font-family: "Roboto Mono", monospace;
   background: #011627;
-  border: 0;
   resize: none;
   color: #d0d3d6;
   white-space: pre-wrap;
@@ -35,21 +33,57 @@ pre,
   margin: 0;
 }
 
+pre {
+  border: 2px solid !important;
+  border-color: transparent !important;
+}
+
 .editor {
   background: #18264a;
-  border-right: 1px solid #1e2f5d;
+}
+
+.editor textarea {
+  transition: border-color 0.2s;
+  border: 2px solid !important;
+  border-color: transparent !important;
+}
+
+.editor textarea:focus {
+  outline: none;
+  border-color: #3182ce !important;
 }
 
 .toast {
-  border: none;
-  background: #5fbb9e;
+  position: fixed;
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  background: #2d594b;
+  border: 1px solid;
+  border-color: #4e9981;
   border-radius: 4px;
   color: white;
   padding: 10px;
-  position: fixed;
-  right: 50px;
-  bottom: 30px;
   cursor: pointer;
+  transition: border-color, box-shadow 0.2s;
+}
+
+.toast:hover:not(:disabled) {
+  border-color: #cbd5e0;
+}
+
+.toast:focus:not(:disabled) {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 1px #3182ce;
+}
+
+.toast--right {
+  right: 32px;
+}
+
+.toast--left {
+  left: 32px;
 }
 
 .code-area {
@@ -68,7 +102,6 @@ small {
 select {
   position: relative;
   transition: all 0.2s;
-  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -83,13 +116,14 @@ select {
   background-color: rgb(1, 22, 39);
   padding-bottom: 1px;
   line-height: normal;
+  cursor: pointer;
 }
 
-select:hover {
+select:hover:not(:disabled) {
   border-color: #cbd5e0;
 }
 
-select:focus {
+select:focus:not(:disabled) {
   z-index: 1;
   border-color: #3182ce;
   box-shadow: 0 0 0 1px #3182ce;
@@ -119,6 +153,7 @@ select:focus {
   border-color: #1a4669;
   border-radius: 0.25rem;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .swap svg {
@@ -130,7 +165,7 @@ select:focus {
   color: #cbd5e0;
 }
 
-.swap:focus {
+.swap:focus:not(:disabled) {
   outline: none;
   border-color: #3182ce;
   box-shadow: 0 0 0 1px #3182ce;
