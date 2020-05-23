@@ -42,6 +42,7 @@
     "build:functions": "cross-env NODE_ENV=production netlify-lambda build functions",
     "build": "npm run build:app && npm run build:functions",
     "check-types": "tsc",
+    "lint": "eslint src --ext js,ts,tsx",
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
