@@ -21,7 +21,7 @@ export function transform(objString: string) {
       key = `[${key}]`;
     } else {
       if (property.key.name) {
-        key = property.key.name as string;
+        key = property.key.name;
       } else {
         key = nodeToString(property.key, rawLines);
       }
