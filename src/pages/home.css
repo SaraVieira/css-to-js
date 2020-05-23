@@ -27,7 +27,6 @@ pre,
 .editor {
   font-family: "Roboto Mono", monospace;
   background: #011627;
-  border: 0;
   resize: none;
   color: #d0d3d6;
   white-space: pre-wrap;
@@ -37,7 +36,18 @@ pre,
 
 .editor {
   background: #18264a;
-  border-right: 1px solid #1e2f5d;
+}
+
+.editor textarea {
+  transition: border-color 0.2s;
+  border: 2px solid !important;
+  border-color: transparent !important;
+}
+
+.editor textarea:focus {
+  outline: none;
+  border-color: #3182ce !important;
+  overflow: visible;
 }
 
 .toast {
