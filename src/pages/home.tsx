@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import SwapIcon from "@material-ui/icons/SwapHoriz";
+import BrushIcon from "@material-ui/icons/Brush";
 import CopyIcon from "@material-ui/icons/FileCopy";
 import { Code, Editor, Logo, Nav, Select } from "../components";
 import { transformers } from "../transformers";
@@ -121,6 +122,11 @@ const Home: React.FC<RouteComponentProps> = () => {
 
         <Code code={output} language={transformer.to} label="output" />
       </section>
+
+      <button className="toast toast--left" onClick={undefined}>
+        <BrushIcon style={{ marginRight: 4 }} />
+        <span>Prettify</span>
+      </button>
 
       <button className="toast toast--right" onClick={setCopied}>
         <CopyIcon style={{ marginRight: 4 }} />

@@ -65,7 +65,8 @@ pre {
   color: white;
   padding: 10px;
   cursor: pointer;
-  transition: border-color, box-shadow 0.2s;
+  transition-property: border-color box-shadow;
+  transition-duration: 0.2s;
 }
 
 .toast:hover:not(:disabled) {
