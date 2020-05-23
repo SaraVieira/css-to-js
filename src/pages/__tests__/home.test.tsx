@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen, wait, fireEvent } from "@testing-library/react";
 import { Language } from "prism-react-renderer";
 import { transformers as mockedTransformers } from "../../transformers";
+import { findTransformerByLanguage } from "../../transformers/utils";
 import Home from "../home";
-import { findTransformerByFromTo } from "../../utils/transformers";
 
 // The transform functions are already unit tested, so replace them with stubs
 jest.mock("../../transformers", (): {
@@ -104,7 +104,7 @@ describe("<Home />", () => {
 
     // We're going to change from transformer1 to transformer2, so expect the
     // input to be transformed to the format that is accepted by transformer2
-    const intermediateTransformer = findTransformerByFromTo(
+    const intermediateTransformer = findTransformerByLanguage(
       transformer1.from,
       transformer2.from
     );

@@ -1,4 +1,5 @@
-import { transformers, Transformer } from "../transformers";
+import { transformers, Transformer } from "./index";
+import { Language } from "prism-react-renderer";
 
 /**
  * Finds a transformer with the specified ID.
@@ -14,12 +15,12 @@ export function findTransformerById(
 }
 
 /**
- * Finds a transformer with the specified `from` and `to` format.
+ * Finds a transformer with the specified languages.
  * Both arguments can be omitted to weaken the constraints.
  */
-export function findTransformerByFromTo(
-  from?: string,
-  to?: string
+export function findTransformerByLanguage(
+  from?: Language,
+  to?: Language
 ): Transformer | undefined {
   return Object.values(transformers).find((tf) => {
     if (from !== undefined && to !== undefined) {

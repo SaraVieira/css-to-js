@@ -6,13 +6,12 @@ import BrushIcon from "@material-ui/icons/Brush";
 import CopyIcon from "@material-ui/icons/FileCopy";
 import { Code, Editor, Logo, Nav, Select } from "../components";
 import { transformers } from "../transformers";
-import { formatCss, formatObject, formatProps } from "../formatters";
 import {
-  exampleCSS,
-  usePrevious,
   findTransformerById,
-  findTransformerByFromTo,
-} from "../utils";
+  findTransformerByLanguage,
+} from "../transformers/utils";
+import { formatCss, formatObject, formatProps } from "../formatters";
+import { exampleCSS, usePrevious } from "../utils";
 import "./home.css";
 
 const Home: React.FC<RouteComponentProps> = () => {
@@ -24,7 +23,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   // Update input when transformer is changed
   useLayoutEffect(() => {
     if (prevTransformer && transformer !== prevTransformer) {
-      const intermediateTransformer = findTransformerByFromTo(
+      const intermediateTransformer = findTransformerByLanguage(
         prevTransformer.from,
         transformer.from
       );
@@ -113,10 +112,10 @@ const Home: React.FC<RouteComponentProps> = () => {
           <button
             className="swap"
             disabled={
-              !findTransformerByFromTo(transformer.to, transformer.from)
+              !findTransformerByLanguage(transformer.to, transformer.from)
             }
             onClick={() => {
-              const swappedTransformer = findTransformerByFromTo(
+              const swappedTransformer = findTransformerByLanguage(
                 transformer.to,
                 transformer.from
               );
