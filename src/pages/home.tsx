@@ -122,7 +122,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         <Code code={output} language={transformer.to} label="output" />
       </section>
 
-      <button className="toast" onClick={setCopied}>
+      <button className="toast toast--right" onClick={setCopied}>
         <CopyIcon style={{ marginRight: 4 }} />
         <span>{isCopied ? "Copied" : "Copy"} to Clipboard</span>
       </button>

@@ -6,7 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-  /* overflow: hidden; */
 }
 
 code {
@@ -51,6 +50,8 @@ pre,
 }
 
 .toast {
+  position: fixed;
+  bottom: 32px;
   display: flex;
   align-items: center;
   background: #2d594b;
@@ -59,11 +60,8 @@ pre,
   border-radius: 4px;
   color: white;
   padding: 10px;
-  position: fixed;
-  right: 50px;
-  bottom: 30px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color, box-shadow 0.2s;
 }
 
 .toast:hover {
@@ -74,6 +72,14 @@ pre,
   outline: none;
   border-color: #3182ce;
   box-shadow: 0 0 0 1px #3182ce;
+}
+
+.toast--right {
+  right: 32px;
+}
+
+.toast--left {
+  left: 32px;
 }
 
 .code-area {
