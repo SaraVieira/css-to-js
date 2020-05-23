@@ -23,6 +23,7 @@ export function transform(objString: string) {
       if (property.key.name) {
         key = property.key.name;
       } else {
+        // This probably never happens, but TS types suggest it is possible
         key = nodeToString(property.key, rawLines);
       }
     }
