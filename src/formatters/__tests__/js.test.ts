@@ -1,21 +1,21 @@
-import { formatObject } from "../js";
+import { formatJsObject } from "../js";
 
-describe("formatObject()", () => {
+describe("formatJsObject()", () => {
   test("formats an object with a single key/value pair", () => {
     let expected = `{ someProp: someValue }`;
-    expect(formatObject(`{ someProp: someValue }`)).toBe(expected);
-    expect(formatObject(`\t {someProp  : someValue}`)).toBe(expected);
+    expect(formatJsObject(`{ someProp: someValue }`)).toBe(expected);
+    expect(formatJsObject(`\t {someProp  : someValue}`)).toBe(expected);
   });
 
   test("formats an object with multiple key/value pairs", () => {
     let expected = `{ x: 1, y: 2 }`;
-    expect(formatObject(`{ x: 1, y: 2 }`)).toBe(expected);
-    expect(formatObject(`{x:1,\n \ty: 2}  `)).toBe(expected);
+    expect(formatJsObject(`{ x: 1, y: 2 }`)).toBe(expected);
+    expect(formatJsObject(`{x:1,\n \ty: 2}  `)).toBe(expected);
   });
 
   test("formats a complex object", () => {
     expect(
-      formatObject(
+      formatJsObject(
         `{ someProp: someValue,
           couldBe: {
             nested  : true, \t messedUp :true,

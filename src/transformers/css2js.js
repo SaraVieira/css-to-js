@@ -1,4 +1,4 @@
-import { formatObject } from "../formatters";
+import { formatJsObject } from "../formatters";
 
 const htmlTags = [
   "a",
@@ -203,7 +203,7 @@ export function transform(css) {
   }`;
 
   try {
-    return formatObject(objString);
+    return formatJsObject(objString);
   } catch (e) {
     return objString;
   }

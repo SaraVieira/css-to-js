@@ -5,7 +5,7 @@ import prettierBabel from "prettier/parser-babel";
  * Takes a JS object written as a string and formats it.
  * @param objString string that defines a JS object
  */
-export function formatObject(objString: string) {
+export function formatJsObject(objString: string) {
   // Write object in a piece of JS code so Prettier knows how to format it
   let codeString = `let temp = ${objString};`;
 

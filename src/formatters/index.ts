@@ -1,7 +1,7 @@
 import { Language } from "prism-react-renderer";
 import { formatCss } from "./css";
-import { formatObject } from "./js";
-import { formatProps } from "./jsx";
+import { formatJsObject } from "./js";
+import { formatJsxProps } from "./jsx";
 
 export interface Formatter {
   id: number;
@@ -17,14 +17,14 @@ export const formatters: Record<string, Formatter> = {
   },
   js: {
     id: 1,
-    format: formatObject,
+    format: formatJsObject,
     language: "javascript",
   },
   jsx: {
     id: 2,
-    format: formatProps,
+    format: formatJsxProps,
     language: "jsx",
   },
 };
 
-export { formatCss, formatObject, formatProps };
+export { formatCss, formatJsObject, formatJsxProps };

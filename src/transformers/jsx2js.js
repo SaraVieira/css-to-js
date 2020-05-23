@@ -1,4 +1,4 @@
-import { formatObject } from "../formatters";
+import { formatJsObject } from "../formatters";
 
 /**
  * Transforms JSX props to a JS object.
@@ -51,7 +51,7 @@ export function transform(jsx) {
   }`;
 
   try {
-    return formatObject(objString);
+    return formatJsObject(objString);
   } catch (e) {
     return objString;
   }
