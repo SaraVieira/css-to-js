@@ -55,6 +55,11 @@ describe("js2css", () => {
     `);
   });
 
+  test("transforms a single-line object", () => {
+    const input = `{ someProp: "someValue" }`;
+    expect(transform(input)).toMatchInlineSnapshot(`"some-prop: someValue;"`);
+  });
+
   test("transforms a more complex object", () => {
     expect(
       transform(`{
