@@ -1,7 +1,7 @@
 import React from "react";
 import GitHubIcon from "@material-ui/icons/GitHub";
 // import { Link } from "@reach/router";
-import "./header.css";
+import "./nav.css";
 
 export const Nav = () => (
   <nav>
