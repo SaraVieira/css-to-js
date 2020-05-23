@@ -61,6 +61,7 @@ pre,
 }
 
 .toast:focus {
+  outline: none;
   border-color: #3182ce;
   box-shadow: 0 0 0 1px #3182ce;
 }
@@ -81,7 +82,6 @@ small {
 select {
   position: relative;
   transition: all 0.2s;
-  outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
