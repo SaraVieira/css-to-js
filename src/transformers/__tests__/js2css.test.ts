@@ -1,29 +1,27 @@
 import { transform } from "../js2css";
 
 describe("js2css", () => {
-  test("transforms a rule with a string value", () => {
+  test("transforms a property with a string value", () => {
     const input = `someProp: "someValue"`;
     expect(transform(input)).toBe(`some-prop: someValue;`);
   });
 
-  test("transforms a rule with a string value with single quotes", () => {
+  test("transforms a property with a string value with single quotes", () => {
     const input = `someProp: 'someValue'`;
     expect(transform(input)).toBe(`some-prop: someValue;`);
   });
 
-  test("transforms a rule with a number value to pixels", () => {
-    let input = `someProp: 42`;
-    expect(transform(input)).toBe(`some-prop: 42px;`);
-    input = `someProp: 13.37`;
+  test("transforms a property with a number value to pixels", () => {
+    const input = `someProp: 13.37`;
     expect(transform(input)).toBe(`some-prop: 13.37px;`);
   });
 
-  test("transforms a rule with an arbitrary expression value", () => {
+  test("transforms a property with an arbitrary expression value", () => {
     const input = `someProp: someExpression`;
     expect(transform(input)).toBe(`some-prop: someExpression;`);
   });
 
-  test("transforms a rule with a double quote char in its value", () => {
+  test("transforms a property with a double quote char in its value", () => {
     const input = `someProp: 'some"Value'`;
     expect(transform(input)).toBe(`some-prop: some"Value;`);
   });
@@ -31,6 +29,18 @@ describe("js2css", () => {
   test("preserves brackets around computed properties", () => {
     const input = `[computedProp]: "someValue"`;
     expect(transform(input)).toBe(`[computed-prop]: someValue;`);
+  });
+
+  test("transforms an object method property", () => {
+    const input = `someMethod() { return 42 }`;
+    expect(transform(input)).toMatchInlineSnapshot(
+      `"someMethod() { return 42 }"`
+    );
+  });
+
+  test("transforms a spread element", () => {
+    const input = `...spreadMe`;
+    expect(transform(input)).toMatchInlineSnapshot(`"...spreadMe"`);
   });
 
   test("transforms a simple object", () => {

@@ -16,6 +16,7 @@ export function transform(objString: string) {
 
     let key: string;
     if (property.computed) {
+      // Preserve brackets around computed properties
       key = nodeToString(property.key, rawLines);
       key = `[${key}]`;
     } else {
@@ -25,7 +26,7 @@ export function transform(objString: string) {
         key = nodeToString(property.key, rawLines);
       }
     }
-    // convert camelCase to kebab-case
+    // Convert camelCase to kebab-case
     key = key.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`);
 
     let value: string;
