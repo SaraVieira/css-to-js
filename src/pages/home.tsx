@@ -11,6 +11,9 @@ import {
   usePrevious,
   findTransformerById,
   findTransformerByFromTo,
+  formatCss,
+  formatObject,
+  formatProps,
 } from "../utils";
 import "./home.css";
 
@@ -53,6 +56,22 @@ const Home: React.FC<RouteComponentProps> = () => {
   const [isCopied, setCopied] = useClipboard(output, {
     successDuration: 1000,
   });
+
+  const formatInput = () => {
+    let formatter;
+    if (transformer.from === "css") {
+      formatter = formatCss;
+    } else if (transformer.from === "javascript") {
+      formatter = formatObject;
+    } else if (transformer.from === "jsx") {
+      formatter = formatProps;
+    }
+    try {
+      setInput(formatter(input));
+    } catch {
+      // do nothing
+    }
+  };
 
   return (
     <main className="App">
@@ -123,7 +142,7 @@ const Home: React.FC<RouteComponentProps> = () => {
         <Code code={output} language={transformer.to} label="output" />
       </section>
 
-      <button className="toast toast--left" onClick={undefined}>
+      <button className="toast toast--left" onClick={formatInput}>
         <BrushIcon style={{ marginRight: 4 }} />
         <span>Prettify</span>
       </button>
