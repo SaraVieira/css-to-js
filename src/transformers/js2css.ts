@@ -1,43 +1,41 @@
 import { formatCss } from "../formatters";
-import { parseObj } from "../utils";
-
-// FIXME: produces invalid CSS when first property is on same line as opening {
+import { parseJsObject, nodeToString } from "../utils";
 
 /**
  * Transforms a JS object containing CSS rules to CSS.
- * @param {string} objString JS object code
- * @returns {string} CSS code
+ * @param objString JS object code
  */
-export function transform(objString) {
-  const rules = parseObj(objString);
+export function transform(objString: string) {
+  const [objectExpression, rawLines] = parseJsObject(objString);
 
-  const cssStrings = Object.keys(rules).map((property) => {
-    let value = rules[property];
-
-    // Convert property from camelCase to kebab-case
-    property = property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
-
-    let first = value.charAt(0);
-    let middle = value.slice(1, -1);
-    let last = value.charAt(value.length - 1);
-
-    // If value is wrapped in quotes, leave them out
-    if ((first === `"` || first === `'`) && first === last) {
-      value = middle;
+  const cssStrings = objectExpression.properties.map((property) => {
+    if (property.type === "ObjectMethod" || property.type === "SpreadElement") {
+      // Nothing we can really do here since CSS doesn't have these things
+      return nodeToString(property, rawLines);
     }
 
-    // If value is a (decimal) number, interpret it as pixels
-    if (value.match(/^\d+\.?\d*$/)) {
-      value = `${value}px`;
+    // TODO: handle computed properties
+
+    let key =
+      (property.key.name as string) ?? nodeToString(property.key, rawLines);
+    // convert camelCase to kebab-case
+    key = key.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`);
+
+    let value: string;
+    if (property.value.type === "StringLiteral") {
+      value = property.value.value;
+    } else if (property.value.type === "NumericLiteral") {
+      value = `${property.value.value}px`;
+    } else {
+      value = nodeToString(property.value, rawLines);
     }
 
-    return `${property}: ${value};`;
+    return `${key}: ${value};`;
   });
 
-  const css = cssStrings.join("\n");
   try {
-    return formatCss(css);
+    return formatCss(cssStrings.join("\n"));
   } catch (e) {
-    return css;
+    return cssStrings.join("\n");
   }
 }
