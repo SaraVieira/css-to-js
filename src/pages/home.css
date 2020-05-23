@@ -33,6 +33,11 @@ pre,
   margin: 0;
 }
 
+pre {
+  border: 2px solid !important;
+  border-color: transparent !important;
+}
+
 .editor {
   background: #18264a;
 }
