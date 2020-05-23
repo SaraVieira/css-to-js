@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Codecov
+        uses: codecov/codecov-action@v1.0.7
       - run: yarn --frozen-lockfile
       - run: yarn lint
       - run: yarn test
