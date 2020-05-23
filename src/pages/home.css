@@ -43,8 +43,9 @@ pre,
 .toast {
   display: flex;
   align-items: center;
-  border: none;
   background: #2d594b;
+  border: 1px solid;
+  border-color: #4e9981;
   border-radius: 4px;
   color: white;
   padding: 10px;
@@ -52,6 +53,16 @@ pre,
   right: 50px;
   bottom: 30px;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toast:hover {
+  border-color: #cbd5e0;
+}
+
+.toast:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 1px #3182ce;
 }
 
 .code-area {
