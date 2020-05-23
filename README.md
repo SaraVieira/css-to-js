@@ -6,6 +6,8 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+[![Coverage](https://img.shields.io/codecov/c/gh/SaraVieira/css-to-js?style=flat-square)](https://codecov.io/gh/SaraVieira/css-to-js)
+
 [Transform between CSS, JS Objects and React props.](https://css2js.dotenv.dev/)
 
 We're all doing CSS-in-JS these days, but there doesn't seem to be a real consensus on the best way to do it. Some people like writing plain old CSS, template literals, object styles and others write styles as props on their React components. To help ease the transition between those different forms, we've made a tool that transforms the code for you.
