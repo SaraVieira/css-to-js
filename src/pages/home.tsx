@@ -6,14 +6,12 @@ import BrushIcon from "@material-ui/icons/Brush";
 import CopyIcon from "@material-ui/icons/FileCopy";
 import { Code, Editor, Logo, Nav, Select } from "../components";
 import { transformers } from "../transformers";
+import { formatCss, formatObject, formatProps } from "../formatters";
 import {
   exampleCSS,
   usePrevious,
   findTransformerById,
   findTransformerByFromTo,
-  formatCss,
-  formatObject,
-  formatProps,
 } from "../utils";
 import "./home.css";
 
