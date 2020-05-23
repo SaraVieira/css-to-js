@@ -106,6 +106,7 @@ select {
   background-color: rgb(1, 22, 39);
   padding-bottom: 1px;
   line-height: normal;
+  cursor: pointer;
 }
 
 select:hover {
@@ -142,6 +143,7 @@ select:focus {
   border-color: #1a4669;
   border-radius: 0.25rem;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .swap svg {
