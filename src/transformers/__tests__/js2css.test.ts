@@ -23,6 +23,16 @@ describe("js2css", () => {
     expect(transform(input)).toBe(`some-prop: someExpression;`);
   });
 
+  test("transforms a rule with a double quote char in its value", () => {
+    const input = `someProp: 'some"Value'`;
+    expect(transform(input)).toBe(`some-prop: some"Value;`);
+  });
+
+  test("preserves brackets around computed properties", () => {
+    const input = `[computedProp]: "someValue"`;
+    expect(transform(input)).toBe(`[computed-prop]: someValue;`);
+  });
+
   test("transforms a simple object", () => {
     expect(
       transform(`{
@@ -53,10 +63,5 @@ describe("js2css", () => {
       font-size: 16px;
       font-family: 'Inter', sans-serif;"
     `);
-  });
-
-  test("transforms a rule with a double quote char in its value", () => {
-    const input = `someProp: 'some"Value'`;
-    expect(transform(input)).toBe(`some-prop: some"Value;`);
   });
 });

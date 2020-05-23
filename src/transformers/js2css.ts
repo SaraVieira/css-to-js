@@ -14,10 +14,17 @@ export function transform(objString: string) {
       return nodeToString(property, rawLines);
     }
 
-    // TODO: handle computed properties
-
-    let key =
-      (property.key.name as string) ?? nodeToString(property.key, rawLines);
+    let key: string;
+    if (property.computed) {
+      key = nodeToString(property.key, rawLines);
+      key = `[${key}]`;
+    } else {
+      if (property.key.name) {
+        key = property.key.name as string;
+      } else {
+        key = nodeToString(property.key, rawLines);
+      }
+    }
     // convert camelCase to kebab-case
     key = key.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`);
 
