@@ -65,7 +65,7 @@ pre {
   color: white;
   padding: 10px;
   cursor: pointer;
-  transition-property: border-color box-shadow;
+  transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
 }
 
