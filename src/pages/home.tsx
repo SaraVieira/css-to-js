@@ -20,6 +20,8 @@ const Home: React.FC<RouteComponentProps> = () => {
   const [transformer, setTransformer] = useState(transformers.css2js);
   const prevTransformer = usePrevious(transformer);
 
+  const x;
+
   // Update input when transformer is changed
   useLayoutEffect(() => {
     if (prevTransformer && transformer !== prevTransformer) {
