@@ -24,7 +24,7 @@ export const transformers: Record<string, Transformer> = {
   },
   css2jsx: {
     id: 1,
-    name: "CSS => React props",
+    name: "CSS => JSX props",
     transform: css2jsx,
     from: "css",
     to: "jsx",
@@ -38,21 +38,21 @@ export const transformers: Record<string, Transformer> = {
   },
   js2jsx: {
     id: 3,
-    name: "JS object => React props",
+    name: "JS object => JSX props",
     transform: js2jsx,
     from: "javascript",
     to: "jsx",
   },
   jsx2css: {
     id: 4,
-    name: "React props => CSS",
+    name: "JSX props => CSS",
     transform: jsx2css,
     from: "jsx",
     to: "css",
   },
   jsx2js: {
     id: 5,
-    name: "React props => JS object",
+    name: "JSX props => JS object",
     transform: jsx2js,
     from: "jsx",
     to: "javascript",

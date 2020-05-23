@@ -1,7 +1,7 @@
 import { formatObject } from "../formatters";
 
 /**
- * Transforms React props to a JS object.
+ * Transforms JSX props to a JS object.
  * @param {string} jsx props in JSX format as a single string
  * @returns {string} formatted JS object as a string
  */
