@@ -2,15 +2,16 @@ import React, { useState, useLayoutEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import SwapIcon from "@material-ui/icons/SwapHoriz";
+import PrettifyIcon from "@material-ui/icons/Looks";
 import CopyIcon from "@material-ui/icons/FileCopy";
 import { Code, Editor, Logo, Nav, Select } from "../components";
 import { transformers } from "../transformers";
 import {
-  exampleCSS,
-  usePrevious,
   findTransformerById,
-  findTransformerByFromTo,
-} from "../utils";
+  findTransformerByLanguage,
+} from "../transformers/utils";
+import { findFormatterByLanguage } from "../formatters/utils";
+import { exampleCSS, usePrevious } from "../utils";
 import "./home.css";
 
 const Home: React.FC<RouteComponentProps> = () => {
@@ -22,7 +23,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   // Update input when transformer is changed
   useLayoutEffect(() => {
     if (prevTransformer && transformer !== prevTransformer) {
-      const intermediateTransformer = findTransformerByFromTo(
+      const intermediateTransformer = findTransformerByLanguage(
         prevTransformer.from,
         transformer.from
       );
@@ -52,6 +53,17 @@ const Home: React.FC<RouteComponentProps> = () => {
   const [isCopied, setCopied] = useClipboard(output, {
     successDuration: 1000,
   });
+
+  const formatInput = () => {
+    const formatter = findFormatterByLanguage(transformer.from);
+    if (formatter) {
+      try {
+        setInput(formatter.format(input));
+      } catch (e) {
+        console.warn(`Could not format input: ${e.message}`);
+      }
+    }
+  };
 
   return (
     <main className="App">
@@ -95,10 +107,10 @@ const Home: React.FC<RouteComponentProps> = () => {
           <button
             className="swap"
             disabled={
-              !findTransformerByFromTo(transformer.to, transformer.from)
+              !findTransformerByLanguage(transformer.to, transformer.from)
             }
             onClick={() => {
-              const swappedTransformer = findTransformerByFromTo(
+              const swappedTransformer = findTransformerByLanguage(
                 transformer.to,
                 transformer.from
               );
@@ -121,6 +133,11 @@ const Home: React.FC<RouteComponentProps> = () => {
 
         <Code code={output} language={transformer.to} label="output" />
       </section>
+
+      <button className="toast toast--left" onClick={formatInput}>
+        <PrettifyIcon style={{ marginRight: 4 }} />
+        <span>Prettify</span>
+      </button>
 
       <button className="toast toast--right" onClick={setCopied}>
         <CopyIcon style={{ marginRight: 4 }} />

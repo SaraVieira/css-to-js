@@ -1,4 +1,4 @@
-import { formatObject } from "../utils";
+import { formatObject } from "../formatters";
 
 /**
  * Transforms React props to a JS object.

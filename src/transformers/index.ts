@@ -58,3 +58,5 @@ export const transformers: Record<string, Transformer> = {
     to: "javascript",
   },
 };
+
+export { css2js, css2jsx, js2css, js2jsx, jsx2css, jsx2js };

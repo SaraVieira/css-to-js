@@ -1,4 +1,5 @@
-import { formatCss, parseObj } from "../utils";
+import { formatCss } from "../formatters";
+import { parseObj } from "../utils";
 
 // FIXME: produces invalid CSS when first property is on same line as opening {
 

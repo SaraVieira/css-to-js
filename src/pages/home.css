@@ -65,7 +65,8 @@ pre {
   color: white;
   padding: 10px;
   cursor: pointer;
-  transition: border-color, box-shadow 0.2s;
+  transition-property: border-color, box-shadow;
+  transition-duration: 0.2s;
 }
 
 .toast:hover:not(:disabled) {
@@ -83,7 +84,7 @@ pre {
 }
 
 .toast--left {
-  left: 32px;
+  right: calc(50vw + 32px);
 }
 
 .code-area {

@@ -1,4 +1,5 @@
-import { parseJsObject, nodeToString, formatProps } from "../utils";
+import { formatProps } from "../formatters";
+import { parseJsObject, nodeToString } from "../utils";
 
 /**
  * Transforms a JS object to React props in JSX format.
