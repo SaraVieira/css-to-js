@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useClipboard from "react-use-clipboard";
 import SwapIcon from "@material-ui/icons/SwapHoriz";
+import CopyIcon from "@material-ui/icons/FileCopy";
 import { Code, Editor, Logo, Nav, Select } from "../components";
 import { transformers } from "../transformers";
 import {
@@ -122,7 +123,8 @@ const Home: React.FC<RouteComponentProps> = () => {
       </section>
 
       <button className="toast" onClick={setCopied}>
-        {isCopied ? "Copied" : "Copy"} to Clipboard
+        <CopyIcon style={{ marginRight: 4 }} />
+        <span>{isCopied ? "Copied" : "Copy"} to Clipboard</span>
       </button>
     </main>
   );

@@ -41,6 +41,8 @@ pre,
 }
 
 .toast {
+  display: flex;
+  align-items: center;
   border: none;
   background: #5fbb9e;
   border-radius: 4px;
