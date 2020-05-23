@@ -84,7 +84,7 @@ pre {
 }
 
 .toast--left {
-  left: 32px;
+  right: calc(50vw + 32px);
 }
 
 .code-area {
