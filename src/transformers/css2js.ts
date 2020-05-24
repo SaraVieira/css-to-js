@@ -1,5 +1,5 @@
-import { parseCss } from "../utils/parser";
-import { formatJsObject } from "../formatters/js";
+import { formatJsObject } from "../formatters";
+import { parseCss } from "../parsers";
 
 // convert props
 // -webkit-flex becomes "-webkit-flex"

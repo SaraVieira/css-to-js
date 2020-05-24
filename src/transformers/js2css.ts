@@ -1,5 +1,5 @@
 import { formatCss } from "../formatters";
-import { parseJsObject, nodeToString } from "../utils";
+import { parseJsObject, nodeToString } from "../parsers";
 
 /**
  * Transforms a JS object containing CSS rules to CSS.
