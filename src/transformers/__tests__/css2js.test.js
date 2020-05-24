@@ -72,4 +72,48 @@ describe("css2js", () => {
       }"
     `);
   });
+
+  test("transforms multiple rules with classes, ids and elements", () => {
+    expect(
+      transform(`
+        background-color: #fff;
+        div {
+          color: red;
+        }
+        #content {
+          width: 300px;
+        }
+        .main {
+          height: 100px;
+        }
+    `)
+    ).toMatchInlineSnapshot(`
+      "{
+        backgroundColor: \\"#fff\\",
+        color: \\"red\\",
+        width: 300,
+        height: 100,
+      }"
+    `);
+  });
+
+  test("transforms rules with duplicate properties and maintains position", () => {
+    expect(
+      transform(`
+        display: block;
+        color: red;
+        font-size: 16px;
+        background: #fff;
+        color: green;
+        display: flex;
+    `)
+    ).toMatchInlineSnapshot(`
+      "{
+        fontSize: 16,
+        background: \\"#fff\\",
+        color: \\"green\\",
+        display: \\"flex\\",
+      }"
+    `);
+  });
 });

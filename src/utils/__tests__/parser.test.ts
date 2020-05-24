@@ -1,4 +1,4 @@
-import { parseJsObject } from "../parser";
+import { parseJsObject, parseCss } from "../parser";
 
 describe("parser", () => {
   describe("parseJsObject()", () => {
@@ -24,6 +24,12 @@ describe("parser", () => {
         parseJsObject("let x = 1");
       };
       expect(callWithBadParam).toThrow();
+    });
+  });
+
+  describe("parseCss()", () => {
+    test("throws when passed invalid css", () => {
+      expect(() => parseCss("color #fff")).toThrow();
     });
   });
 });
