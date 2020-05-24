@@ -9,6 +9,7 @@ export function parseJsx(input: string): [JSXElement, string] {
     rawLines = `<TempComponent ${input} />`;
   }
 
+  // TODO: error code frames
   const expression = babelParser.parseExpression(rawLines, {
     plugins: ["jsx"],
   });

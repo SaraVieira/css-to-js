@@ -32,12 +32,9 @@ describe("jsx2js", () => {
   });
 
   test("transforms props on a single line", () => {
-    expect(transform(`display="block" fontSize={16}`)).toMatchInlineSnapshot(`
-      "{
-        display: \\"block\\",
-        fontSize: 16,
-      }"
-    `);
+    expect(transform(`display="block" fontSize={16}`)).toMatchInlineSnapshot(
+      `"{ display: \\"block\\", fontSize: 16 }"`
+    );
   });
 
   test("transforms props on multiple lines", () => {
