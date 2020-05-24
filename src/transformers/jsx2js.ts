@@ -11,7 +11,8 @@ export function transform(jsx: string): string {
   const propertyStrings = jsxElement.openingElement.attributes.map(
     (attribute) => {
       if (attribute.type === "JSXSpreadAttribute") {
-        return nodeToString(attribute, rawLines);
+        const argument = nodeToString(attribute.argument, rawLines);
+        return `...${argument}`;
       }
 
       const keyString = attribute.name.name;
@@ -28,11 +29,11 @@ export function transform(jsx: string): string {
         valueString = "true";
       }
 
-      return `${keyString}: ${valueString},`;
+      return `${keyString}: ${valueString}`;
     }
   );
 
-  let objString = propertyStrings.join("\n");
+  let objString = propertyStrings.join(",\n");
   objString = `{ ${objString} }`;
 
   try {
