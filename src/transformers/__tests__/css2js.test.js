@@ -94,6 +94,26 @@ describe("css2js", () => {
         width: 300,
         height: 100,
       }"
-  `);
+    `);
+  });
+
+  test("transforms rules with duplicate properties and maintains position", () => {
+    expect(
+      transform(`
+        display: block;
+        color: red;
+        font-size: 16px;
+        background: #fff;
+        color: green;
+        display: flex;
+    `)
+    ).toMatchInlineSnapshot(`
+      "{
+        fontSize: 16,
+        background: \\"#fff\\",
+        color: \\"green\\",
+        display: \\"flex\\",
+      }"
+    `);
   });
 });

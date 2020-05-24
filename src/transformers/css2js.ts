@@ -1,4 +1,3 @@
-import * as CSS from "csstype";
 import { parseCss } from "../utils/parser";
 import { formatObject } from "../formatters/js";
 
@@ -15,25 +14,27 @@ function convertCssValueToJs(value: string): string {
   return value.replace(/"/g, "'").replace(/(\d)px/g, "$1");
 }
 
-export function transform(css: string): string {
+export function transform(css: string): any {
   const declarations = parseCss(css);
 
-  const cssInJs = declarations.reduce<CSS.Properties>((acc, curr) => {
-    let prop: string = convertCssPropToJs(curr.prop);
-    let value: string | number = convertCssValueToJs(curr.value);
+  const propMap = new Map<string, string | number>();
+
+  declarations.forEach((decl) => {
+    let prop: string = convertCssPropToJs(decl.prop);
+    let value: string | number = convertCssValueToJs(decl.value);
     const numVal = Number(value);
 
-    return {
-      ...acc,
-      ...{
-        [prop]: isNaN(numVal) ? `"${value}"` : numVal,
-      },
-    };
-  }, {});
+    // Remove duplicate and maintain
+    // position of item
+    if (propMap.has(prop)) {
+      propMap.delete(prop);
+    }
+    propMap.set(prop, isNaN(numVal) ? `"${value}"` : numVal);
+  });
 
   const objString: string = `{
-    ${Object.keys(cssInJs)
-      .map((key) => `${key}: ${cssInJs[key]}, `)
+    ${[...propMap.keys()]
+      .map((key) => `${key}: ${propMap.get(key)}, `)
       .join("\n")}
   }`;
 
