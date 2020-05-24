@@ -1,6 +1,6 @@
 import * as CSS from "csstype";
 import { parseCss } from "../utils/parser";
-import { formatObject } from "../utils/formatter";
+import { formatObject } from "../formatters/js";
 
 // convert props
 // -webkit-flex becomes "-webkit-flex"
