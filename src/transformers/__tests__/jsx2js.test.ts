@@ -56,16 +56,18 @@ describe("jsx2js", () => {
         fontFamily="'Inter', sans-serif" fontWeight="bold"`
       )
     ).toMatchInlineSnapshot(`
-      "{ display: \\"block\\",
-      fontSize: 16,
-      margin: { 
-                xs: 4, 
-                sm: 8
-              },
-      padding: [2, 3],
-      ...someObject
-      fontFamily: \\"'Inter', sans-serif\\",
-      fontWeight: \\"bold\\", }"
+      "{
+        display: \\"block\\",
+        fontSize: 16,
+        margin: {
+          xs: 4,
+          sm: 8,
+        },
+        padding: [2, 3],
+        ...someObject,
+        fontFamily: \\"'Inter', sans-serif\\",
+        fontWeight: \\"bold\\",
+      }"
     `);
   });
 });
