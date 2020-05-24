@@ -26,23 +26,20 @@ describe("jsx2js", () => {
     expect(transform(input)).toContain(`someProp: someExpression`);
   });
 
-  test("transforms an empty expression to `undefined`", () => {
-    const input = `someProp={}`;
-    expect(transform(input)).toContain(`someProp: undefined`);
-  });
-
   test("transforms a rule without a value to `true`", () => {
     const input = `someProp`;
     expect(transform(input)).toContain(`someProp: true`);
   });
 
+  test("transforms a spread element property", () => {
+    const input = `{...someObject}`;
+    expect(transform(input)).toMatchInlineSnapshot(`"{ ...someObject }"`);
+  });
+
   test("transforms props on a single line", () => {
-    expect(transform(`display="block" fontSize={16}`)).toMatchInlineSnapshot(`
-      "{
-        display: \\"block\\",
-        fontSize: 16,
-      }"
-    `);
+    expect(transform(`display="block" fontSize={16}`)).toMatchInlineSnapshot(
+      `"{ display: \\"block\\", fontSize: 16 }"`
+    );
   });
 
   test("transforms props on multiple lines", () => {
@@ -50,20 +47,24 @@ describe("jsx2js", () => {
       transform(
         `display="block"
         fontSize={16}
-        margin={{ xs: 4, sm: 8 }}
+        margin={{ 
+          xs: 4, 
+          sm: 8
+        }}
         padding={[2, 3]}
-        background="#1e2f5d"
-        color="#a4cff4"
+        {...someObject}
         fontFamily="'Inter', sans-serif" fontWeight="bold"`
       )
     ).toMatchInlineSnapshot(`
       "{
         display: \\"block\\",
         fontSize: 16,
-        margin: { xs: 4, sm: 8 },
+        margin: {
+          xs: 4,
+          sm: 8,
+        },
         padding: [2, 3],
-        background: \\"#1e2f5d\\",
-        color: \\"#a4cff4\\",
+        ...someObject,
         fontFamily: \\"'Inter', sans-serif\\",
         fontWeight: \\"bold\\",
       }"

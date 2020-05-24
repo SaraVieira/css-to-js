@@ -1,11 +1,11 @@
 import { formatCss } from "../formatters";
-import { parseJsObject, nodeToString } from "../utils";
+import { parseJsObject, nodeToString } from "../parsers";
 
 /**
  * Transforms a JS object containing CSS rules to CSS.
  * @param objString JS object code
  */
-export function transform(objString: string) {
+export function transform(objString: string): string {
   const [objectExpression, rawLines] = parseJsObject(objString);
 
   const cssStrings = objectExpression.properties.map((property) => {
