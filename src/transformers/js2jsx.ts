@@ -5,7 +5,7 @@ import { parseJsObject, nodeToString } from "../parsers";
  * Transforms a JS object to React props in JSX format.
  * @param input JS object code
  */
-export function transform(input: string) {
+export function transform(input: string): string {
   const [objectExpression, rawLines] = parseJsObject(input);
 
   const propStrings = objectExpression.properties.map((property) => {

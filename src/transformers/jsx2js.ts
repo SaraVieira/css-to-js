@@ -5,7 +5,7 @@ import { parseJsx, nodeToString } from "../parsers";
  * Transforms JSX props to a JS object.
  * @param jsx props in JSX format as a single string
  */
-export function transform(jsx: string) {
+export function transform(jsx: string): string {
   const [jsxElement, rawLines] = parseJsx(jsx);
 
   const propertyStrings = jsxElement.openingElement.attributes.map(
