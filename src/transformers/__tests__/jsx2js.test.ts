@@ -26,11 +26,6 @@ describe("jsx2js", () => {
     expect(transform(input)).toContain(`someProp: someExpression`);
   });
 
-  test("transforms an empty expression to `undefined`", () => {
-    const input = `someProp={}`;
-    expect(transform(input)).toContain(`someProp: undefined`);
-  });
-
   test("transforms a rule without a value to `true`", () => {
     const input = `someProp`;
     expect(transform(input)).toContain(`someProp: true`);

@@ -14,7 +14,7 @@ function convertCssValueToJs(value: string): string {
   return value.replace(/"/g, "'").replace(/(\d)px/g, "$1");
 }
 
-export function transform(css: string): any {
+export function transform(css: string): string {
   const declarations = parseCss(css);
 
   const propMap = new Map<string, string | number>();
