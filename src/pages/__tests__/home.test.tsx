@@ -13,12 +13,12 @@ describe("<Home />", () => {
     render(<Home />);
     const inputBox = screen.getByRole("textbox");
 
-    userEvent.type(inputBox, "Some test input");
+    await userEvent.type(inputBox, "Some test input");
 
-    expect(await screen.findAllByText("Some test input"));
+    expect(screen.getAllByText("Some test input"));
   });
 
-  test("displays some example input on load", async () => {
+  test("displays some example input on load", () => {
     render(<Home />);
     expect(screen.getByRole("textbox")).not.toBeEmpty();
   });
@@ -28,7 +28,7 @@ describe("<Home />", () => {
     const inputBox = screen.getByRole("textbox");
     const outputBox = screen.getByTitle("output");
 
-    userEvent.type(inputBox, `some-prop: someValue;`);
+    await userEvent.type(inputBox, `some-prop: someValue;`);
 
     await wait(() =>
       expect(outputBox.textContent).toMatchInlineSnapshot(
@@ -42,12 +42,12 @@ describe("<Home />", () => {
     const inputBox = screen.getByRole("textbox");
     const outputBox = screen.getByTitle("output");
 
-    userEvent.type(inputBox, `display:: block;`);
+    await userEvent.type(inputBox, `display:: block;`);
 
     await wait(() => expect(outputBox.textContent).toMatch(/double colon/i));
   });
 
-  test("allows changing the transformer", async () => {
+  test("allows changing the transformer", () => {
     render(<Home />);
     const combobox = screen.getByRole("combobox");
 
@@ -72,7 +72,7 @@ describe("<Home />", () => {
 
     userEvent.selectOptions(transformerSelect, transformer1.id.toString());
 
-    userEvent.type(inputBox, `some-props: someValue;`);
+    await userEvent.type(inputBox, `some-props: someValue;`);
 
     userEvent.selectOptions(transformerSelect, transformer2.id.toString());
 
@@ -85,7 +85,7 @@ describe("<Home />", () => {
     );
   });
 
-  test("clicking the swap button swaps the input and output languages", async () => {
+  test("clicking the swap button swaps the input and output languages", () => {
     render(<Home />);
     const combobox = screen.getByRole("combobox");
     const swapButton = screen.getByLabelText(/swap/i);
