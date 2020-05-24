@@ -37,6 +37,16 @@ describe("<Home />", () => {
     );
   });
 
+  test("shows an error message in the output box when input is invalid", async () => {
+    render(<Home />);
+    const inputBox = screen.getByRole("textbox");
+    const outputBox = screen.getByTitle("output");
+
+    userEvent.type(inputBox, `display:: block;`);
+
+    await wait(() => expect(outputBox.textContent).toMatch(/double colon/i));
+  });
+
   test("allows changing the transformer", async () => {
     render(<Home />);
     const combobox = screen.getByRole("combobox");
