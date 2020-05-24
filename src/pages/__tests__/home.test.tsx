@@ -1,5 +1,6 @@
 import React from "react";
-import { render, screen, wait, fireEvent } from "@testing-library/react";
+import { render, screen, wait } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { transformers } from "../../transformers";
 import Home from "../home";
 
@@ -12,7 +13,7 @@ describe("<Home />", () => {
     render(<Home />);
     const inputBox = screen.getByRole("textbox");
 
-    fireEvent.change(inputBox, { target: { value: "Some test input" } });
+    userEvent.type(inputBox, "Some test input");
 
     expect(await screen.findAllByText("Some test input"));
   });
@@ -27,8 +28,7 @@ describe("<Home />", () => {
     const inputBox = screen.getByRole("textbox");
     const outputBox = screen.getByTitle("output");
 
-    // TODO: use user-event
-    fireEvent.change(inputBox, { target: { value: `some-prop: someValue;` } });
+    userEvent.type(inputBox, `some-prop: someValue;`);
 
     await wait(() =>
       expect(outputBox.textContent).toMatchInlineSnapshot(
@@ -39,22 +39,17 @@ describe("<Home />", () => {
 
   test("allows changing the transformer", async () => {
     render(<Home />);
-    const inputBox = screen.getByRole("textbox");
-    const outputBox = screen.getByTitle("output");
-    const transformerSelect = screen.getByRole("combobox");
+    const combobox = screen.getByRole("combobox");
 
-    fireEvent.change(transformerSelect, {
-      target: { value: transformers.js2css.id },
-    });
+    expect(combobox).toBeInstanceOf(HTMLSelectElement);
+    const transformerSelect = combobox as HTMLSelectElement;
 
-    fireEvent.change(inputBox, { target: { value: `someProp: "someValue"` } });
-
-    // TODO: this should only assert on the select state, not the output
-    await wait(() =>
-      expect(outputBox.textContent).toMatchInlineSnapshot(
-        `"some-prop: someValue;"`
-      )
+    userEvent.selectOptions(
+      transformerSelect,
+      transformers.js2css.id.toString()
     );
+
+    expect(transformerSelect.value).toBe(transformers.js2css.id.toString());
   });
 
   test("transforms input to new input language when transformer is changed", async () => {
@@ -65,15 +60,11 @@ describe("<Home />", () => {
     const transformer1 = transformers.css2js;
     const transformer2 = transformers.js2css;
 
-    fireEvent.change(transformerSelect, {
-      target: { value: transformer1.id },
-    });
+    userEvent.selectOptions(transformerSelect, transformer1.id.toString());
 
-    fireEvent.change(inputBox, { target: { value: `some-props: someValue;` } });
+    userEvent.type(inputBox, `some-props: someValue;`);
 
-    fireEvent.change(transformerSelect, {
-      target: { value: transformer2.id },
-    });
+    userEvent.selectOptions(transformerSelect, transformer2.id.toString());
 
     await wait(() =>
       expect(inputBox.textContent).toMatchInlineSnapshot(`
@@ -86,24 +77,22 @@ describe("<Home />", () => {
 
   test("clicking the swap button swaps the input and output languages", async () => {
     render(<Home />);
-    const transformerSelect = screen.getByRole("combobox");
+    const combobox = screen.getByRole("combobox");
     const swapButton = screen.getByLabelText(/swap/i);
 
+    expect(combobox).toBeInstanceOf(HTMLSelectElement);
+    const transformerSelect = combobox as HTMLSelectElement;
+
     // Make sure we know what transformer is initially selected
-    fireEvent.change(transformerSelect, {
-      target: { value: transformers.css2js.id },
-    });
+    userEvent.selectOptions(
+      transformerSelect,
+      transformers.css2js.id.toString()
+    );
 
-    expect(screen.getByDisplayValue(/CSS => JS object/i)).toBeInTheDocument();
-    expect(
-      screen.queryByDisplayValue(/JS object => CSS/i)
-    ).not.toBeInTheDocument();
+    expect(transformerSelect.value).toBe(transformers.css2js.id.toString());
 
-    fireEvent.click(swapButton);
+    userEvent.click(swapButton);
 
-    expect(screen.getByDisplayValue(/JS object => CSS/i)).toBeInTheDocument();
-    expect(
-      screen.queryByDisplayValue(/CSS => JS object/i)
-    ).not.toBeInTheDocument();
+    expect(transformerSelect.value).toBe(transformers.js2css.id.toString());
   });
 });
