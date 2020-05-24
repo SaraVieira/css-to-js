@@ -12,14 +12,14 @@ describe("<Home />", () => {
     render(<Home />);
     const inputBox = screen.getByRole("textbox");
 
-    fireEvent.change(inputBox, { target: { value: "My test input" } });
+    fireEvent.change(inputBox, { target: { value: "Some test input" } });
 
-    expect(await screen.findAllByText("My test input")).toBeTruthy();
+    expect(await screen.findAllByText("Some test input"));
   });
 
   test("displays some example input on load", async () => {
     render(<Home />);
-    expect(screen.getByRole("textbox").textContent).not.toBe("");
+    expect(screen.getByRole("textbox")).not.toBeEmpty();
   });
 
   test("transforms the input when it is changed", async () => {
