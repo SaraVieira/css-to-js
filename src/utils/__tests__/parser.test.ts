@@ -29,39 +29,7 @@ describe("parser", () => {
 
   describe("parseCss()", () => {
     test("throws when passed invalid css", () => {
-      const css = "color #fff";
-      expect(() => parseCss(css)).toThrow();
-    });
-
-    test("parses css declarations when classes, ids and elements are used", () => {
-      const css = `
-        div {
-          color: red;
-        }
-        #content {
-          width: 300px;
-        }
-        .main {
-          height: 100px;
-        }
-      `;
-      expect(parseCss(css)).toHaveLength(3);
-    });
-
-    test("returns array of PostCss AST declarations", () => {
-      const css = `
-        font-size: 10px;
-        color: #000;
-        font-weight: 700;
-        .icon {
-          width: 30px;
-        }
-      `;
-      const parsed = parseCss(css);
-      const matchDeclarations = parsed.every((item) => item.type === "decl");
-
-      expect(parsed instanceof Array).toBeTruthy();
-      expect(matchDeclarations).toBeTruthy();
+      expect(() => parseCss("color #fff")).toThrow();
     });
   });
 });
