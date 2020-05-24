@@ -1,6 +1,5 @@
 import { formatJsObject } from "../formatters";
-import { parseJsx } from "../parsers/jsx";
-import { nodeToString } from "../parsers";
+import { parseJsx, nodeToString } from "../parsers";
 
 /**
  * Transforms JSX props to a JS object.
