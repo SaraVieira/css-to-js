@@ -1,7 +1,7 @@
 import * as babelParser from "@babel/parser";
 import { JSXElement } from "@babel/types";
 
-export function parseProps(input: string): [JSXElement, string] {
+export function parseJsx(input: string): [JSXElement, string] {
   let rawLines: string;
   if (input.trim().match(/^<.*>$/s)) {
     rawLines = input;
