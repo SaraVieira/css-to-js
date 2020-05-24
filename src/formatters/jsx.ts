@@ -6,7 +6,7 @@ import prettierBabel from "prettier/parser-babel";
  * applied to a React component.
  * @param propString JSX props as a single string
  */
-export function formatProps(propString: string) {
+export function formatJsxProps(propString: string) {
   // Write the props in a component so Prettier knows how to format it
   let componentString = `<Temp ${propString} />`;
 

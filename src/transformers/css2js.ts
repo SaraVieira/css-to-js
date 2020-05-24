@@ -1,5 +1,5 @@
 import { parseCss } from "../utils/parser";
-import { formatObject } from "../formatters/js";
+import { formatJsObject } from "../formatters/js";
 
 // convert props
 // -webkit-flex becomes "-webkit-flex"
@@ -39,7 +39,7 @@ export function transform(css: string): any {
   }`;
 
   try {
-    return formatObject(objString);
+    return formatJsObject(objString);
   } catch (e) {
     return objString;
   }

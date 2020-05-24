@@ -1,4 +1,4 @@
-import { formatProps } from "../formatters";
+import { formatJsxProps } from "../formatters";
 import { parseJsObject, nodeToString } from "../utils";
 
 /**
@@ -54,7 +54,7 @@ export function transform(input: string) {
   });
 
   try {
-    return formatProps(propStrings.join(" "));
+    return formatJsxProps(propStrings.join(" "));
   } catch {
     // Formatting failed, just concatenate the props
     return propStrings.join(" ");

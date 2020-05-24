@@ -17,6 +17,7 @@ import "./home.css";
 const Home: React.FC<RouteComponentProps> = () => {
   const [input, setInput] = useState(exampleCSS);
   const [output, setOutput] = useState("");
+  const [error, setError] = useState(null);
   const [transformer, setTransformer] = useState(transformers.css2js);
   const prevTransformer = usePrevious(transformer);
 
@@ -43,10 +44,9 @@ const Home: React.FC<RouteComponentProps> = () => {
     try {
       const newOutput = transformer.transform(input);
       setOutput(newOutput);
+      setError(null);
     } catch (e) {
-      setOutput(
-        `Something went wrong while transforming the code:\n${e.message}`
-      );
+      setError(e.message);
     }
   }, [input, transformer]);
 
@@ -131,7 +131,15 @@ const Home: React.FC<RouteComponentProps> = () => {
           onChange={(newValue) => setInput(newValue)}
         />
 
-        <Code code={output} language={transformer.to} label="output" />
+        <Code
+          code={
+            error
+              ? `Something went wrong while transforming the code:\n${error}`
+              : output
+          }
+          language={error ? transformer.from : transformer.to}
+          label="output"
+        />
       </section>
 
       <button className="toast toast--left" onClick={formatInput}>
