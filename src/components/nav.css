@@ -8,8 +8,14 @@ nav {
   top: 30px;
 }
 
-nav a {
+nav > * {
   color: white;
   margin-right: 20px;
   text-decoration: none;
+}
+
+nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
